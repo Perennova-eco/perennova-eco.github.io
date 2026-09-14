@@ -418,4 +418,68 @@
   var elCount = document.getElementById('count');
   var elFill  = document.getElementById('fill');
   var elVerd  = document.getElementById('verdict');
-  var elSub   
+  var elSub   = document.getElementById('verdict-sub');
+  var elLev   = document.getElementById('levers');
+  var bands   = document.getElementById('bands').querySelectorAll('span');
+
+  function update(){
+    var vals = [], answered = 0, total = 0;
+    QS.forEach(function(q,i){
+      var c = quiz.querySelector('input[name="q'+i+'"]:checked');
+      var v = c ? parseInt(c.value,10) : null;
+      vals.push(v);
+      document.getElementById('f'+i).classList.toggle('answered', c !== null);
+      if(c){ answered++; total += v; }
+    });
+
+    elCount.textContent = answered + ' / 8 répondues';
+
+    if(answered === 0){
+      elScore.innerHTML = '—<small> / 100</small>';
+      elFill.style.width = '0%';
+      bands.forEach(function(b){ b.classList.remove('on'); });
+      elVerd.textContent = 'Répondez aux huit questions.';
+      elSub.textContent = "Le score se calcule au fur et à mesure, dans votre navigateur. Répondez pour l'équipe et le service que vous avez réellement sous la main, pas pour celui que vous aimeriez avoir — un score flatteur ne sert personne.";
+      elLev.innerHTML = '<p class="idle">Ils apparaîtront ici : ce sont vos deux réponses les plus faibles, remises à leur place dans la hiérarchie des leviers — du plus puissant (ne pas faire la fonctionnalité) au moins puissant (optimiser l\'hébergement).</p>';
+      return;
+    }
+
+    var score = Math.round(total / (answered * 3) * 100);
+    elScore.innerHTML = score + '<small> / 100</small>';
+    elFill.style.width = score + '%';
+
+    var bi = 0;
+    for(var k=0;k<BANDS.length;k++){ if(score <= BANDS[k].max){ bi = k; break; } }
+    bands.forEach(function(b,k){ b.classList.toggle('on', k === bi); });
+
+    if(answered < 8){
+      elVerd.textContent = 'Score partiel sur ' + answered + ' question' + (answered>1?'s':'') + '.';
+      elSub.textContent = 'Il manque ' + (8-answered) + ' réponse' + ((8-answered)>1?'s':'') + '. Le verdict complet et vos deux leviers prioritaires s\'affichent une fois les huit questions traitées.';
+    } else {
+      elVerd.textContent = BANDS[bi].v;
+      elSub.textContent = BANDS[bi].s;
+    }
+
+    var ranked = QS.map(function(q,i){ return {q:q, v:vals[i], i:i}; })
+                   .filter(function(x){ return x.v !== null; })
+                   .sort(function(a,b){ return (a.v - b.v) || (a.q.rank - b.q.rank) || (a.i - b.i); })
+                   .slice(0,2);
+
+    if(answered < 3){
+      elLev.innerHTML = '<p class="idle">Encore ' + (3-answered) + ' réponse' + ((3-answered)>1?'s':'') + ' et vos deux leviers prioritaires se calculent.</p>';
+    } else {
+      elLev.innerHTML = ranked.map(function(x){
+        return '<div class="lever"><div class="lever-rank">Levier ' + x.q.rank + '</div>'
+             + '<div class="lever-txt"><b>' + x.q.lever + '.</b> ' + x.q.fix + '</div></div>';
+      }).join('');
+    }
+  }
+
+  quiz.addEventListener('change', update);
+  update();
+})();
+</script>
+
+</body>
+<!-- FIN-DU-FICHIER -->
+</html>
