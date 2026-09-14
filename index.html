@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Huit questions d'arbitrage — éco-conception produit | Perennova</title>
+<meta name="description" content="Auto-diagnostic gratuit d'éco-conception pour équipes produit : huit questions, quatre minutes, un score et deux leviers prioritaires. Sans inscription.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Perennova">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:title" content="Huit questions d'arbitrage — éco-conception produit">
+<meta property="og:description" content="Huit questions, quatre minutes, un score et les deux leviers par lesquels commencer. Sans inscription, rien n'est collecté.">
+<meta property="og:url" content="https://perennova-eco.github.io/">
+<meta name="twitter:card" content="summary">
+<link rel="canonical" href="https://perennova-eco.github.io/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%232E5B48'/%3E%3Cpath d='M16 24c0-6 3-9 7-10-1 6-3 9-7 10zM16 24c0-6-3-9-7-10 1 6 3 9 7 10z' fill='%23E4EBE4'/%3E%3C/svg%3E">
+<style>html{color-scheme:light dark}body{margin:0}</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,600;1,400&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@400;600&display=swap">
+
+</head>
+<body>
+<style>
+  :root{
+    --ground:#F6F7F3;
+    --surface:#FFFFFF;
+    --surface-2:#EEF1EA;
+    --ink:#19201B;
+    --ink-soft:#5D6861;
+    --ink-faint:#8B958D;
+    --accent:#2E5B48;
+    --accent-soft:#E4EBE4;
+    --clay:#9C5A31;
+    --clay-soft:#F2E7DE;
+    --line:#D9DED4;
+    --line-strong:#BCC4B8;
+    --track:#DDE2D8;
+    --disp:Spectral,Georgia,"Times New Roman",serif;
+    --body:"Source Sans 3","Helvetica Neue",Arial,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --ground:#121613;
+      --surface:#191F1B;
+      --surface-2:#212823;
+      --ink:#E7EBE4;
+      --ink-soft:#9AA69D;
+      --ink-faint:#78837B;
+      --accent:#84BA9C;
+      --accent-soft:#20302A;
+      --clay:#D69A6E;
+      --clay-soft:#2E2620;
+      --line:#2A312C;
+      --line-strong:#3C463F;
+      --track:#283029;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#121613;
+    --surface:#191F1B;
+    --surface-2:#212823;
+    --ink:#E7EBE4;
+    --ink-soft:#9AA69D;
+    --ink-faint:#78837B;
+    --accent:#84BA9C;
+    --accent-soft:#20302A;
+    --clay:#D69A6E;
+    --clay-soft:#2E2620;
+    --line:#2A312C;
+    --line-strong:#3C463F;
+    --track:#283029;
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    background:var(--ground);
+    color:var(--ink);
+    font-family:var(--body);
+    font-size:17px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    max-width:720px;
+    margin:0 auto;
+    padding-inline:20px;
+    padding-block:48px 88px;
+    display:flex;
+    flex-direction:column;
+    gap:40px;
+  }
+  p{margin:0;}
+  a{color:var(--accent);}
+  *:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px;}
+
+  /* ---- en-tête ---- */
+  header.top{display:flex;flex-direction:column;gap:12px;}
+  .eyebrow{
+    font-family:var(--mono);font-size:12px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--accent);
+  }
+  h1{
+    font-family:var(--disp);font-weight:600;
+    font-size:clamp(31px,6.2vw,44px);line-height:1.11;letter-spacing:-.015em;
+    margin:0;text-wrap:balance;
+  }
+  .lede{
+    font-family:var(--disp);font-style:italic;font-size:19px;
+    color:var(--ink-soft);text-wrap:balance;max-width:58ch;
+  }
+  .meta{
+    display:flex;flex-wrap:wrap;gap:8px 18px;
+    font-family:var(--mono);font-size:12px;letter-spacing:.05em;
+    color:var(--ink-faint);padding-top:6px;
+    border-top:1px solid var(--line);
+  }
+  .meta b{color:var(--ink-soft);font-weight:600;}
+
+  /* ---- questions ---- */
+  .quiz{display:flex;flex-direction:column;gap:14px;}
+  fieldset{
+    border:1px solid var(--line);
+    background:var(--surface);
+    border-radius:7px;
+    margin:0;padding:18px 20px 16px;
+    display:flex;flex-direction:column;gap:12px;
+  }
+  fieldset.answered{border-color:var(--line-strong);}
+  legend{padding:0;display:contents;}
+  .q-head{display:grid;grid-template-columns:30px 1fr;gap:13px;align-items:start;}
+  .q-n{
+    font-family:var(--mono);font-size:12.5px;font-weight:600;color:var(--accent);
+    border:1px solid var(--line-strong);border-radius:4px;
+    text-align:center;line-height:26px;height:28px;
+    font-variant-numeric:tabular-nums;
+  }
+  fieldset.answered .q-n{background:var(--accent);color:var(--ground);border-color:var(--accent);}
+  .q-t{font-family:var(--disp);font-weight:600;font-size:19.5px;line-height:1.3;text-wrap:balance;}
+  .q-sub{display:block;font-family:var(--body);font-weight:400;font-size:14.5px;font-style:italic;color:var(--ink-soft);margin-top:3px;line-height:1.45;}
+
+  .opts{display:flex;flex-direction:column;gap:0;padding-left:43px;}
+  @media (max-width:480px){.opts{padding-left:0;}}
+  .opt{
+    display:grid;grid-template-columns:18px 1fr;gap:11px;align-items:start;
+    padding:9px 10px 9px 8px;border-radius:5px;cursor:pointer;
+    font-size:16px;line-height:1.45;
+    border:1px solid transparent;
+  }
+  .opt:hover{background:var(--surface-2);}
+  .opt input{
+    appearance:none;-webkit-appearance:none;margin:0;
+    width:16px;height:16px;margin-top:4px;border-radius:50%;
+    border:1.5px solid var(--line-strong);background:var(--surface);
+    cursor:pointer;flex:none;
+  }
+  .opt input:checked{
+    border:5px solid var(--accent);background:var(--surface);
+  }
+  .opt:has(input:checked){background:var(--accent-soft);border-color:var(--accent);}
+  .opt:has(input:checked) span{color:var(--ink);font-weight:600;}
+  .opt span{color:var(--ink-soft);}
+
+  /* ---- résultat ---- */
+  .result{
+    border:1px solid var(--line-strong);
+    background:var(--surface);
+    border-radius:8px;
+    overflow:hidden;
+    scroll-margin-top:16px;
+  }
+  .r-top{
+    padding:20px 22px 18px;
+    display:flex;flex-direction:column;gap:14px;
+    border-bottom:1px solid var(--line);
+  }
+  .r-label{
+    font-family:var(--mono);font-size:11px;letter-spacing:.13em;
+    text-transform:uppercase;color:var(--ink-faint);
+  }
+  .gauge{display:flex;flex-direction:column;gap:7px;}
+  .g-row{display:flex;align-items:baseline;justify-content:space-between;gap:14px;}
+  .g-score{
+    font-family:var(--mono);font-weight:600;font-size:42px;line-height:1;
+    letter-spacing:-.03em;font-variant-numeric:tabular-nums;color:var(--accent);
+  }
+  .g-score small{font-size:17px;font-weight:400;color:var(--ink-faint);letter-spacing:0;}
+  .g-count{font-family:var(--mono);font-size:12.5px;color:var(--ink-faint);font-variant-numeric:tabular-nums;white-space:nowrap;}
+  .g-track{height:7px;background:var(--track);border-radius:99px;overflow:hidden;}
+  .g-fill{height:100%;width:0%;background:var(--accent);border-radius:99px;transition:width .35s ease;}
+  @media (prefers-reduced-motion:reduce){.g-fill{transition:none;}}
+  .g-bands{
+    display:grid;grid-template-columns:30fr 25fr 20fr 25fr;
+    font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:var(--ink-faint);
+  }
+  .g-bands span{border-left:1px solid var(--line);padding-left:5px;}
+  .g-bands span:first-child{border-left:none;padding-left:0;}
+  .g-bands span.on{color:var(--accent);font-weight:600;}
+
+  .verdict{font-family:var(--disp);font-size:21px;font-weight:600;line-height:1.3;text-wrap:balance;}
+  .verdict-sub{font-size:16px;color:var(--ink-soft);line-height:1.5;}
+
+  .r-body{padding:18px 22px 20px;display:flex;flex-direction:column;gap:14px;}
+  .levers{display:flex;flex-direction:column;gap:10px;}
+  .lever{
+    display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:baseline;
+    border-left:3px solid var(--clay);background:var(--clay-soft);
+    padding:11px 14px;border-radius:0 5px 5px 0;
+  }
+  .lever-rank{
+    font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--clay);white-space:nowrap;
+  }
+  .lever-txt{font-size:15.5px;line-height:1.45;}
+  .lever-txt b{font-weight:600;}
+  .idle{color:var(--ink-soft);font-size:15.5px;line-height:1.5;}
+
+  /* ---- suite ---- */
+  .cta{
+    border:1px solid var(--line);background:var(--surface-2);
+    border-radius:8px;padding:20px 22px;
+    display:flex;flex-direction:column;gap:14px;
+  }
+  .cta h2{font-family:var(--disp);font-weight:600;font-size:22px;margin:0;line-height:1.25;text-wrap:balance;}
+  .cta p{font-size:16px;color:var(--ink-soft);line-height:1.5;}
+  .cta ul{margin:0;padding-left:19px;display:flex;flex-direction:column;gap:5px;font-size:15.5px;color:var(--ink-soft);}
+  .cta ul li::marker{color:var(--accent);}
+  .btns{display:flex;flex-wrap:wrap;gap:10px;padding-top:2px;}
+  .btn{
+    display:inline-flex;align-items:baseline;gap:8px;
+    font-family:var(--body);font-size:16px;font-weight:600;
+    padding:11px 18px;border-radius:5px;text-decoration:none;
+    border:1px solid var(--accent);
+  }
+  .btn-solid{background:var(--accent);color:var(--ground);}
+  .btn-ghost{background:transparent;color:var(--accent);}
+  .btn .price{font-family:var(--mono);font-size:13px;font-weight:400;opacity:.85;}
+
+  .fine{
+    font-family:var(--disp);font-style:italic;font-size:15px;color:var(--ink-soft);
+    border-top:1px solid var(--line);padding-top:16px;line-height:1.5;
+    display:flex;flex-direction:column;gap:8px;
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="top">
+    <div class="eyebrow">Perennova · outil gratuit</div>
+    <h1>Huit questions d'arbitrage</h1>
+    <p class="lede">Le diagnostic d'éco-conception que fait une équipe produit quand elle a quatre minutes, pas un audit à 78 critères.</p>
+    <div class="meta">
+      <span><b>8</b> questions</span>
+      <span><b>4</b> minutes</span>
+      <span>aucune inscription</span>
+      <span>rien n'est envoyé nulle part</span>
+    </div>
+  </header>
+
+  <form class="quiz" id="quiz"></form>
+
+  <div class="result" id="result" aria-live="polite">
+    <div class="r-top">
+      <div class="gauge">
+        <div class="r-label">Score d'arbitrage produit</div>
+        <div class="g-row">
+          <div class="g-score" id="score">—<small> / 100</small></div>
+          <div class="g-count" id="count">0 / 8 répondues</div>
+        </div>
+        <div class="g-track"><div class="g-fill" id="fill"></div></div>
+        <div class="g-bands" id="bands">
+          <span data-band="0">0–30 non traité</span>
+          <span data-band="1">31–55 réflexes</span>
+          <span data-band="2">56–75 démarche</span>
+          <span data-band="3">76–100 mature</span>
+        </div>
+      </div>
+      <div>
+        <p class="verdict" id="verdict">Répondez aux huit questions.</p>
+        <p class="verdict-sub" id="verdict-sub">Le score se calcule au fur et à mesure, dans votre navigateur. Répondez pour l'équipe et le service que vous avez réellement sous la main, pas pour celui que vous aimeriez avoir — un score flatteur ne sert personne.</p>
+      </div>
+    </div>
+    <div class="r-body">
+      <div class="r-label">Vos deux leviers prioritaires</div>
+      <div class="levers" id="levers">
+        <p class="idle">Ils apparaîtront ici : ce sont vos deux réponses les plus faibles, remises à leur place dans la hiérarchie des leviers — du plus puissant (ne pas faire la fonctionnalité) au moins puissant (optimiser l'hébergement).</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta">
+    <h2>Ces huit questions sont l'extrait gratuit du kit</h2>
+    <p>Elles suffisent pour trancher en affinage. Elles ne suffisent pas pour défendre l'arbitrage devant un comité qui demandera ce que ça coûte. Le kit complet ajoute ce qui manque ici :</p>
+    <ul>
+      <li>la grille de scoring à 20 critères, en cinq familles pondérées</li>
+      <li>le bloc « Impact » de trois lignes à coller dans vos tickets</li>
+      <li>la trame de cinq slides pour le comité, structure réponse-d'abord</li>
+      <li>les quatre indicateurs à suivre et les quatre pièges, par ordre de fréquence</li>
+    </ul>
+    <div class="btns">
+      <a class="btn btn-solid" href="https://payhip.com/b/l1cad">Le kit complet <span class="price">29 €</span></a>
+      <a class="btn btn-ghost" href="https://payhip.com/b/5okXM">L'aperçu en PDF <span class="price">gratuit</span></a>
+    </div>
+  </div>
+
+  <div class="fine">
+    <p>Ce diagnostic n'est ni un audit, ni une conformité. Le référentiel officiel — le RGESN, publié par l'Arcep et l'Arcom en lien avec l'ADEME, 78 critères — est public et gratuit : <a href="https://ecoresponsable.numerique.gouv.fr">ecoresponsable.numerique.gouv.fr</a>. Commencez par là si votre objectif est l'audit.</p>
+    <p>Édité par Perennova, qui vend le kit lié plus haut. Dit franchement pour que vous lisiez le reste en le sachant. Une question, un désaccord sur une question : <a href="mailto:perennova@proton.me">perennova@proton.me</a>.</p>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  var QS = [
+    { t:"Quel usage mesuré justifie la prochaine fonctionnalité que vous lancez ?",
+      s:"Pas l'usage attendu. L'usage constaté.",
+      rank:1, lever:"Ne pas faire la fonctionnalité",
+      fix:"Exigez un chiffre d'usage avant le développement, pas après. À défaut de chiffre, un test à périmètre réduit avec un seuil écrit.",
+      o:["Aucun chiffre — une demande interne ou client a suffi",
+         "Une intuition étayée par des retours qualitatifs",
+         "Un usage constaté sur un équivalent, chez nous ou ailleurs",
+         "Un test mesuré est prévu avant généralisation, avec un seuil"] },
+
+    { t:"Qu'avez-vous supprimé du produit ces six derniers mois ?",
+      s:"Une équipe qui n'a rien supprimé n'arbitre pas, elle empile.",
+      rank:1, lever:"Ne pas faire la fonctionnalité",
+      fix:"Mettez une revue de suppression au même rythme que vos revues d'ajout. Sans elle, le périmètre ne fait que croître.",
+      o:["Rien",
+         "Du code mort, aucune fonctionnalité visible",
+         "Une ou deux fonctionnalités peu utilisées",
+         "Une revue de suppression existe, au même rythme que les revues d'ajout"] },
+
+    { t:"Connaissez-vous le terminal le plus ancien sur lequel votre service marche vraiment ?",
+      s:"Les terminaux pèsent 65 à 92 % de l'empreinte du numérique.",
+      rank:2, lever:"Ne pas exclure les vieux terminaux",
+      fix:"Écrivez le profil matériel minimum, puis achetez un téléphone d'occasion de six ans et testez dessus. L'émulateur ment sur la mémoire et la chauffe.",
+      o:["Non, et ce n'est écrit nulle part",
+         "Un profil minimum existe sur le papier, jamais vérifié",
+         "Documenté, et testé sur émulateur",
+         "Documenté, et testé sur un appareil ancien réel"] },
+
+    { t:"Combien pèse votre écran principal, et qui le sait ?",
+      s:"Un ordre de grandeur suffit ; l'absence totale de réponse est le signal.",
+      rank:3, lever:"Réduire le poids des médias et des données",
+      fix:"Posez un budget de poids chiffré sur l'écran principal, et faites-le échouer la chaîne d'intégration en cas de dépassement. Un plafond qui n'arrête rien n'est pas un plafond.",
+      o:["Personne ne l'a mesuré",
+         "Mesuré une fois, aucun suivi depuis",
+         "Mesuré et suivi, mais sans plafond",
+         "Budget de poids explicite, qui bloque en cas de dépassement"] },
+
+    { t:"Que devient une donnée que vous collectez et n'utilisez pas ?",
+      s:"Collectée, transportée, stockée, sauvegardée — indéfiniment.",
+      rank:3, lever:"Réduire le poids des médias et des données",
+      fix:"Une durée de conservation par type de donnée, appliquée automatiquement. Et la question préalable : cette collecte sert-elle un usage nommé ?",
+      o:["Elle reste, sans limite de durée",
+         "Elle est purgée quand quelqu'un y pense",
+         "Une durée de conservation est définie par type de donnée",
+         "Définie, appliquée automatiquement, et revue périodiquement"] },
+
+    { t:"Réseau mauvais, téléphone ancien : que voit l'utilisateur ?",
+      s:"C'est la question qui décide qui reste dans votre parc.",
+      rank:2, lever:"Ne pas exclure les vieux terminaux",
+      fix:"Faites du parcours principal le périmètre de la version dégradée, et testez-la dans les conditions réelles — pas uniquement en local sur fibre.",
+      o:["Une page blanche ou un chargement qui n'aboutit pas",
+         "Ça fonctionne, très lentement",
+         "Une version dégradée existe sur certains parcours",
+         "Une version dégradée couvre le parcours principal, et elle est testée"] },
+
+    { t:"Qu'est-ce qui déclenche la suppression d'une fonctionnalité que vous lancez ?",
+      s:"Une fonctionnalité sans critère de mort est définitive par défaut.",
+      rank:1, lever:"Ne pas faire la fonctionnalité",
+      fix:"Inscrivez le critère de mort dans le ticket au moment du lancement : un seuil d'usage et une date. Décidé après, il ne l'est jamais.",
+      o:["Rien — une fois lancée, elle reste",
+         "Une décision au cas par cas, plus tard",
+         "Un seuil d'usage, sans date",
+         "Un seuil d'usage et une date, écrits dans le ticket"] },
+
+    { t:"Quand vous allégez quelque chose, mesurez-vous l'effet total ou par utilisateur ?",
+      s:"Un gain unitaire multiplié par une hausse d'usage peut être une perte nette.",
+      rank:4, lever:"Simplifier le parcours et mesurer en absolu",
+      fix:"Raisonnez le gain en absolu sur la période, pas par utilisateur, et regardez si l'allègement a fait monter l'usage. C'est l'effet rebond, et il annule des gains réels.",
+      o:["On ne mesure pas après coup",
+         "Par utilisateur seulement",
+         "En absolu, mesuré une fois",
+         "En absolu, suivi dans le temps, effet rebond compris"] }
+  ];
+
+  var BANDS = [
+    { max:30, v:"Sujet non traité.",
+      s:"Ne vous dispersez pas. Prenez la sobriété fonctionnelle et les terminaux seuls, et ignorez délibérément tout le reste pendant deux trimestres. Une équipe qui attaque les cinq familles à la fois n'en tient aucune." },
+    { max:55, v:"Traité par réflexes individuels.",
+      s:"Ça tient sur deux ou trois personnes qui y pensent. Le passage suivant est de formaliser trois choses : un budget de poids, un profil matériel minimum, et un responsable nommé avec du temps alloué." },
+    { max:75, v:"Démarche réelle, mais non outillée.",
+      s:"Les arbitrages se font, ils ne se mesurent pas dans le temps. Passez au suivi trimestriel et publiez votre déclaration d'écoconception — sans elle, aucune communication sur le sujet n'est défendable." },
+    { max:100, v:"Démarche mature.",
+      s:"Vous avez dépassé ce que cette grille courte peut mesurer. Attaquez les 78 critères du RGESN et visez l'audit. Attention au piège de la trajectoire : tenir 60 pendant quatre trimestres vaut mieux qu'atteindre 85 le temps d'un audit." }
+  ];
+
+  var quiz = document.getElementById('quiz');
+  var html = '';
+  QS.forEach(function(q,i){
+    html += '<fieldset id="f'+i+'"><legend><div class="q-head">'
+         +  '<div class="q-n">'+(i+1)+'</div>'
+         +  '<div class="q-t">'+q.t+'<span class="q-sub">'+q.s+'</span></div>'
+         +  '</div></legend><div class="opts">';
+    q.o.forEach(function(o,j){
+      html += '<label class="opt" for="q'+i+'o'+j+'">'
+           +  '<input type="radio" id="q'+i+'o'+j+'" name="q'+i+'" value="'+j+'">'
+           +  '<span>'+o+'</span></label>';
+    });
+    html += '</div></fieldset>';
+  });
+  quiz.innerHTML = html;
+
+  var elScore = document.getElementById('score');
+  var elCount = document.getElementById('count');
+  var elFill  = document.getElementById('fill');
+  var elVerd  = document.getElementById('verdict');
+  var elSub   
