@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://perennova-eco.github.io/sitemap.xml
