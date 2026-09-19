@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Les six leviers d'éco-conception, classés par impact réel — Perennova</title>
+<meta name="description" content="L'hébergement est le cinquième levier, pas le premier. La hiérarchie des six leviers d'éco-conception d'un service numérique, du plus au moins puissant, et les huit questions à poser avant tout développement.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Perennova">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:title" content="Les six leviers d'éco-conception, classés par impact réel">
+<meta property="og:description" content="L'hébergement est le cinquième levier, pas le premier. La hiérarchie complète, et les huit questions à poser en affinage.">
+<meta property="og:url" content="https://perennova-eco.github.io/leviers/">
+<meta name="twitter:card" content="summary">
+<link rel="canonical" href="https://perennova-eco.github.io/leviers/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%232E5B48'/%3E%3Cpath d='M16 24c0-6 3-9 7-10-1 6-3 9-7 10zM16 24c0-6-3-9-7-10 1 6 3 9 7 10z' fill='%23E4EBE4'/%3E%3C/svg%3E">
+<style>
+  :root{
+    --ground:#F6F7F3; --surface:#FFFFFF; --surface-2:#EEF1EA;
+    --ink:#19201B; --ink-soft:#5D6861; --ink-faint:#8B958D;
+    --accent:#2E5B48; --accent-soft:#E4EBE4;
+    --clay:#9C5A31; --clay-soft:#F2E7DE;
+    --line:#D9DED4; --line-strong:#BCC4B8;
+    color-scheme:light dark;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --ground:#121613; --surface:#191F1B; --surface-2:#1F2621;
+      --ink:#E7EBE4; --ink-soft:#9AA69D; --ink-faint:#7A857E;
+      --accent:#84BA9C; --accent-soft:#20302A;
+      --clay:#D69A6E; --clay-soft:#2E2620;
+      --line:#2A312C; --line-strong:#3C463F;
+    }
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--ground); color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    font-size:18px; line-height:1.62; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:700px;margin:0 auto;padding:44px 16px 80px;display:flex;flex-direction:column;gap:38px}
+  .eyebrow{
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);
+  }
+  .eyebrow a{color:inherit}
+  h1{font-size:clamp(28px,5.6vw,40px);line-height:1.14;letter-spacing:-.015em;margin:10px 0 0;font-weight:600;text-wrap:balance}
+  .chapo{font-size:20px;color:var(--ink-soft);font-style:italic;margin:14px 0 0;text-wrap:balance}
+  .rule{height:3px;width:64px;background:var(--accent);border-radius:2px;margin-top:18px}
+  h2{font-size:25px;line-height:1.22;margin:0;font-weight:600;letter-spacing:-.01em;text-wrap:balance;
+     border-bottom:1px solid var(--line-strong);padding-bottom:9px}
+  h3{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;font-weight:600;
+     letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin:10px 0 0}
+  section{display:flex;flex-direction:column;gap:16px}
+  p{margin:0}
+  a{color:var(--accent)}
+  strong{font-weight:600}
+  .scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  table{border-collapse:collapse;width:100%;min-width:430px;font-size:16px}
+  th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  thead th{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11.5px;
+    letter-spacing:.07em;text-transform:uppercase;color:var(--ink-soft);
+    border-bottom:1px solid var(--line-strong);font-weight:600}
+  tbody tr:last-child td{border-bottom:none}
+  td.r{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-weight:600;color:var(--accent);
+    width:1%;white-space:nowrap;font-variant-numeric:tabular-nums}
+  td.who{width:1%;white-space:nowrap;font-size:15px;color:var(--ink-soft)}
+  blockquote{margin:0;padding:20px 22px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 6px 6px 0}
+  blockquote p{font-size:21px;line-height:1.34;font-weight:600;text-wrap:balance}
+  ol.q{margin:0;padding-left:0;list-style:none;counter-reset:q;display:flex;flex-direction:column;gap:15px}
+  ol.q li{counter-increment:q;display:grid;grid-template-columns:30px 1fr;gap:13px;align-items:start}
+  ol.q li::before{content:counter(q);
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;font-weight:600;
+    color:var(--accent);border:1px solid var(--line-strong);border-radius:4px;
+    text-align:center;line-height:25px;height:27px;font-variant-numeric:tabular-nums}
+  .piege{border-left:3px solid var(--clay);background:var(--clay-soft);padding:13px 17px;border-radius:0 6px 6px 0}
+  .piege b{display:block;color:var(--clay);font-size:17.5px;margin-bottom:2px}
+  .cards{display:flex;flex-direction:column;gap:12px}
+  .card{display:block;background:var(--surface);border:1px solid var(--line);border-radius:8px;
+    padding:15px 18px;text-decoration:none;color:inherit}
+  .card:hover{border-color:var(--line-strong)}
+  .card b{display:block;color:var(--accent);font-size:18px;margin-bottom:2px}
+  .card span{font-size:15.5px;color:var(--ink-soft);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+  ul.src{margin:0;padding-left:19px;font-size:15.5px;color:var(--ink-soft);display:flex;flex-direction:column;gap:8px}
+  ul.src li::marker{color:var(--accent)}
+  .disc{font-style:italic;font-size:15.5px;color:var(--ink-soft);border-top:1px solid var(--line-strong);padding-top:17px}
+  footer{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11.5px;
+    letter-spacing:.06em;color:var(--ink-faint);border-top:1px solid var(--line);padding-top:16px;
+    display:flex;flex-wrap:wrap;gap:8px 16px}
+  footer a{color:var(--ink-faint)}
+  *:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow"><a href="/">Perennova</a> · repère public</div>
+    <h1>Les six leviers d'éco-conception d'un service numérique, classés par impact réel</h1>
+    <p class="chapo">L'hébergement est le cinquième. La compensation n'en est pas un. Voici les quatre qui passent avant, et qui se décident tous en amont du code.</p>
+    <div class="rule"></div>
+  </header>
+
+  <section>
+    <h2>Le fait qui renverse la hiérarchie</h2>
+    <p>La plupart des démarches d'éco-conception numérique commencent par l'hébergement : serveurs, centres de données, électricité verte. C'est le poste le plus facile à mesurer, celui pour lequel un fournisseur vous envoie un chiffre sur demande. C'est aussi le plus petit.</p>
+    <p>Selon l'étude ADEME-Arcep sur l'empreinte environnementale du numérique en France, <strong>les terminaux représentent 65 à 92 % de l'empreinte du numérique</strong> selon l'indicateur retenu — et cette part vient très majoritairement de leur <em>fabrication</em>, pas de leur consommation électrique en usage.</p>
+    <p>La conséquence est directe, et contre-intuitive pour une équipe produit :</p>
+    <blockquote><p>Le levier le plus puissant n'est pas votre serveur. C'est de ne pas pousser vos utilisateurs à changer d'appareil.</p></blockquote>
+    <p>Un service qui tourne encore correctement sur un téléphone de six ans fait davantage pour son empreinte que n'importe quelle optimisation d'hébergement. Et cette décision-là n'appartient pas à l'équipe technique : elle appartient à l'équipe produit, qui choisit la version minimale supportée, la lourdeur du parcours et le socle technique.</p>
+  </section>
+
+  <section>
+    <h2>La hiérarchie, du plus au moins puissant</h2>
+    <div class="scroll">
+      <table>
+        <caption class="eyebrow" style="text-align:left;padding-bottom:8px">Six rangs, et qui décide à chacun</caption>
+        <thead><tr><th>Rang</th><th>Levier</th><th>Qui décide</th><th>Coût de mise en œuvre</th></tr></thead>
+        <tbody>
+          <tr><td class="r">1</td><td>Ne pas faire la fonctionnalité</td><td class="who">Produit</td><td class="who">négatif (on économise)</td></tr>
+          <tr><td class="r">2</td><td>Ne pas exclure les vieux terminaux</td><td class="who">Produit + Tech</td><td class="who">faible à moyen</td></tr>
+          <tr><td class="r">3</td><td>Réduire le poids des médias et des données</td><td class="who">Design + Tech</td><td class="who">faible</td></tr>
+          <tr><td class="r">4</td><td>Simplifier le parcours (moins d'écrans, moins de requêtes)</td><td class="who">Produit + Design</td><td class="who">faible</td></tr>
+          <tr><td class="r">5</td><td>Optimiser l'architecture et l'hébergement</td><td class="who">Tech</td><td class="who">moyen à élevé</td></tr>
+          <tr><td class="r">6</td><td>Compenser</td><td class="who">personne, ce n'est pas un levier</td><td class="who">—</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Trois choses se lisent dans cette colonne « qui décide ». Les quatre premiers rangs sont majoritairement entre les mains de l'équipe produit et de l'équipe design. Le rang qui mobilise le plus de compétences techniques, le plus de budget et le plus de temps est aussi celui qui pèse le moins. Et le rang 1 est le seul dont le coût est négatif : ne pas construire libère des jours-homme.</p>
+    <p>D'où le principe qui commande tout le reste :</p>
+    <blockquote><p>La fonctionnalité qu'on n'implémente pas est la seule dont l'impact est nul.</p></blockquote>
+    <p>Tout le reste n'est que réduction à la marge. Aucun développeur ne peut optimiser une fonctionnalité qui n'aurait pas dû exister.</p>
+    <h3>Pourquoi le rang 6 n'est pas un levier</h3>
+    <p>La compensation ne réduit pas l'empreinte du service : elle l'achète ailleurs. Ce n'est pas une provocation, c'est une définition. Si elle est proposée en comité comme la réponse au sujet, c'est le signal que les rangs 1 à 5 n'ont pas été travaillés. Mélanger réduction et compensation dans une même communication expose par ailleurs à une critique de greenwashing parfaitement fondée.</p>
+  </section>
+
+  <section>
+    <h2>Les huit questions à poser avant tout développement</h2>
+    <p>À poser en affinage, avant d'engager un développement. Compter cinq minutes. Si la réponse à la première est faible, les sept autres sont sans objet.</p>
+    <ol class="q">
+      <li><span><strong>Quel usage mesuré justifie cette fonctionnalité ?</strong> Pas l'usage attendu, l'usage constaté sur un équivalent. À défaut, quel test permettra de le mesurer avant généralisation.</span></li>
+      <li><span><strong>Que supprime-t-on en échange ?</strong> Une équipe qui n'a rien supprimé depuis six mois n'arbitre pas, elle empile.</span></li>
+      <li><span><strong>Est-ce que ça exclut un terminal du parc actuel ?</strong> Si oui, lequel, combien d'utilisateurs, et qui assume cet arbitrage nommément.</span></li>
+      <li><span><strong>Combien de requêtes réseau et de kilo-octets cette fonctionnalité ajoute-t-elle au parcours principal ?</strong> Un ordre de grandeur suffit ; l'absence totale de réponse est le vrai signal.</span></li>
+      <li><span><strong>Quelles données nouvelles sont collectées, et pour combien de temps sont-elles conservées ?</strong></span></li>
+      <li><span><strong>La version dégradée reste-t-elle utilisable sans cette fonctionnalité ?</strong> Si non, on vient de créer une dépendance dure.</span></li>
+      <li><span><strong>Qu'est-ce qui déclenche sa suppression ?</strong> Un seuil d'usage et une date. Une fonctionnalité sans critère de mort est définitive par défaut.</span></li>
+      <li><span><strong>Quel est l'effet rebond probable ?</strong> Un gain unitaire multiplié par une hausse d'usage provoquée peut être une perte nette.</span></li>
+    </ol>
+    <p>Ces huit questions sont publiques et réutilisables librement. Elles existent aussi sous forme d'auto-diagnostic : huit questions, quatre minutes, un score sur 100 et les deux leviers par lesquels commencer.</p>
+  </section>
+
+  <section>
+    <h2>Quatre pièges, dans l'ordre de fréquence</h2>
+    <div class="piege"><b>Mesurer ce qui est facile plutôt que ce qui compte.</b>Les émissions de l'hébergement sont simples à obtenir et pèsent peu. L'impact terminal est difficile à obtenir et pèse l'essentiel. Une communication centrée sur l'hébergement est un signal de démarche superficielle.</div>
+    <div class="piege"><b>Confondre éco-conception et compensation.</b>La première réduit, la seconde achète. Elles ne sont pas substituables.</div>
+    <div class="piege"><b>Ignorer l'effet rebond.</b>Un service allégé qui déclenche trois fois plus d'usage a augmenté son empreinte totale. Le gain doit être raisonné en absolu, pas par utilisateur.</div>
+    <div class="piege"><b>Viser le label avant la pratique.</b>La déclaration d'écoconception est un prérequis pour se prévaloir du référentiel, pas un objectif en soi. La publier sur une démarche vide est le risque réputationnel le plus coûteux de la liste.</div>
+  </section>
+
+  <section>
+    <h2>Et le RGESN dans tout ça</h2>
+    <p>Le référentiel général de l'écoconception des services numériques existe, il est public, il est gratuit et il est bon. Version 2 publiée le 17 mai 2024 par l'Arcep et l'Arcom, en lien avec l'ADEME : 78 critères, chacun avec sa fiche pratique, sur trois niveaux de priorisation.</p>
+    <p>Cette page ne le remplace pas et ne le paraphrase pas. Le RGESN est construit pour permettre un <strong>audit de conformité</strong>. Un chef de produit qui doit trancher en quinze minutes dans un affinage de sprint ne fait pas un audit à 78 critères : il a besoin de savoir lesquels comptent vraiment et dans quel ordre. C'est exactement ce que la hiérarchie ci-dessus lui donne — et ce pour quoi elle ne prétend à rien d'autre.</p>
+  </section>
+
+  <section>
+    <h2>Aller plus loin</h2>
+    <div class="cards">
+      <a class="card" href="/"><b>L'auto-diagnostic en huit questions →</b><span>Gratuit, sans inscription, rien n'est collecté. Quatre minutes, un score sur 100 et vos deux leviers prioritaires.</span></a>
+      <a class="card" href="/en/"><b>The same tool in English →</b><span>Eight arbitration questions, a score out of 100, two priority levers. Free, no sign-up.</span></a>
+      <a class="card" href="https://payhip.com/b/5okXM"><b>L'aperçu du kit, en PDF →</b><span>Gratuit : le principe directeur et les huit questions, mis en page.</span></a>
+      <a class="card" href="https://payhip.com/b/l1cad"><b>Le kit complet — 29 € →</b><span>La grille de scoring à 20 critères pondérés, le bloc « Impact » à coller dans vos tickets, et la trame de cinq slides pour défendre l'arbitrage en comité.</span></a>
+    </div>
+  </section>
+
+  <section>
+    <h2>Sources</h2>
+    <ul class="src">
+      <li>Référentiel général de l'écoconception des services numériques (RGESN), version 2, Arcep et Arcom en lien avec l'ADEME, 17 mai 2024 — 78 critères, trois niveaux de priorisation. Public et gratuit sur <a href="https://ecoresponsable.numerique.gouv.fr/publications/referentiel-general-ecoconception/">ecoresponsable.numerique.gouv.fr</a>.</li>
+      <li>Étude ADEME-Arcep sur l'empreinte environnementale du numérique en France — part des terminaux dans l'empreinte totale.</li>
+      <li>Loi du 15 novembre 2021 visant à réduire l'empreinte environnementale du numérique (REEN), article 25, qui fonde la production du référentiel.</li>
+    </ul>
+    <p class="disc">Cette page est un repère d'aide à l'arbitrage produit. Elle ne constitue ni un audit de conformité, ni un avis juridique. Pour une démarche de conformité formelle, référez-vous directement au RGESN et à ses fiches pratiques.</p>
+  </section>
+
+  <footer>
+    <span>Perennova</span>
+    <a href="/">Auto-diagnostic</a>
+    <a href="/en/">English</a>
+    <a href="mailto:perennova@proton.me">perennova@proton.me</a>
+  </footer>
+
+</div>
+</body>
+</html>
+
+<!-- FIN-DU-FICHIER -->
