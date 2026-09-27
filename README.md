@@ -2,9 +2,9 @@
 
 Un auto-diagnostic en huit questions pour les équipes produit qui doivent **arbitrer** une fonctionnalité, pas auditer un service.
 
-**En ligne : https://perennova-eco.github.io**
+**En ligne : https://perennova-eco.github.io/produit/**
 
-Une page, un fichier, aucune dépendance. Rien n'est envoyé nulle part : le score est calculé dans le navigateur, il n'y a ni compte, ni traceur, ni requête réseau après le chargement.
+Une page, un fichier. Le score est calculé dans le navigateur : aucun compte, aucune de vos réponses ne quitte votre navigateur. Le site compte les visites avec un outil sans cookie et sans donnée personnelle (GoatCounter).
 
 ## Pourquoi
 
@@ -16,9 +16,9 @@ Le parti pris : d'après l'étude ADEME-Arcep, les terminaux pèsent 65 à 92 % 
 
 ## Utilisation
 
-Ouvrez `index.html`, ou l'adresse ci-dessus. Rien à installer.
+Ouvrez `produit/index.html`, ou l'adresse ci-dessus. Rien à installer.
 
-Pour l'héberger vous-même : copiez `index.html` où vous voulez, c'est un fichier autonome.
+Pour l'héberger vous-même : copiez `produit/index.html` où vous voulez, c'est un fichier autonome.
 
 ## Contribuer
 
