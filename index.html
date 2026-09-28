@@ -148,20 +148,57 @@ candidat. Gratuit, rien à installer, rien à créer comme compte.</p>
   <p>Le cadre change : l'article 35 de la loi Climat et résilience est pleinement applicable
      depuis le 21 août 2026. Si vous voulez être prévenu quand le barème ou les clauses types
      évoluent, laissez une adresse. Un message quand il y a quelque chose, jamais autrement.</p>
-  <form action="ENDPOINT-A-REMPLIR" method="post">
+  <form id="veille-form" novalidate>
     <label for="veille-email">Adresse professionnelle</label>
     <input id="veille-email" name="email" type="email" required
-           autocomplete="email" placeholder="prenom.nom@organisation.fr" disabled>
-    <button type="submit" disabled>Je m'inscris</button>
-    <p><small>Votre adresse ne sert qu'à cet envoi. Elle n'est ni revendue, ni utilisée pour
-      autre chose. Un lien de désinscription figure dans chaque message, et une demande de
-      suppression envoyée à perennova@proton.me est traitée sans condition.</small></p>
+           autocomplete="email" placeholder="prenom.nom@organisation.fr">
+    <button type="submit" id="veille-bouton">Je m'inscris</button>
+    <p id="veille-retour" role="status" aria-live="polite"></p>
+    <p><small>Votre adresse ne sert qu'à cet envoi. Elle n'est ni revendue, ni cédée, ni utilisée pour
+      autre chose. Un lien de désinscription figure dans chaque message, et une demande de suppression
+      envoyée à perennova@proton.me est traitée sans condition. Voir les
+      <a href="/mentions-legales/">mentions légales</a>.</small></p>
   </form>
-  <p><small>Formulaire pas encore actif — en attendant, écrivez à perennova@proton.me.</small></p>
+  <script>
+  (function(){
+    var f = document.getElementById('veille-form');
+    if (!f) return;
+    var champ = document.getElementById('veille-email');
+    var bouton = document.getElementById('veille-bouton');
+    var retour = document.getElementById('veille-retour');
+    f.addEventListener('submit', function(e){
+      e.preventDefault();
+      var email = (champ.value || '').trim();
+      if (email.indexOf('@') < 1 || email.indexOf('.') < 0) {
+        retour.textContent = "Cette adresse ne semble pas valide.";
+        return;
+      }
+      bouton.disabled = true;
+      retour.textContent = "Envoi…";
+      fetch('https://bgpvuyowxokmksbjrske.supabase.co/functions/v1/perennova-veille', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email, source: 'accueil' })
+      }).then(function(r){ return r.json().catch(function(){ return {}; }).then(function(j){
+        if (r.ok && j.ok) {
+          retour.textContent = "C'est noté. Vous serez prévenu lors de la prochaine mise à jour.";
+          champ.value = '';
+          if (typeof pvEvent === 'function') pvEvent('veille-inscription-ok');
+        } else {
+          retour.textContent = "L'enregistrement a échoué. Écrivez à perennova@proton.me.";
+          bouton.disabled = false;
+        }
+      });}).catch(function(){
+        retour.textContent = "L'enregistrement a échoué. Écrivez à perennova@proton.me.";
+        bouton.disabled = false;
+      });
+    });
+  })();
+  </script>
 </section>
 
 <footer>
-Perennova · <a href="https://perennova-eco.github.io/marches-publics/">les cinq engagements rédigeables et leurs pièges</a> · <a href="https://perennova-eco.github.io/leviers/">où se joue vraiment l'empreinte d'un service numérique</a> · <a href="/produit/">l'auto-diagnostic en huit questions pour les équipes produit</a> · contact perennova@proton.me<br>
+Perennova · <a href="https://perennova-eco.github.io/marches-publics/">les cinq engagements rédigeables et leurs pièges</a> · <a href="https://perennova-eco.github.io/leviers/">où se joue vraiment l'empreinte d'un service numérique</a> · <a href="/produit/">l'auto-diagnostic en huit questions pour les équipes produit</a> · contact perennova@proton.me · <a href="/mentions-legales/">Mentions légales</a><br>
 À lire avant cette page, et gratuits : le <a href="https://institutnr.org/clausier-numerique-ecoresponsable">clausier numérique responsable INR / FTCC</a> pour les exigences, le <a href="https://ecoresponsable.numerique.gouv.fr/publications/">RGESN et les guides de la mission interministérielle</a> pour le référentiel. Perennova n'en revend ni n'en reprend le contenu : elle ajoute la notation.<br>
 La méthode complète derrière ce générateur — grille de 20 critères, trame de comité, registre d'arbitrage — existe en kit : <a href="https://payhip.com/b/5okXM">aperçu gratuit</a>. L'outil ci-dessus reste libre et le restera.<br>
 Cet outil n'est pas un avis juridique et son auteur n'est pas juriste. Le dossier de consultation fait loi. Aucune clause ne garantit la conformité d'une offre : elle organise la comparaison, elle ne la remplace pas. Les pondérations proposées sont des repères, pas des obligations — la pondération relève de l'acheteur.
