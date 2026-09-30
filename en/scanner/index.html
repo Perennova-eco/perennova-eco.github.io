@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Eco-design scanner — measure what a page actually costs | Perennova</title>
+<meta name="description" content="Free tool: measures the bytes actually downloaded, the number of requests and the third-party dependencies of a public page, and fills in a score out of 20. No account.">
+<link rel="canonical" href="https://perennova-eco.github.io/en/scanner/">
+<link rel="alternate" hreflang="fr" href="https://perennova-eco.github.io/scanner/">
+<link rel="alternate" hreflang="en" href="https://perennova-eco.github.io/en/scanner/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Eco-design scanner — measure what a page actually costs">
+<meta property="og:description" content="The bytes actually downloaded, the requests and the third parties of a public page, and a score out of 20 justified line by line. Free, no account.">
+<meta property="og:url" content="https://perennova-eco.github.io/en/scanner/">
+<meta property="og:locale" content="en_GB">
+<meta property="og:locale:alternate" content="fr_FR">
+<meta name="twitter:card" content="summary">
+<style>:root{--ground:#F6F8F6;--surface:#FFF;--surface-2:#EFF3F0;--ink:#14201C;--ink-soft:#57685F;--ink-faint:#8A9A91;--rule:#D8E0DB;--rule-strong:#A9B7B0;--accent:#0F6B52;--accent-soft:#E3F0EA;--warn:#8A5D0B;--warn-soft:#F6EEDC;--mono:ui-monospace,SFMono-Regular,Menlo,monospace;--disp:"Arial Narrow",Helvetica,sans-serif;--body:system-ui,-apple-system,Segoe UI,sans-serif}@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--ground:#0D1311;--surface:#141C19;--surface-2:#1B2420;--ink:#E3EAE6;--ink-soft:#9DAEA6;--ink-faint:#6F8079;--rule:#243029;--rule-strong:#3A4A42;--accent:#4FC095;--accent-soft:#15291F;--warn:#D6A24A;--warn-soft:#2A2114}}:root[data-theme="dark"]{--ground:#0D1311;--surface:#141C19;--surface-2:#1B2420;--ink:#E3EAE6;--ink-soft:#9DAEA6;--ink-faint:#6F8079;--rule:#243029;--rule-strong:#3A4A42;--accent:#4FC095;--accent-soft:#15291F;--warn:#D6A24A;--warn-soft:#2A2114}
+*{box-sizing:border-box}body{background:var(--ground);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;margin:0}
+.wrap{max-width:900px;margin:0 auto;padding:36px 16px 80px;display:flex;flex-direction:column;gap:28px}
+.mast{border-bottom:2px solid var(--rule-strong);padding-bottom:14px;display:flex;flex-direction:column;gap:6px}
+.mast h1{font-family:var(--disp);font-size:clamp(28px,6vw,42px);margin:0;line-height:1.1}
+.sub{font-family:var(--mono);font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-soft)}
+p{margin:0;max-width:70ch}.note{font-size:14px;color:var(--ink-soft)}
+h2{font-family:var(--disp);font-size:20px;margin:0}
+fieldset{border:1px solid var(--rule);background:var(--surface);margin:0;padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+legend{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);padding:0 6px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+label.opt{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--rule-strong);background:var(--surface-2);padding:7px 11px;font-size:14.5px;cursor:pointer;border-radius:2px}
+label.opt:has(input:checked){border-color:var(--accent);background:var(--accent-soft);color:var(--accent);font-weight:600}
+label.opt:focus-within{outline:2px solid var(--accent);outline-offset:2px}
+input[type=radio]{accent-color:var(--accent);margin:0}
+form{display:flex;flex-direction:column;gap:14px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+button{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:11px 18px;border:1px solid var(--accent);background:var(--accent);color:var(--ground);cursor:pointer;border-radius:2px}
+button.ghost{background:var(--accent-soft);color:var(--accent)}
+button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.out{border:1px solid var(--rule-strong);background:var(--surface);display:flex;flex-direction:column}
+.out h3{font-family:var(--disp);font-size:17px;margin:0;padding:12px 16px;border-bottom:1px solid var(--rule);background:var(--surface-2)}
+.body{padding:14px 16px;white-space:pre-wrap;font-family:var(--mono);font-size:13.5px;line-height:1.7;overflow-x:auto}
+.scale{width:100%;border-collapse:collapse;font-size:14px}
+.scale th,.scale td{border-bottom:1px solid var(--rule);padding:9px 16px;text-align:left;vertical-align:top}
+.scale th{font-family:var(--mono);font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-faint);font-weight:400;background:var(--surface-2)}
+.scale td.pts{font-family:var(--mono);white-space:nowrap;font-weight:700;color:var(--accent)}
+.warnbox{border-left:3px solid var(--warn);background:var(--warn-soft);color:var(--warn);padding:12px 14px;font-size:14px}
+.situ{border-left:3px solid var(--accent);background:var(--accent-soft);padding:12px 14px;font-size:14px;color:var(--ink)}
+.situ p{max-width:none}
+footer{font-family:var(--mono);font-size:11px;color:var(--ink-faint);border-top:1px solid var(--rule);padding-top:14px;line-height:1.7}
+a{color:var(--accent)}
+.lead{font-size:14.5px;color:var(--ink-soft)}.lead.small{font-size:13px}
+a.btn{display:inline-block;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:11px 18px;border:1px solid var(--accent);background:var(--accent);color:var(--ground);text-decoration:none;border-radius:2px}
+a.btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+[hidden]{display:none!important}
+input[type=url]{font-family:var(--mono);font-size:15px;padding:10px 12px;border:1px solid var(--rule-strong);background:var(--surface-2);color:var(--ink);border-radius:2px;width:100%}
+input[type=url]:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+button:disabled{opacity:.6;cursor:wait}
+.score{font-family:var(--disp);font-size:clamp(40px,10vw,64px);font-weight:700;line-height:1;color:var(--accent)}
+.warnbox ul{max-width:70ch}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="mast">
+<div class="sub">Perennova · free tool, no account, nothing stored in your browser</div>
+<h1>Measure what a page actually costs</h1>
+<div class="sub">Bytes downloaded · requests · third-party dependencies · score out of 20</div>
+</header>
+
+<p>A scoring grid says what is required; it does not say whether it is delivered. This tool measures
+what a public page actually costs to load: the <strong>bytes actually downloaded</strong>, the
+<strong>number of requests</strong> and the <strong>third-party dependencies</strong> — scripts, fonts,
+images served from other domains. It then fills in a score out of 20, where every point is justified
+by the measured fact. Free, no account.</p>
+<p class="note">The measurement is language-independent; the procurement criterion generator on this site is written for French public procurement.</p>
+<p class="note">The measurement is made by a server, not by your browser: the measured address and the result are recorded server-side to track how the tool is used. Nothing is stored in your browser — no cookie, no local storage. The site counts visits with a cookie-free tool that collects no personal data (GoatCounter).</p>
+
+<form id="scan">
+<fieldset><legend>Address of the page to measure</legend>
+<label for="scan-url" class="note">A public page, reachable without logging in.</label>
+<input id="scan-url" name="url" type="url" required placeholder="https://example.com" autocomplete="url" inputmode="url">
+</fieldset>
+<div class="actions">
+<button type="submit" id="scan-btn">Measure</button>
+<span class="note" id="scan-etat" role="status" aria-live="polite"></span>
+</div>
+</form>
+
+<div id="scan-err" class="warnbox" role="alert" style="white-space:pre-wrap" hidden></div>
+
+<div id="scan-res" hidden>
+<div class="out" style="margin-bottom:22px">
+<h3>Score</h3>
+<div style="padding:14px 16px;display:flex;flex-direction:column;gap:6px">
+<div class="score" id="r-score"></div>
+<p class="note" id="r-url"></p>
+</div>
+</div>
+<div class="out" style="margin-bottom:22px">
+<h3>The score, line by line</h3>
+<table class="scale"><thead><tr><th>What is scored</th><th>Points</th><th>The measured fact</th></tr></thead><tbody id="r-lines"></tbody></table>
+<p class="note" style="padding:10px 16px">The measured facts are returned by the measuring service in French and are shown verbatim (“Ko” = kilobytes, “requetes” = requests, “hote(s) tiers” = third-party host(s)).</p>
+</div>
+<div class="out" style="margin-bottom:22px">
+<h3>The 5 heaviest resources</h3>
+<table class="scale"><thead><tr><th>Resource</th><th>Weight</th></tr></thead><tbody id="r-heavy"></tbody></table>
+</div>
+<div class="warnbox">
+<p><strong>What this measurement does not tell you</strong></p>
+<ul id="r-nonmesure" style="margin:8px 0;padding-left:20px"></ul>
+<p class="note">Quoted verbatim from the measuring service, in French: the cost on the visitor's device, the JavaScript executed after loading, and any carbon estimate are not measured.</p>
+<p>The thresholds in this score are Perennova's. It is not an official standard.</p>
+</div>
+</div>
+
+<div class="situ">
+<p><strong>What next?</strong> A measurement tells you where a page stands; it does not tell you what to require from a supplier.
+To <a href="/">write the criterion and the scoring grid for your tender</a> (French public procurement), the generator on the home page produces both from six answers.
+To be told when the scoring grid or the thresholds change, <a href="/#veille">leave an address</a>.</p>
+</div>
+
+<footer>
+Perennova · <a href="/en/">eight trade-off questions for product teams</a> · <a href="/">the procurement criterion generator (in French)</a> · <a href="/scanner/" hreflang="fr">version française</a> · contact perennova@proton.me · <a href="/mentions-legales/" hreflang="fr">Mentions légales (legal notice, in French)</a><br>
+This tool measures bytes, requests and hosts; it produces no carbon estimate and is not an RGESN compliance audit. The thresholds are Perennova's, published and owned, not an official standard.
+</footer>
+</div>
+
+<script>
+function pvEvent(nom){
+  try { if (window.goatcounter && window.goatcounter.count) {
+    window.goatcounter.count({path: nom, title: nom, event: true});
+  } } catch(e) {}
+}
+</script>
+<script>
+(function(){
+var ENDPOINT='https://bgpvuyowxokmksbjrske.supabase.co/functions/v1/perennova-scan';
+var ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJncHZ1eW93eG9rbWtzYmpyc2tlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA1NzkyMzQsImV4cCI6MjEwNjE1NTIzNH0.snNGQO7S6AMqfCWnVY-QlWjADvJrhINRIoz7UXY1vJk';
+var T={btn:'Measure',wait:'Measuring, 5 to 20 seconds',status:'HTTP status: ',neterr:'The request did not complete: ',unit:' KB'};
+var LABELS={'Poids total de la page':'Total page weight','Dependances tierces':'Third-party dependencies','Sobriete des images':'Image restraint','Poids du JavaScript':'JavaScript weight','Cache des ressources':'Resource caching'};
+var F=document.getElementById('scan'),I=document.getElementById('scan-url'),B=document.getElementById('scan-btn'),
+    S=document.getElementById('scan-etat'),E=document.getElementById('scan-err'),R=document.getElementById('scan-res');
+function td(tr,txt,cls){var c=document.createElement('td');c.textContent=txt;if(cls)c.className=cls;tr.appendChild(c);return c}
+function cut(u){u=String(u);return u.length>80?u.slice(0,79)+'…':u}
+function fail(msg){E.textContent=msg;E.hidden=false}
+function show(j){
+ document.getElementById('r-score').textContent=j.score_20+' / 20';
+ document.getElementById('r-url').textContent=j.url||'';
+ var tb=document.getElementById('r-lines');tb.innerHTML='';
+ (j.lines||[]).forEach(function(l){var tr=document.createElement('tr');
+  td(tr,(LABELS&&LABELS[l.line])||l.line);td(tr,l.points+' / '+l.max,'pts');td(tr,l.fact);tb.appendChild(tr)});
+ var hv=document.getElementById('r-heavy');hv.innerHTML='';
+ (j.heaviest||(j.detail&&j.detail.heaviest)||[]).slice(0,5).forEach(function(h){var tr=document.createElement('tr');
+  var c=td(tr,cut(h.url));c.title=h.url;c.style.wordBreak='break-all';
+  td(tr,Math.round(h.bytes/1024)+T.unit,'pts');hv.appendChild(tr)});
+ var ul=document.getElementById('r-nonmesure');ul.innerHTML='';
+ ((j.detail&&j.detail.non_mesure)||[]).forEach(function(t){var li=document.createElement('li');li.textContent=t;li.lang='fr';ul.appendChild(li)});
+ R.hidden=false;R.scrollIntoView({behavior:'smooth',block:'start'});
+}
+F.addEventListener('submit',function(e){
+ e.preventDefault();
+ var valeur=(I.value||'').trim();
+ if(!valeur)return;
+ pvEvent('scan-lance');
+ E.hidden=true;R.hidden=true;B.disabled=true;B.textContent=T.wait;S.textContent=T.wait;
+ fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+ANON_KEY,'apikey':ANON_KEY},body:JSON.stringify({url:valeur})})
+ .then(function(r){return r.text().then(function(txt){
+   var j=null;try{j=JSON.parse(txt)}catch(_){}
+   if(j&&j.error){fail(String(j.error)+(j.status!==undefined?' — '+T.status+j.status:''));return}
+   if(!r.ok||!j||j.score_20===undefined){fail(T.status+r.status+(txt?'\n'+txt:''));return}
+   show(j);
+ })})
+ .catch(function(err){fail(T.neterr+(err&&err.message?err.message:String(err)))})
+ .then(function(){B.disabled=false;B.textContent=T.btn;S.textContent=''});
+});
+})();
+</script>
+<script data-goatcounter="https://perennova.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Perennova eco-design scanner",
+  "url": "https://perennova-eco.github.io/en/scanner/",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Web browser",
+  "inLanguage": "en",
+  "isAccessibleForFree": true,
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+  "description": "Measures the bytes actually downloaded, the number of requests and the third-party dependencies of a public page, and fills in a score out of 20 justified by the measured facts."
+}
+</script>
+</body>
+</html>
