@@ -44,6 +44,9 @@ a.btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 [hidden]{display:none!important}
 input[type=url]{font-family:var(--mono);font-size:15px;padding:10px 12px;border:1px solid var(--rule-strong);background:var(--surface-2);color:var(--ink);border-radius:2px;width:100%}
 input[type=url]:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+#suivi .row{display:flex;gap:10px;flex-wrap:wrap}
+#suivi input[type=email]{flex:1 1 240px;font-family:var(--mono);font-size:15px;padding:10px 12px;border:1px solid var(--rule-strong);background:var(--surface-2);color:var(--ink);border-radius:2px;min-width:0}
+#suivi input[type=email]:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 button:disabled{opacity:.6;cursor:wait}
 .score{font-family:var(--disp);font-size:clamp(40px,10vw,64px);font-weight:700;line-height:1;color:var(--accent)}
 .warnbox ul{max-width:70ch}
@@ -95,6 +98,21 @@ ul.hosts{margin:0;padding:12px 16px 12px 34px;font-family:var(--mono);font-size:
 
 <div id="r-ok" class="card" hidden>
 <div id="r-main" class="card"></div>
+<div class="out noprint" id="suivi" hidden>
+<h3>Track this page every month</h3>
+<div style="padding:14px 16px;display:flex;flex-direction:column;gap:12px">
+<p class="lead">A single measurement does not show a trajectory. Monthly tracking will re-measure this page with the same method and send you its dated report every month: the evidence a “trajectory” criterion in a tender expects. This service is not open yet. Leave your address and we will let you know when it opens, with no commitment.</p>
+<form id="suivi-form" novalidate>
+<label for="suivi-email" class="note">Email address</label>
+<div class="row">
+<input id="suivi-email" name="email" type="email" required autocomplete="email" placeholder="firstname.lastname@organisation.com">
+<button type="submit" id="suivi-bouton">Notify me</button>
+</div>
+<p id="suivi-retour" class="note" role="status" aria-live="polite"></p>
+</form>
+<p class="lead small">Your address is used only to tell you when tracking opens. It is deleted on simple request to perennova@proton.me. See the <a href="/mentions-legales/" hreflang="fr">legal notice (in French)</a>.</p>
+</div>
+</div>
 <div class="warnbox" id="r-nm">
 <p><strong>What this measurement does not tell you</strong></p>
 <ul id="r-nonmesure" style="margin:8px 0;padding-left:20px"></ul>
@@ -234,6 +252,7 @@ fetch(url,{method:'GET'}).then(function(r){return r.text().then(function(txt){
   $('r-when').textContent=c.meme?(T.colA+' : '+quand(a.created_at)+' · '+T.colB+' : '+quand(b.created_at)):(a.url+'  ·  '+b.url);
   document.title=(c.meme?T.traj:T.cmp)+' | Perennova';
   M.appendChild(c.node);
+  M.appendChild($('suivi'));
   M.appendChild(carte(a,T.colA));M.appendChild(carte(b,T.colB));
  }else{
   $('r-title').textContent=a.url||'';
@@ -241,7 +260,9 @@ fetch(url,{method:'GET'}).then(function(r){return r.text().then(function(txt){
   document.title=T.docTitle+' — '+(a.host||a.url)+' | Perennova';
   var cc=carte(a,null);cc.removeChild(cc.querySelector('h2'));cc.removeChild(cc.querySelector('.when'));
   M.appendChild(cc);
+  var sc=cc.querySelector('.out');if(sc)cc.insertBefore($('suivi'),sc.nextSibling);
  }
+ $('suivi').hidden=false;
  var nm=[];rs.forEach(function(r){((r.detail&&r.detail.non_mesure)||[]).forEach(function(t){if(nm.indexOf(t)<0)nm.push(t)})});
  var ul=$('r-nonmesure');ul.innerHTML='';nm.forEach(function(t){var li=el('li',t);if(FACT_LANG)li.lang=FACT_LANG;ul.appendChild(li)});
  $('r-nm').hidden=!nm.length;
@@ -253,6 +274,27 @@ fetch(url,{method:'GET'}).then(function(r){return r.text().then(function(txt){
  if(b)pvEvent('rapport-compare');
 })}).catch(function(err){fail(T.neterr+(err&&err.message?err.message:String(err)))});
 $('r-print').addEventListener('click',function(){pvEvent('rapport-imprime');window.print()});
+})();
+</script>
+<script>
+(function(){
+var f=document.getElementById('suivi-form');
+if(!f)return;
+var champ=document.getElementById('suivi-email'),bouton=document.getElementById('suivi-bouton'),retour=document.getElementById('suivi-retour');
+f.addEventListener('submit',function(e){
+ e.preventDefault();
+ var email=(champ.value||'').trim();
+ if(email.indexOf('@')<1||email.indexOf('.')<0){retour.textContent='This address does not look valid.';return}
+ var id=(new URLSearchParams(location.search).get('id')||'').trim().toLowerCase().slice(0,16);
+ bouton.disabled=true;retour.textContent='Sending…';
+ fetch('https://bgpvuyowxokmksbjrske.supabase.co/functions/v1/perennova-veille',{
+  method:'POST',headers:{'Content-Type':'application/json'},
+  body:JSON.stringify({email:email,source:'suivi-mensuel report-en'+(id?' '+id:'')})
+ }).then(function(r){return r.json().catch(function(){return {}}).then(function(j){
+  if(r.ok&&j.ok){retour.textContent='Noted. We will let you know when monthly tracking opens.';champ.value='';pvEvent('suivi-mensuel-inscription-ok')}
+  else{retour.textContent='Registration failed. Please write to perennova@proton.me.';bouton.disabled=false}
+ })}).catch(function(){retour.textContent='Registration failed. Please write to perennova@proton.me.';bouton.disabled=false});
+});
 })();
 </script>
 <script data-goatcounter="https://perennova.goatcounter.com/count"
