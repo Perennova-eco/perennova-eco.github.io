@@ -1,0 +1,73 @@
+# Soumet à IndexNow (Bing, Yandex, Seznam, Naver, Yep) les pages du sitemap modifiées par un push sur main.
+# Seules les URL présentes dans sitemap.xml partent : les rapports (/rapport/, /en/report/), en noindex, n'y sont pas.
+# Lancement manuel (onglet Actions, « Run workflow ») : soumet toutes les URL du sitemap.
+name: IndexNow
+
+on:
+  push:
+    branches: [main]
+    paths: ['**.html', 'sitemap.xml']
+  workflow_dispatch:
+
+concurrency:
+  group: indexnow
+  cancel-in-progress: false
+
+jobs:
+  submit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Lister les URL à soumettre
+        id: urls
+        env:
+          BEFORE: ${{ github.event.before }}
+          AFTER: ${{ github.sha }}
+          EVENT: ${{ github.event_name }}
+        run: |
+          python3 - <<'PY'
+          import json, os, re, subprocess
+          host = "https://perennova-eco.github.io/"
+          sitemap = re.findall(r"<loc>([^<]+)</loc>", open("sitemap.xml", encoding="utf-8").read())
+          before, after = os.environ.get("BEFORE", ""), os.environ["AFTER"]
+          tout = os.environ["EVENT"] != "push" or not before or set(before) == {"0"}
+          if not tout:
+              try:
+                  out = subprocess.run(["git", "diff", "--name-only", before, after],
+                                       check=True, capture_output=True, text=True).stdout.split()
+              except subprocess.CalledProcessError:
+                  tout = True  # historique réécrit : on soumet tout le sitemap
+          if tout:
+              urls = sitemap
+          else:
+              changees = set()
+              for f in out:
+                  if f == "index.html":
+                      changees.add(host)
+                  elif f.endswith("/index.html"):
+                      changees.add(host + f[: -len("index.html")])
+              urls = [u for u in sitemap if u in changees]
+          print("URL à soumettre :", *urls, sep="\n  ")
+          with open(os.environ["GITHUB_OUTPUT"], "a") as g:
+              g.write("count=%d\n" % len(urls))
+              g.write("json=%s\n" % json.dumps(urls))
+          PY
+
+      - name: Attendre la publication GitHub Pages
+        if: steps.urls.outputs.count != '0' && github.event_name == 'push'
+        run: sleep 120
+
+      - name: Soumettre à IndexNow
+        if: steps.urls.outputs.count != '0'
+        env:
+          URLS: ${{ steps.urls.outputs.json }}
+        run: |
+          KEY=ed26ca246a0fa172da76238cc950b062
+          BODY=$(python3 -c 'import json,os;print(json.dumps({"host":"perennova-eco.github.io","key":"'$KEY'","keyLocation":"https://perennova-eco.github.io/'$KEY'.txt","urlList":json.loads(os.environ["URLS"])}))')
+          CODE=$(curl -s -o reponse.txt -w "%{http_code}" -X POST "https://api.indexnow.org/indexnow" \
+            -H "Content-Type: application/json; charset=utf-8" -d "$BODY")
+          echo "IndexNow : HTTP $CODE"; cat reponse.txt; echo
+          case "$CODE" in 200|202) ;; *) exit 1 ;; esac
