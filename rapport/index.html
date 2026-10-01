@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rapport daté de mesure | Perennova</title>
+<meta name="robots" content="noindex">
+<meta name="description" content="Rapport daté d'une mesure Perennova : octets téléchargés, requêtes, dépendances tierces et barème sur 20.">
+<style>:root{--ground:#F6F8F6;--surface:#FFF;--surface-2:#EFF3F0;--ink:#14201C;--ink-soft:#57685F;--ink-faint:#8A9A91;--rule:#D8E0DB;--rule-strong:#A9B7B0;--accent:#0F6B52;--accent-soft:#E3F0EA;--warn:#8A5D0B;--warn-soft:#F6EEDC;--mono:ui-monospace,SFMono-Regular,Menlo,monospace;--disp:"Arial Narrow",Helvetica,sans-serif;--body:system-ui,-apple-system,Segoe UI,sans-serif}@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--ground:#0D1311;--surface:#141C19;--surface-2:#1B2420;--ink:#E3EAE6;--ink-soft:#9DAEA6;--ink-faint:#6F8079;--rule:#243029;--rule-strong:#3A4A42;--accent:#4FC095;--accent-soft:#15291F;--warn:#D6A24A;--warn-soft:#2A2114}}:root[data-theme="dark"]{--ground:#0D1311;--surface:#141C19;--surface-2:#1B2420;--ink:#E3EAE6;--ink-soft:#9DAEA6;--ink-faint:#6F8079;--rule:#243029;--rule-strong:#3A4A42;--accent:#4FC095;--accent-soft:#15291F;--warn:#D6A24A;--warn-soft:#2A2114}
+*{box-sizing:border-box}body{background:var(--ground);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;margin:0}
+.wrap{max-width:900px;margin:0 auto;padding:36px 16px 80px;display:flex;flex-direction:column;gap:28px}
+.mast{border-bottom:2px solid var(--rule-strong);padding-bottom:14px;display:flex;flex-direction:column;gap:6px}
+.mast h1{font-family:var(--disp);font-size:clamp(28px,6vw,42px);margin:0;line-height:1.1}
+.sub{font-family:var(--mono);font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-soft)}
+p{margin:0;max-width:70ch}.note{font-size:14px;color:var(--ink-soft)}
+h2{font-family:var(--disp);font-size:20px;margin:0}
+fieldset{border:1px solid var(--rule);background:var(--surface);margin:0;padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+legend{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);padding:0 6px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+label.opt{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--rule-strong);background:var(--surface-2);padding:7px 11px;font-size:14.5px;cursor:pointer;border-radius:2px}
+label.opt:has(input:checked){border-color:var(--accent);background:var(--accent-soft);color:var(--accent);font-weight:600}
+label.opt:focus-within{outline:2px solid var(--accent);outline-offset:2px}
+input[type=radio]{accent-color:var(--accent);margin:0}
+form{display:flex;flex-direction:column;gap:14px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+button{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:11px 18px;border:1px solid var(--accent);background:var(--accent);color:var(--ground);cursor:pointer;border-radius:2px}
+button.ghost{background:var(--accent-soft);color:var(--accent)}
+button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.out{border:1px solid var(--rule-strong);background:var(--surface);display:flex;flex-direction:column}
+.out h3{font-family:var(--disp);font-size:17px;margin:0;padding:12px 16px;border-bottom:1px solid var(--rule);background:var(--surface-2)}
+.body{padding:14px 16px;white-space:pre-wrap;font-family:var(--mono);font-size:13.5px;line-height:1.7;overflow-x:auto}
+.scale{width:100%;border-collapse:collapse;font-size:14px}
+.scale th,.scale td{border-bottom:1px solid var(--rule);padding:9px 16px;text-align:left;vertical-align:top}
+.scale th{font-family:var(--mono);font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-faint);font-weight:400;background:var(--surface-2)}
+.scale td.pts{font-family:var(--mono);white-space:nowrap;font-weight:700;color:var(--accent)}
+.warnbox{border-left:3px solid var(--warn);background:var(--warn-soft);color:var(--warn);padding:12px 14px;font-size:14px}
+.situ{border-left:3px solid var(--accent);background:var(--accent-soft);padding:12px 14px;font-size:14px;color:var(--ink)}
+.situ p{max-width:none}
+footer{font-family:var(--mono);font-size:11px;color:var(--ink-faint);border-top:1px solid var(--rule);padding-top:14px;line-height:1.7}
+a{color:var(--accent)}
+.lead{font-size:14.5px;color:var(--ink-soft)}.lead.small{font-size:13px}
+a.btn{display:inline-block;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:11px 18px;border:1px solid var(--accent);background:var(--accent);color:var(--ground);text-decoration:none;border-radius:2px}
+a.btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+[hidden]{display:none!important}
+input[type=url]{font-family:var(--mono);font-size:15px;padding:10px 12px;border:1px solid var(--rule-strong);background:var(--surface-2);color:var(--ink);border-radius:2px;width:100%}
+input[type=url]:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+button:disabled{opacity:.6;cursor:wait}
+.score{font-family:var(--disp);font-size:clamp(40px,10vw,64px);font-weight:700;line-height:1;color:var(--accent)}
+.warnbox ul{max-width:70ch}
+
+.cmp{width:100%;border-collapse:collapse;font-size:14px}
+.cmp th,.cmp td{border-bottom:1px solid var(--rule);padding:9px 16px;text-align:left;vertical-align:top}
+.cmp thead th{font-family:var(--mono);font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-faint);font-weight:400;background:var(--surface-2)}
+.cmp td.v{font-family:var(--mono);white-space:nowrap;font-weight:700;color:var(--accent)}
+.tbl{overflow-x:auto}
+.card{display:flex;flex-direction:column;gap:18px}
+.card>h2{word-break:break-all}
+.when{font-family:var(--mono);font-size:13px;color:var(--ink-soft)}
+.methode{font-family:var(--mono);font-size:11.5px;color:var(--ink-faint);line-height:1.6}
+.methode p{max-width:none}
+ul.hosts{margin:0;padding:12px 16px 12px 34px;font-family:var(--mono);font-size:13px;word-break:break-all}
+.printfoot{display:none}
+#r-title{word-break:break-all}
+@media print{
+ :root,:root[data-theme="dark"],:root:not([data-theme="light"]){--ground:#fff;--surface:#fff;--surface-2:#f3f5f4;--ink:#000;--ink-soft:#333;--ink-faint:#555;--rule:#ccc;--rule-strong:#888;--accent:#0F6B52;--accent-soft:#fff;--warn:#5a3d06;--warn-soft:#fff}
+ body{background:#fff;color:#000;font-size:12px}
+ .wrap{max-width:none;padding:0;gap:16px}
+ .noprint,footer,nav{display:none!important}
+ .out,.warnbox,.cmp tr,.scale tr{break-inside:avoid}
+ a{color:#000;text-decoration:none}
+ .printfoot{display:block;font-family:var(--mono);font-size:10px;color:#333;border-top:1px solid #888;padding-top:8px;word-break:break-all}
+ @page{margin:14mm}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="mast">
+<div class="sub">Perennova · rapport daté de mesure</div>
+<h1 id="r-title">Rapport daté de mesure</h1>
+<div class="sub" id="r-when"></div>
+</header>
+
+<div class="actions noprint">
+<button type="button" id="r-print">Imprimer / enregistrer en PDF</button>
+<a class="btn" href="/scanner/" style="background:var(--accent-soft);color:var(--accent)">Mesurer une autre page</a>
+</div>
+
+<p class="note" id="r-load" role="status" aria-live="polite">Chargement du rapport…</p>
+
+<div id="r-err" class="warnbox" role="alert" hidden>
+<p id="r-err-msg"></p>
+<p style="margin-top:8px"><a href="/scanner/">Mesurer une autre page</a></p>
+</div>
+
+<div id="r-ok" class="card" hidden>
+<div id="r-main" class="card"></div>
+<div class="warnbox" id="r-nm">
+<p><strong>Ce que cette mesure ne dit pas</strong></p>
+<ul id="r-nonmesure" style="margin:8px 0;padding-left:20px"></ul>
+</div>
+<div class="methode">
+<p id="r-methode"></p>
+<p>Seuils Perennova, publiés — ce n'est pas une norme officielle. Deux mesures de la même URL, prises avec la même méthode, forment une trajectoire.</p>
+</div>
+<div class="printfoot">Rapport : <span id="pf-url"></span><br>Identifiant : <span id="pf-id"></span></div>
+</div>
+
+<footer>
+Perennova · <a href="/scanner/">le scanner d'éco-conception</a> · <a href="/">le critère environnemental et son barème pour une consultation numérique</a> · contact perennova@proton.me · <a href="/mentions-legales/">Mentions légales</a><br>
+Cette mesure porte sur des octets, des requêtes et des hôtes ; elle ne produit aucune estimation carbone et n'est pas un audit de conformité au RGESN.
+</footer>
+</div>
+
+<script>
+function pvEvent(nom){
+  try { if (window.goatcounter && window.goatcounter.count) {
+    window.goatcounter.count({path: nom, title: nom, event: true});
+  } } catch(e) {}
+}
+</script>
+<script>
+(function(){
+var API='https://bgpvuyowxokmksbjrske.supabase.co/functions/v1/perennova-rapport';
+var T={locale:'fr-FR',unit:' Ko',
+ date:function(p){return p.day+' '+p.month+' '+p.year+', '+p.hour+' h '+p.minute},
+ measured:'Mesure du ',score:'Score',reqs:'requêtes',hosts:'hôte(s) tiers',reqsCap:'Requêtes',hostsCap:'Hôtes tiers',weight:'Poids total',
+ lines:'Le barème, ligne à ligne',linesHead:["Ce qu'on note",'Points','Le fait mesuré'],
+ heavy:'Les 5 ressources les plus lourdes',heavyHead:['Ressource','Poids'],none:'Aucune sous-ressource mesurée.',
+ third:'Hôtes tiers',noThird:'Aucun hôte tiers.',
+ traj:'Trajectoire',cmp:'Comparaison de deux offres',colA:'Mesure A',colB:'Mesure B',pts:'pt(s)',
+ gaps:'Écarts (B moins A)',gapsRead:"Un écart positif sur le score est une amélioration ; sur le poids, les requêtes ou les hôtes tiers, c'est une hausse.",
+ docTitle:'Rapport daté',
+ noId:"Aucun identifiant de rapport dans l'adresse. Un rapport s'ouvre avec un lien de la forme /rapport/?id=…, donné après chaque mesure.",
+ badId:"Identifiant de rapport invalide : il doit compter 16 caractères hexadécimaux.",
+ notFound:"Rapport introuvable : ce lien ne correspond à aucune mesure enregistrée.",
+ http:'Le rapport n\'a pas pu être lu. Statut HTTP : ',neterr:'La requête n\'a pas abouti : '};
+var LABELS=null;
+var FACT_LANG='';
+var $=function(id){return document.getElementById(id)};
+function el(tag,txt,cls){var e=document.createElement(tag);if(txt!==undefined&&txt!==null)e.textContent=txt;if(cls)e.className=cls;return e}
+function td(tr,txt,cls){var c=el('td',txt,cls);tr.appendChild(c);return c}
+function cut(u){u=String(u);return u.length>80?u.slice(0,79)+'…':u}
+function ko(b){return Math.round((b||0)/1024)+T.unit}
+function lab(l){return (LABELS&&LABELS[l])||l}
+function quand(iso){
+ var d=new Date(iso);if(isNaN(d))return String(iso||'');
+ var p={};new Intl.DateTimeFormat(T.locale,{timeZone:'Europe/Paris',day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(d).forEach(function(x){p[x.type]=x.value});
+ return T.date(p);
+}
+function signe(n){n=Number(n)||0;return (n>0?'+':n<0?'−':'±')+Math.abs(n)}
+function fail(msg){$('r-load').hidden=true;$('r-err-msg').textContent=msg;$('r-err').hidden=false}
+
+function carte(r,etiquette){
+ var d=r.detail||{};var c=el('section',null,'card');
+ if(etiquette){var s=el('div',etiquette,'sub');c.appendChild(s)}
+ var h=el('h2',r.url||r.host||'');c.appendChild(h);
+ c.appendChild(el('div',T.measured+quand(r.created_at),'when'));
+ var o=el('div',null,'out');o.appendChild(el('h3',T.score));
+ var b=el('div');b.style.cssText='padding:14px 16px;display:flex;flex-direction:column;gap:6px';
+ b.appendChild(el('div',r.score_20+' / 20','score'));
+ b.appendChild(el('p',ko(r.total_bytes)+' · '+r.requests+' '+T.reqs+' · '+r.third_party_hosts+' '+T.hosts,'note'));
+ o.appendChild(b);c.appendChild(o);
+ o=el('div',null,'out');o.appendChild(el('h3',T.lines));
+ var w=el('div',null,'tbl'),t=el('table',null,'scale'),th=el('thead'),tr=el('tr');
+ T.linesHead.forEach(function(x){tr.appendChild(el('th',x))});th.appendChild(tr);t.appendChild(th);
+ var tb=el('tbody');(d.lines||[]).forEach(function(l){var tr=el('tr');td(tr,lab(l.line));td(tr,l.points+' / '+l.max,'pts');var f=td(tr,l.fact);if(FACT_LANG)f.lang=FACT_LANG;tb.appendChild(tr)});
+ t.appendChild(tb);w.appendChild(t);o.appendChild(w);c.appendChild(o);
+ o=el('div',null,'out');o.appendChild(el('h3',T.heavy));
+ w=el('div',null,'tbl');t=el('table',null,'scale');th=el('thead');tr=el('tr');
+ T.heavyHead.forEach(function(x){tr.appendChild(el('th',x))});th.appendChild(tr);t.appendChild(th);
+ tb=el('tbody');(d.heaviest||[]).slice(0,5).forEach(function(x){var tr=el('tr');var cc=td(tr,cut(x.url));cc.title=x.url;cc.style.wordBreak='break-all';td(tr,ko(x.bytes),'pts');tb.appendChild(tr)});
+ if(!(d.heaviest||[]).length){tr=el('tr');var e=td(tr,T.none);e.colSpan=2;tb.appendChild(tr)}
+ t.appendChild(tb);w.appendChild(t);o.appendChild(w);c.appendChild(o);
+ o=el('div',null,'out');o.appendChild(el('h3',T.third));
+ var hs=d.third_party||[];
+ if(hs.length){var ul=el('ul',null,'hosts');hs.forEach(function(x){ul.appendChild(el('li',x))});o.appendChild(ul)}
+ else{var p=el('p',T.noThird,'note');p.style.padding='12px 16px';o.appendChild(p)}
+ c.appendChild(o);
+ return c;
+}
+
+function comparaison(a,b,ec){
+ var meme=String(a.url)===String(b.url);
+ var s=el('section',null,'card');
+ s.appendChild(el('h2',meme?T.traj:T.cmp));
+ var o=el('div',null,'out'),w=el('div',null,'tbl'),t=el('table',null,'cmp'),th=el('thead'),tr=el('tr');
+ [ '', T.colA+' — '+(meme?quand(a.created_at):(a.host||a.url)), T.colB+' — '+(meme?quand(b.created_at):(b.host||b.url)) ].forEach(function(x){tr.appendChild(el('th',x))});
+ th.appendChild(tr);t.appendChild(th);
+ var tb=el('tbody');
+ function row(label,va,vb){var tr=el('tr');td(tr,label);td(tr,va,'v');td(tr,vb,'v');tb.appendChild(tr)}
+ row(T.score,a.score_20+' / 20',b.score_20+' / 20');
+ row(T.weight,Math.round((a.total_bytes||0)/1024)+T.unit,Math.round((b.total_bytes||0)/1024)+T.unit);
+ row(T.reqsCap,String(a.requests),String(b.requests));
+ row(T.hostsCap,String(a.third_party_hosts),String(b.third_party_hosts));
+ var la=(a.detail&&a.detail.lines)||[],lb=(b.detail&&b.detail.lines)||[];
+ la.forEach(function(l){var m=null;lb.forEach(function(x){if(x.line===l.line)m=x});
+  row(lab(l.line),l.points+' / '+l.max,m?m.points+' / '+m.max:'—')});
+ t.appendChild(tb);w.appendChild(t);o.appendChild(w);s.appendChild(o);
+ if(ec){
+  var box=el('div',null,'situ');
+  box.appendChild(el('p',T.gaps,null)).style.fontWeight='700';
+  var ul=el('ul');ul.style.cssText='margin:8px 0;padding-left:20px';
+  ul.appendChild(el('li',T.score+' : '+signe(ec.score_20)+' '+T.pts));
+  ul.appendChild(el('li',T.weight+' : '+signe(ec.total_ko)+T.unit));
+  ul.appendChild(el('li',T.reqsCap+' : '+signe(ec.requests)));
+  ul.appendChild(el('li',T.hostsCap+' : '+signe(ec.third_party_hosts)));
+  box.appendChild(ul);
+  if(ec.lecture){var p=el('p',ec.lecture,'note');if(FACT_LANG)p.lang=FACT_LANG;box.appendChild(p)}
+  box.appendChild(el('p',T.gapsRead,'note'));
+  s.appendChild(box);
+ }
+ return {node:s,meme:meme};
+}
+
+var q=new URLSearchParams(location.search);
+var id=(q.get('id')||'').trim().toLowerCase(),vs=(q.get('vs')||'').trim().toLowerCase();
+var ok=/^[0-9a-f]{16}$/;
+if(!id){fail(T.noId);return}
+if(!ok.test(id)||(vs&&!ok.test(vs))){fail(T.badId);return}
+var url=API+'?id='+encodeURIComponent(id)+(vs?'&vs='+encodeURIComponent(vs):'');
+fetch(url,{method:'GET'}).then(function(r){return r.text().then(function(txt){
+ var j=null;try{j=JSON.parse(txt)}catch(_){}
+ if(!r.ok||!j||j.error||!j.rapports||!j.rapports.length){
+  var e=j&&j.error?String(j.error):'';
+  if(r.status===404||e==='rapport introuvable'){fail(T.notFound);return}
+  if(e==='identifiant invalide'){fail(T.badId);return}
+  fail(T.http+r.status+(e?' — '+e:''));return}
+ var rs=j.rapports,a=rs[0],b=rs[1];
+ var M=$('r-main');M.innerHTML='';
+ if(b){
+  var c=comparaison(a,b,j.ecarts);
+  $('r-title').textContent=c.meme?T.traj+' — '+(a.url||''):T.cmp;
+  $('r-when').textContent=c.meme?(T.colA+' : '+quand(a.created_at)+' · '+T.colB+' : '+quand(b.created_at)):(a.url+'  ·  '+b.url);
+  document.title=(c.meme?T.traj:T.cmp)+' | Perennova';
+  M.appendChild(c.node);
+  M.appendChild(carte(a,T.colA));M.appendChild(carte(b,T.colB));
+ }else{
+  $('r-title').textContent=a.url||'';
+  $('r-when').textContent=T.measured+quand(a.created_at);
+  document.title=T.docTitle+' — '+(a.host||a.url)+' | Perennova';
+  var cc=carte(a,null);cc.removeChild(cc.querySelector('h2'));cc.removeChild(cc.querySelector('.when'));
+  M.appendChild(cc);
+ }
+ var nm=[];rs.forEach(function(r){((r.detail&&r.detail.non_mesure)||[]).forEach(function(t){if(nm.indexOf(t)<0)nm.push(t)})});
+ var ul=$('r-nonmesure');ul.innerHTML='';nm.forEach(function(t){var li=el('li',t);if(FACT_LANG)li.lang=FACT_LANG;ul.appendChild(li)});
+ $('r-nm').hidden=!nm.length;
+ $('r-methode').textContent=j.methode||'';
+ $('pf-url').textContent=location.href;
+ $('pf-id').textContent=rs.map(function(r){return r.public_id}).join(' · ');
+ $('r-load').hidden=true;$('r-ok').hidden=false;
+ pvEvent('rapport-ouvert');
+ if(b)pvEvent('rapport-compare');
+})}).catch(function(err){fail(T.neterr+(err&&err.message?err.message:String(err)))});
+$('r-print').addEventListener('click',function(){pvEvent('rapport-imprime');window.print()});
+})();
+</script>
+<script data-goatcounter="https://perennova.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

@@ -78,6 +78,10 @@ justifié par le fait mesuré. Gratuit, sans compte.</p>
 <label for="scan-url" class="note">Une page publique, accessible sans connexion.</label>
 <input id="scan-url" name="url" type="url" required placeholder="https://exemple.fr" autocomplete="url" inputmode="url">
 </fieldset>
+<fieldset><legend>Comparer avec une seconde URL (par exemple deux offres)</legend>
+<label for="scan-url2" class="note">Facultatif. Les deux mesures sont faites l'une après l'autre, puis un rapport les met côte à côte.</label>
+<input id="scan-url2" name="url2" type="url" placeholder="https://exemple.fr" autocomplete="off" inputmode="url">
+</fieldset>
 <div class="actions">
 <button type="submit" id="scan-btn">Mesurer</button>
 <span class="note" id="scan-etat" role="status" aria-live="polite"></span>
@@ -87,6 +91,14 @@ justifié par le fait mesuré. Gratuit, sans compte.</p>
 <div id="scan-err" class="warnbox" role="alert" style="white-space:pre-wrap" hidden></div>
 
 <div id="scan-res" hidden>
+<div class="out" id="r-rapport" style="margin-bottom:22px" hidden>
+<h3>Rapport daté de cette mesure</h3>
+<div style="padding:14px 16px;display:flex;flex-direction:column;gap:10px">
+<p style="word-break:break-all"><a id="r-rapport-lien" href="#"></a></p>
+<div class="actions"><button type="button" class="ghost" id="r-copier">Copier le lien</button><span class="note" id="r-copie-etat" role="status" aria-live="polite"></span></div>
+<p class="note">Ce lien garde la mesure telle qu'elle a été prise, avec sa date. Mesurez à nouveau la même page plus tard pour obtenir une trajectoire.</p>
+</div>
+</div>
 <div class="out" style="margin-bottom:22px">
 <h3>Score</h3>
 <div style="padding:14px 16px;display:flex;flex-direction:column;gap:6px">
@@ -132,10 +144,10 @@ function pvEvent(nom){
 (function(){
 var ENDPOINT='https://bgpvuyowxokmksbjrske.supabase.co/functions/v1/perennova-scan';
 var ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJncHZ1eW93eG9rbWtzYmpyc2tlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA1NzkyMzQsImV4cCI6MjEwNjE1NTIzNH0.snNGQO7S6AMqfCWnVY-QlWjADvJrhINRIoz7UXY1vJk';
-var T={btn:'Mesurer',wait:'Mesure en cours, 5 à 20 secondes',status:'Statut HTTP : ',neterr:'La requête n\'a pas abouti : ',unit:' Ko'};
+var T={btn:'Mesurer',wait:'Mesure en cours, 5 à 20 secondes',status:'Statut HTTP : ',neterr:'La requête n\'a pas abouti : ',copied:'Lien copié.',copyfail:'Copie impossible : sélectionnez le lien à la main.',step1:'Mesure 1 sur 2, 5 à 20 secondes',step2:'Mesure 2 sur 2, 5 à 20 secondes',redirect:'Ouverture du rapport de comparaison…',noid:'La mesure a réussi mais aucun rapport daté n\'a été enregistré : la comparaison est impossible.',first:'Première URL : ',second:'Seconde URL : ',unit:' Ko'};
 var LABELS=null;
 var F=document.getElementById('scan'),I=document.getElementById('scan-url'),B=document.getElementById('scan-btn'),
-    S=document.getElementById('scan-etat'),E=document.getElementById('scan-err'),R=document.getElementById('scan-res');
+    S=document.getElementById('scan-etat'),E=document.getElementById('scan-err'),R=document.getElementById('scan-res'),I2=document.getElementById('scan-url2');
 function td(tr,txt,cls){var c=document.createElement('td');c.textContent=txt;if(cls)c.className=cls;tr.appendChild(c);return c}
 function cut(u){u=String(u);return u.length>80?u.slice(0,79)+'…':u}
 function fail(msg){E.textContent=msg;E.hidden=false}
@@ -151,23 +163,49 @@ function show(j){
   td(tr,Math.round(h.bytes/1024)+T.unit,'pts');hv.appendChild(tr)});
  var ul=document.getElementById('r-nonmesure');ul.innerHTML='';
  ((j.detail&&j.detail.non_mesure)||[]).forEach(function(t){var li=document.createElement('li');li.textContent=t;ul.appendChild(li)});
+ var RB=document.getElementById('r-rapport'),RL=document.getElementById('r-rapport-lien');
+ document.getElementById('r-copie-etat').textContent='';
+ if(j.rapport_url&&j.public_id){var lien=j.rapport_url;RL.href=lien;RL.textContent=lien;RB.hidden=false}else{RB.hidden=true}
  R.hidden=false;R.scrollIntoView({behavior:'smooth',block:'start'});
 }
-F.addEventListener('submit',function(e){
- e.preventDefault();
- var valeur=(I.value||'').trim();
- if(!valeur)return;
- pvEvent('scan-lance');
- E.hidden=true;R.hidden=true;B.disabled=true;B.textContent=T.wait;S.textContent=T.wait;
- fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+ANON_KEY,'apikey':ANON_KEY},body:JSON.stringify({url:valeur})})
+document.getElementById('r-copier').addEventListener('click',function(){
+ var lien=document.getElementById('r-rapport-lien').href,st=document.getElementById('r-copie-etat');
+ pvEvent('rapport-lien-copie');
+ if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(lien).then(function(){st.textContent=T.copied},function(){st.textContent=T.copyfail})}
+ else{st.textContent=T.copyfail}
+});
+function mesurer(valeur){
+ return fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+ANON_KEY,'apikey':ANON_KEY},body:JSON.stringify({url:valeur})})
  .then(function(r){return r.text().then(function(txt){
    var j=null;try{j=JSON.parse(txt)}catch(_){}
-   if(j&&j.error){fail(String(j.error)+(j.status!==undefined?' — '+T.status+j.status:''));return}
-   if(!r.ok||!j||j.score_20===undefined){fail(T.status+r.status+(txt?'\n'+txt:''));return}
-   show(j);
- })})
- .catch(function(err){fail(T.neterr+(err&&err.message?err.message:String(err)))})
- .then(function(){B.disabled=false;B.textContent=T.btn;S.textContent=''});
+   if(j&&j.error)throw new Error(String(j.error)+(j.status!==undefined?' — '+T.status+j.status:''));
+   if(!r.ok||!j||j.score_20===undefined)throw new Error(T.status+r.status+(txt?'\n'+txt:''));
+   return j;
+ })},function(err){throw new Error(T.neterr+(err&&err.message?err.message:String(err)))});
+}
+function attente(msg){B.textContent=msg;S.textContent=msg}
+F.addEventListener('submit',function(e){
+ e.preventDefault();
+ var valeur=(I.value||'').trim(),valeur2=(I2.value||'').trim();
+ if(!valeur)return;
+ E.hidden=true;R.hidden=true;B.disabled=true;
+ if(!valeur2){
+  pvEvent('scan-lance');
+  attente(T.wait);
+  mesurer(valeur).then(show).catch(function(err){fail(err.message)})
+  .then(function(){B.disabled=false;B.textContent=T.btn;S.textContent=''});
+  return;
+ }
+ pvEvent('scan-compare');
+ var a=null;
+ attente(T.step1);
+ mesurer(valeur).catch(function(err){throw new Error(T.first+err.message)})
+ .then(function(j){a=j;if(!j.public_id)throw new Error(T.first+T.noid);attente(T.step2);
+   return mesurer(valeur2).catch(function(err){throw new Error(T.second+err.message)})})
+ .then(function(b){if(!b.public_id)throw new Error(T.second+T.noid);
+   attente(T.redirect);
+   location.href='/rapport/?id='+encodeURIComponent(a.public_id)+'&vs='+encodeURIComponent(b.public_id)})
+ .catch(function(err){fail(err.message);if(a)show(a);B.disabled=false;B.textContent=T.btn;S.textContent=''});
 });
 })();
 </script>
