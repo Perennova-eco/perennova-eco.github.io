@@ -53,6 +53,9 @@ a.btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 [hidden]{display:none!important}
 input[type=url]{font-family:var(--mono);font-size:15px;padding:10px 12px;border:1px solid var(--rule-strong);background:var(--surface-2);color:var(--ink);border-radius:2px;width:100%}
 input[type=url]:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+#suivi .row{display:flex;gap:10px;flex-wrap:wrap}
+#suivi input[type=email]{flex:1 1 240px;font-family:var(--mono);font-size:15px;padding:10px 12px;border:1px solid var(--rule-strong);background:var(--surface-2);color:var(--ink);border-radius:2px;min-width:0}
+#suivi input[type=email]:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 button:disabled{opacity:.6;cursor:wait}
 .score{font-family:var(--disp);font-size:clamp(40px,10vw,64px);font-weight:700;line-height:1;color:var(--accent)}
 .warnbox ul{max-width:70ch}
@@ -97,6 +100,21 @@ justifié par le fait mesuré. Gratuit, sans compte.</p>
 <p style="word-break:break-all"><a id="r-rapport-lien" href="#"></a></p>
 <div class="actions"><button type="button" class="ghost" id="r-copier">Copier le lien</button><span class="note" id="r-copie-etat" role="status" aria-live="polite"></span></div>
 <p class="note">Ce lien garde la mesure telle qu'elle a été prise, avec sa date. Mesurez à nouveau la même page plus tard pour obtenir une trajectoire.</p>
+</div>
+</div>
+<div class="out noprint" id="suivi" style="margin-bottom:22px" hidden>
+<h3>Suivre cette page chaque mois</h3>
+<div style="padding:14px 16px;display:flex;flex-direction:column;gap:12px">
+<p class="lead">Une seule mesure ne montre pas une trajectoire. Le suivi mensuel re-mesurera cette page avec la même méthode et vous enverra chaque mois son rapport daté : la pièce qu'attend un critère de « trajectoire » dans un marché. <strong>Ce service n'est pas encore ouvert.</strong> Laissez votre adresse et nous vous préviendrons à son ouverture, sans engagement.</p>
+<form id="suivi-form" novalidate>
+<label for="suivi-email" class="note">Adresse e-mail</label>
+<div class="row">
+<input id="suivi-email" name="email" type="email" required autocomplete="email" placeholder="prenom.nom@organisation.fr">
+<button type="submit" id="suivi-bouton">Me prévenir</button>
+</div>
+<p id="suivi-retour" class="note" role="status" aria-live="polite"></p>
+</form>
+<p class="lead small"><em>Votre adresse ne sert qu'à vous prévenir de l'ouverture du suivi. Elle est supprimée sur simple demande à perennova@proton.me.</em> Voir les <a href="/mentions-legales/">mentions légales</a>.</p>
 </div>
 </div>
 <div class="out" style="margin-bottom:22px">
@@ -166,6 +184,7 @@ function show(j){
  var RB=document.getElementById('r-rapport'),RL=document.getElementById('r-rapport-lien');
  document.getElementById('r-copie-etat').textContent='';
  if(j.rapport_url&&j.public_id){var lien=j.rapport_url;RL.href=lien;RL.textContent=lien;RB.hidden=false}else{RB.hidden=true}
+ var SV=document.getElementById('suivi');if(SV){if(j.public_id){SV.setAttribute('data-id',j.public_id);SV.hidden=false}else{SV.hidden=true}}
  R.hidden=false;R.scrollIntoView({behavior:'smooth',block:'start'});
 }
 document.getElementById('r-copier').addEventListener('click',function(){
@@ -206,6 +225,30 @@ F.addEventListener('submit',function(e){
    attente(T.redirect);
    location.href='/rapport/?id='+encodeURIComponent(a.public_id)+'&vs='+encodeURIComponent(b.public_id)})
  .catch(function(err){fail(err.message);if(a)show(a);B.disabled=false;B.textContent=T.btn;S.textContent=''});
+});
+})();
+</script>
+<script>
+(function(){
+var B=document.getElementById('suivi'),f=document.getElementById('suivi-form');
+if(!B||!f)return;
+var champ=document.getElementById('suivi-email'),bouton=document.getElementById('suivi-bouton'),retour=document.getElementById('suivi-retour');
+var OK="C'est noté : vous serez prévenu(e) à l'ouverture.",ERR="Adresse non enregistrée, réessayez.";
+f.addEventListener('submit',function(e){
+ e.preventDefault();
+ pvEvent('suivi-inscription-clic');
+ var email=(champ.value||'').trim(),id=B.getAttribute('data-id')||'';
+ if(!email||!champ.checkValidity()||!id){retour.textContent=ERR;champ.focus();return}
+ bouton.disabled=true;retour.textContent='';
+ fetch('https://bgpvuyowxokmksbjrske.supabase.co/functions/v1/perennova-veille',{
+  method:'POST',headers:{'Content-Type':'application/json'},
+  body:JSON.stringify({email:email,source:'suivi:'+id})
+ }).then(function(r){return r.json()}).then(function(j){
+  if(!j||j.ok!==true)throw new Error('ko');
+  var p=document.createElement('p');p.className='note';p.setAttribute('role','status');p.textContent=OK;
+  f.parentNode.replaceChild(p,f);
+  pvEvent('suivi-inscription-ok');
+ }).catch(function(){retour.textContent=ERR;bouton.disabled=false});
 });
 })();
 </script>

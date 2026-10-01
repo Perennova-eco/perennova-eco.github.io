@@ -101,7 +101,7 @@ ul.hosts{margin:0;padding:12px 16px 12px 34px;font-family:var(--mono);font-size:
 <div class="out noprint" id="suivi" hidden>
 <h3>Track this page every month</h3>
 <div style="padding:14px 16px;display:flex;flex-direction:column;gap:12px">
-<p class="lead">A single measurement does not show a trajectory. Monthly tracking will re-measure this page with the same method and send you its dated report every month: the evidence a “trajectory” criterion in a tender expects. This service is not open yet. Leave your address and we will let you know when it opens, with no commitment.</p>
+<p class="lead">One measurement is not a trajectory. Monthly tracking will re-measure this page with the same method and send you its dated report every month: the evidence a “trajectory” criterion in a tender asks for. <strong>This service is not open yet.</strong> Leave your email and we will tell you when it opens. No commitment.</p>
 <form id="suivi-form" novalidate>
 <label for="suivi-email" class="note">Email address</label>
 <div class="row">
@@ -110,7 +110,7 @@ ul.hosts{margin:0;padding:12px 16px 12px 34px;font-family:var(--mono);font-size:
 </div>
 <p id="suivi-retour" class="note" role="status" aria-live="polite"></p>
 </form>
-<p class="lead small">Your address is used only to tell you when tracking opens. It is deleted on simple request to perennova@proton.me. See the <a href="/mentions-legales/" hreflang="fr">legal notice (in French)</a>.</p>
+<p class="lead small"><em>Your address is used only to tell you when tracking opens. It is deleted on request at perennova@proton.me.</em> See the <a href="/mentions-legales/" hreflang="fr">legal notice (in French)</a>.</p>
 </div>
 </div>
 <div class="warnbox" id="r-nm">
@@ -262,7 +262,7 @@ fetch(url,{method:'GET'}).then(function(r){return r.text().then(function(txt){
   M.appendChild(cc);
   var sc=cc.querySelector('.out');if(sc)cc.insertBefore($('suivi'),sc.nextSibling);
  }
- $('suivi').hidden=false;
+ $('suivi').setAttribute('data-id',a.public_id||id);$('suivi').hidden=false;
  var nm=[];rs.forEach(function(r){((r.detail&&r.detail.non_mesure)||[]).forEach(function(t){if(nm.indexOf(t)<0)nm.push(t)})});
  var ul=$('r-nonmesure');ul.innerHTML='';nm.forEach(function(t){var li=el('li',t);if(FACT_LANG)li.lang=FACT_LANG;ul.appendChild(li)});
  $('r-nm').hidden=!nm.length;
@@ -278,22 +278,25 @@ $('r-print').addEventListener('click',function(){pvEvent('rapport-imprime');wind
 </script>
 <script>
 (function(){
-var f=document.getElementById('suivi-form');
-if(!f)return;
+var B=document.getElementById('suivi'),f=document.getElementById('suivi-form');
+if(!B||!f)return;
 var champ=document.getElementById('suivi-email'),bouton=document.getElementById('suivi-bouton'),retour=document.getElementById('suivi-retour');
+var OK="Got it — we'll let you know when it opens.",ERR="Not saved, please try again.";
 f.addEventListener('submit',function(e){
  e.preventDefault();
- var email=(champ.value||'').trim();
- if(email.indexOf('@')<1||email.indexOf('.')<0){retour.textContent='This address does not look valid.';return}
- var id=(new URLSearchParams(location.search).get('id')||'').trim().toLowerCase().slice(0,16);
- bouton.disabled=true;retour.textContent='Sending…';
+ pvEvent('suivi-inscription-clic');
+ var email=(champ.value||'').trim(),id=B.getAttribute('data-id')||'';
+ if(!email||!champ.checkValidity()||!id){retour.textContent=ERR;champ.focus();return}
+ bouton.disabled=true;retour.textContent='';
  fetch('https://bgpvuyowxokmksbjrske.supabase.co/functions/v1/perennova-veille',{
   method:'POST',headers:{'Content-Type':'application/json'},
-  body:JSON.stringify({email:email,source:'suivi-mensuel report-en'+(id?' '+id:'')})
- }).then(function(r){return r.json().catch(function(){return {}}).then(function(j){
-  if(r.ok&&j.ok){retour.textContent='Noted. We will let you know when monthly tracking opens.';champ.value='';pvEvent('suivi-mensuel-inscription-ok')}
-  else{retour.textContent='Registration failed. Please write to perennova@proton.me.';bouton.disabled=false}
- })}).catch(function(){retour.textContent='Registration failed. Please write to perennova@proton.me.';bouton.disabled=false});
+  body:JSON.stringify({email:email,source:'suivi-en:'+id})
+ }).then(function(r){return r.json()}).then(function(j){
+  if(!j||j.ok!==true)throw new Error('ko');
+  var p=document.createElement('p');p.className='note';p.setAttribute('role','status');p.textContent=OK;
+  f.parentNode.replaceChild(p,f);
+  pvEvent('suivi-inscription-ok');
+ }).catch(function(){retour.textContent=ERR;bouton.disabled=false});
 });
 })();
 </script>
