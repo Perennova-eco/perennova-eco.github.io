@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Barometer: homepage weight of France’s 20 largest cities (October 2026) · Perennova</title>
+<meta name="description" content="Weight, requests and third-party hosts of the homepages of France’s 20 largest cities, measured on 2 October 2026 with one method. Median: 3,445 KB. Every figure has a dated report. Repeated monthly.">
+<link rel="canonical" href="https://perennova-eco.github.io/en/barometer/">
+<link rel="alternate" hreflang="fr" href="https://perennova-eco.github.io/barometre/">
+<link rel="alternate" hreflang="en" href="https://perennova-eco.github.io/en/barometer/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Barometer: homepage weight of France’s 20 largest cities (October 2026)">
+<meta property="og:description" content="Weight, requests and third-party hosts of the homepages of France’s 20 largest cities, measured on 2 October 2026 with one method. Median: 3,445 KB. Every figure has a dated report. Repeated monthly.">
+<meta property="og:url" content="https://perennova-eco.github.io/en/barometer/">
+<meta property="og:locale" content="en_GB">
+<meta property="og:locale:alternate" content="fr_FR">
+<meta name="twitter:card" content="summary">
+<style>:root{--ground:#F6F8F6;--surface:#FFF;--surface-2:#EFF3F0;--ink:#14201C;--ink-soft:#57685F;--ink-faint:#8A9A91;--rule:#D8E0DB;--rule-strong:#A9B7B0;--accent:#0F6B52;--accent-soft:#E3F0EA;--warn:#8A5D0B;--warn-soft:#F6EEDC;--mono:ui-monospace,SFMono-Regular,Menlo,monospace;--disp:"Arial Narrow",Helvetica,sans-serif;--body:system-ui,-apple-system,Segoe UI,sans-serif}@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--ground:#0D1311;--surface:#141C19;--surface-2:#1B2420;--ink:#E3EAE6;--ink-soft:#9DAEA6;--ink-faint:#6F8079;--rule:#243029;--rule-strong:#3A4A42;--accent:#4FC095;--accent-soft:#15291F;--warn:#D6A24A;--warn-soft:#2A2114}}:root[data-theme="dark"]{--ground:#0D1311;--surface:#141C19;--surface-2:#1B2420;--ink:#E3EAE6;--ink-soft:#9DAEA6;--ink-faint:#6F8079;--rule:#243029;--rule-strong:#3A4A42;--accent:#4FC095;--accent-soft:#15291F;--warn:#D6A24A;--warn-soft:#2A2114}
+*{box-sizing:border-box}body{background:var(--ground);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;margin:0}
+.wrap{max-width:900px;margin:0 auto;padding:36px 16px 80px;display:flex;flex-direction:column;gap:28px}
+.mast{border-bottom:2px solid var(--rule-strong);padding-bottom:14px;display:flex;flex-direction:column;gap:6px}
+.mast h1{font-family:var(--disp);font-size:clamp(28px,6vw,42px);margin:0;line-height:1.1}
+.sub{font-family:var(--mono);font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-soft)}
+p{margin:0;max-width:70ch}.note{font-size:14px;color:var(--ink-soft)}
+h2{font-family:var(--disp);font-size:20px;margin:0}
+fieldset{border:1px solid var(--rule);background:var(--surface);margin:0;padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+legend{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);padding:0 6px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+label.opt{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--rule-strong);background:var(--surface-2);padding:7px 11px;font-size:14.5px;cursor:pointer;border-radius:2px}
+label.opt:has(input:checked){border-color:var(--accent);background:var(--accent-soft);color:var(--accent);font-weight:600}
+label.opt:focus-within{outline:2px solid var(--accent);outline-offset:2px}
+input[type=radio]{accent-color:var(--accent);margin:0}
+form{display:flex;flex-direction:column;gap:14px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+button{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:11px 18px;border:1px solid var(--accent);background:var(--accent);color:var(--ground);cursor:pointer;border-radius:2px}
+button.ghost{background:var(--accent-soft);color:var(--accent)}
+button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.out{border:1px solid var(--rule-strong);background:var(--surface);display:flex;flex-direction:column}
+.out h3{font-family:var(--disp);font-size:17px;margin:0;padding:12px 16px;border-bottom:1px solid var(--rule);background:var(--surface-2)}
+.body{padding:14px 16px;white-space:pre-wrap;font-family:var(--mono);font-size:13.5px;line-height:1.7;overflow-x:auto}
+.scale{width:100%;border-collapse:collapse;font-size:14px}
+.scale th,.scale td{border-bottom:1px solid var(--rule);padding:9px 16px;text-align:left;vertical-align:top}
+.scale th{font-family:var(--mono);font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-faint);font-weight:400;background:var(--surface-2)}
+.scale td.pts{font-family:var(--mono);white-space:nowrap;font-weight:700;color:var(--accent)}
+.warnbox{border-left:3px solid var(--warn);background:var(--warn-soft);color:var(--warn);padding:12px 14px;font-size:14px}
+.situ{border-left:3px solid var(--accent);background:var(--accent-soft);padding:12px 14px;font-size:14px;color:var(--ink)}
+.situ p{max-width:none}
+footer{font-family:var(--mono);font-size:11px;color:var(--ink-faint);border-top:1px solid var(--rule);padding-top:14px;line-height:1.7}
+a{color:var(--accent)}
+.lead{font-size:14.5px;color:var(--ink-soft)}.lead.small{font-size:13px}
+a.btn{display:inline-block;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:11px 18px;border:1px solid var(--accent);background:var(--accent);color:var(--ground);text-decoration:none;border-radius:2px}
+a.btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+[hidden]{display:none!important}
+input[type=url]{font-family:var(--mono);font-size:15px;padding:10px 12px;border:1px solid var(--rule-strong);background:var(--surface-2);color:var(--ink);border-radius:2px;width:100%}
+input[type=url]:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+#suivi .row{display:flex;gap:10px;flex-wrap:wrap}
+#suivi input[type=email]{flex:1 1 240px;font-family:var(--mono);font-size:15px;padding:10px 12px;border:1px solid var(--rule-strong);background:var(--surface-2);color:var(--ink);border-radius:2px;min-width:0}
+#suivi input[type=email]:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+button:disabled{opacity:.6;cursor:wait}
+.score{font-family:var(--disp);font-size:clamp(40px,10vw,64px);font-weight:700;line-height:1;color:var(--accent)}
+.warnbox ul{max-width:70ch}
+main{display:flex;flex-direction:column;gap:16px}
+main ul{margin:0;padding-left:20px;max-width:70ch}
+main h2{margin-top:12px}
+main form.baro-form{flex-direction:row}
+main input[type=email]{font-family:var(--mono);font-size:15px;border:1px solid var(--rule-strong);background:var(--surface-2);color:var(--ink);border-radius:2px;min-width:0}
+</style>
+<style>
+.baro-wrap{overflow-x:auto}
+table.baro{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}
+table.baro caption{text-align:left;padding:.5rem 0;font-style:italic}
+table.baro th,table.baro td{padding:.45rem .6rem;border-bottom:1px solid currentColor;text-align:left;vertical-align:top}
+table.baro td:nth-child(3),table.baro td:nth-child(4),table.baro td:nth-child(5),table.baro td:nth-child(6),table.baro td:nth-child(7){text-align:right;white-space:nowrap}
+table.baro small{font-weight:normal;opacity:.75}
+.baro-form{display:flex;flex-wrap:wrap;gap:.5rem;align-items:end;margin:1rem 0}
+.baro-form label{flex-basis:100%;font-weight:bold}
+.baro-form input{flex:1 1 16rem;padding:.5rem}
+.baro-form button{padding:.5rem 1rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="mast">
+<div class="sub"><a href="/en/">Perennova</a> · monthly barometer · bytes, requests, third-party hosts · no carbon estimate</div>
+</header>
+
+<main>
+<h1>What the homepage of France’s 20 largest cities weighs</h1>
+<p><strong>Perennova barometer · edition 1 · measured on 2 October 2026.</strong> One method for all: we download the page and everything its HTML declares, then count bytes, requests and third-party hosts. No carbon estimate. Every figure links to its dated report. Repeated every month, so the trajectory can be read.</p>
+
+<h2>What the measurement shows</h2>
+<ul>
+<li><strong>17 pages measured out of 20</strong>; three sites refuse the measuring server (see below).</li>
+<li><strong>Median weight: 3,445 KB.</strong> The mean is 3,935 KB.</li>
+<li><strong>12 pages out of 17 exceed 2 MB</strong> (2,048 KB). Only two stay under 1 MB: Le Havre (884 KB) and Grenoble (949 KB).</li>
+<li><strong>A 1-to-14 gap</strong> between the lightest (884 KB) and the heaviest (at least 12,584 KB, measurement cap reached).</li>
+<li><strong>29% of all measured weight</strong> comes from lazy-loaded images (<code>loading="lazy"</code>). A browser only loads them on scroll: a first-screen-only measurement does not see them.</li>
+<li>Median Perennova scale: <strong>6 out of 20</strong>. These are our own published thresholds, not an official standard.</li>
+</ul>
+
+<h2>The table</h2>
+<div class="baro-wrap">
+<table class="baro">
+<caption>Lightest to heaviest · measured on 2 October 2026, 07:18–07:20 Paris time</caption>
+<thead><tr><th scope="col">#</th><th scope="col">City</th><th scope="col">Full-page weight</th><th scope="col">of which lazy-loaded images</th><th scope="col">Requests</th><th scope="col">Third-party hosts</th><th scope="col">Perennova scale</th><th scope="col">Evidence</th></tr></thead>
+<tbody>
+<tr><td>1</td><th scope="row">Le Havre<br><small>lehavre.fr</small></th><td>884 KB</td><td>50 KB (2 images)</td><td>19</td><td>4</td><td>10/20</td><td><a href="/en/report/?id=39a6792d39094817">dated report</a></td></tr>
+<tr><td>2</td><th scope="row">Grenoble<br><small>www.grenoble.fr</small></th><td>949 KB</td><td>116 KB (20 images)</td><td>36</td><td>0</td><td>13/20</td><td><a href="/en/report/?id=c0806c850dd141d7">dated report</a></td></tr>
+<tr><td>3</td><th scope="row">Bordeaux<br><small>www.bordeaux.fr</small></th><td>1 443 KB</td><td>309 KB (11 images)</td><td>22</td><td>0</td><td>11/20</td><td><a href="/en/report/?id=86a5554cf5394f22">dated report</a></td></tr>
+<tr><td>4</td><th scope="row">Nantes<br><small>metropole.nantes.fr</small></th><td>1 459 KB</td><td>218 KB (16 images)</td><td>49</td><td>1</td><td>7/20</td><td><a href="/en/report/?id=c536ac8d80ea4ff6">dated report</a></td></tr>
+<tr><td>5</td><th scope="row">Angers<br><small>www.angers.fr</small></th><td>2 031 KB</td><td>—</td><td>61</td><td>1</td><td>9/20</td><td><a href="/en/report/?id=2e0393f417f4428e">dated report</a></td></tr>
+<tr><td>6</td><th scope="row">Nice<br><small>www.nice.fr</small></th><td>2 211 KB</td><td>1 062 KB (11 images)</td><td>22</td><td>0</td><td>10/20</td><td><a href="/en/report/?id=2493495f784f481b">dated report</a></td></tr>
+<tr><td>7</td><th scope="row">Strasbourg<br><small>www.strasbourg.eu</small></th><td>2 829 KB</td><td>865 KB (40 images)</td><td>69</td><td>1</td><td>5/20</td><td><a href="/en/report/?id=678ff87a4dde4e2c">dated report</a></td></tr>
+<tr><td>8</td><th scope="row">Toulouse<br><small>metropole.toulouse.fr</small></th><td>3 213 KB</td><td>286 KB (40 images)</td><td>71</td><td>1</td><td>5/20</td><td><a href="/en/report/?id=519be91322b3420a">dated report</a></td></tr>
+<tr><td>9</td><th scope="row">Villeurbanne<br><small>www.villeurbanne.fr</small></th><td>3 445 KB</td><td>216 KB (28 images)</td><td>55</td><td>4</td><td>2/20</td><td><a href="/en/report/?id=8fc61e9c4d4049de">dated report</a></td></tr>
+<tr><td>10</td><th scope="row">Toulon<br><small>toulon.fr</small></th><td>3 533 KB</td><td>2 079 KB (22 images)</td><td>30</td><td>1</td><td>4/20</td><td><a href="/en/report/?id=e2725e7eb0e548d6">dated report</a></td></tr>
+<tr><td>11</td><th scope="row">Saint-Étienne<br><small>www.saint-etienne.fr</small></th><td>3 606 KB</td><td>—</td><td>80</td><td>2</td><td>7/20</td><td><a href="/en/report/?id=cf61d417556144b5">dated report</a></td></tr>
+<tr><td>12</td><th scope="row">Marseille<br><small>www.marseille.fr</small></th><td>3 683 KB</td><td>137 KB (13 images)</td><td>132</td><td>1</td><td>5/20</td><td><a href="/en/report/?id=15e02fd874204d7c">dated report</a></td></tr>
+<tr><td>13</td><th scope="row">Lille<br><small>www.lille.fr</small></th><td>5 188 KB</td><td>—</td><td>109</td><td>2</td><td>5/20</td><td><a href="/en/report/?id=a4eae839035444cf">dated report</a></td></tr>
+<tr><td>14</td><th scope="row">Lyon<br><small>www.lyon.fr</small></th><td>5 278 KB</td><td>1 671 KB (29 images)</td><td>41</td><td>0</td><td>7/20</td><td><a href="/en/report/?id=dede407f10624c09">dated report</a></td></tr>
+<tr><td>15</td><th scope="row">Dijon<br><small>www.dijon.fr</small></th><td>7 047 KB</td><td>—</td><td>146</td><td>0</td><td>6/20</td><td><a href="/en/report/?id=1efd5ce67f734713">dated report</a></td></tr>
+<tr><td>16</td><th scope="row">Montpellier<br><small>www.montpellier.fr</small></th><td>7 511 KB</td><td>4 373 KB (124 images)</td><td>162</td><td>3</td><td>1/20</td><td><a href="/en/report/?id=06f1337e8a6744e5">dated report</a></td></tr>
+<tr><td>17</td><th scope="row">Paris<br><small>www.paris.fr</small></th><td>at least 12 584 KB&nbsp;*</td><td>8 212 KB (16 images)</td><td>33</td><td>1</td><td>5/20</td><td><a href="/en/report/?id=c96d5fa9a8bb434a">dated report</a></td></tr>
+</tbody></table>
+</div>
+<p><small>* Paris: the 12 MB measurement cap is reached after 32 of 41 sub-resources; the real weight is higher.</small></p>
+
+<h3>Three sites not measured</h3>
+<ul>
+<li><strong>Rennes</strong> (metropole.rennes.fr): the site answers 403 to the measuring server.</li>
+<li><strong>Reims</strong> (www.reims.fr): the site serves the measuring server a 222-byte holding page (anti-bot check), not the homepage.</li>
+<li><strong>Saint-Denis (La Réunion)</strong> (www.saintdenis.re): the site answers 403 to the measuring server.</li>
+</ul>
+<p>Refusing a declared bot is a legitimate operating choice. It is neither a fault nor a score: these three cities are simply not ranked.</p>
+
+<h2>Follow the barometer</h2>
+<form id="baro-form" class="baro-form" novalidate>
+<label for="baro-email">Get the November 2026 edition</label>
+<input id="baro-email" name="email" type="email" required autocomplete="email" placeholder="you@example.org">
+<button type="submit">Subscribe</button>
+</form>
+<p id="baro-msg" role="status" aria-live="polite"></p>
+<p><small>Your address is only used to send you the barometer, once a month. It is deleted on request to perennova@proton.me.</small></p>
+<script>
+(function(){
+  var f=document.getElementById('baro-form'); if(!f) return;
+  var m=document.getElementById('baro-msg');
+  function ev(p){try{if(window.goatcounter&&window.goatcounter.count){window.goatcounter.count({path:p,title:p,event:true});}}catch(e){}}
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    var a=document.getElementById('baro-email').value.trim();
+    if(!a){return;}
+    ev('barometre-inscription-clic'); m.textContent='Sending…';
+    fetch('https://bgpvuyowxokmksbjrske.supabase.co/functions/v1/perennova-veille',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:a,source:'barometre:2026-10:en'})})
+      .then(function(r){return r.json().catch(function(){return {ok:false};});})
+      .then(function(d){if(d&&d.ok){ev('barometre-inscription-ok');m.textContent='Noted. You will get the November edition, and nothing else.';f.reset();}else{m.textContent='Address rejected or service unavailable. Write to perennova@proton.me.';}})
+      .catch(function(){m.textContent='Address rejected or service unavailable. Write to perennova@proton.me.';});
+  });
+})();
+</script>
+<p>Do you run another website? <a href="/en/scanner/">Measure your page</a>: same method, dated report, free, no account.</p>
+
+<h2>Why these twenty cities</h2>
+<p>They are the twenty most populous communes of France (Insee, municipal populations as of 1 January 2023, list taken from <a href="https://en.wikipedia.org/wiki/List_of_communes_in_France_with_over_20,000_inhabitants">Wikipedia</a>). All exceed 50,000 inhabitants: the French law of 15 November 2021 (known as REEN) requires them to define a responsible digital strategy by 1 January 2025 (<a href="https://www.maire-info.com/numerique/strategie-numerique-responsable-un-decret-precise-ce-que-la-loi-exige-collectivites-article-26669">Maire-info, 5 September 2022, in French</a>).</p>
+<p>The weight of a homepage is not that strategy. It is a measurable, dated fact that can be compared from one month to the next.</p>
+
+<h2>Method, and what it does not say</h2>
+<ul>
+<li>The measuring server downloads the HTML, then the scripts, stylesheets, images (including lazy-loaded ones) and <code>url()</code> files that this HTML declares. Caps: 200 sub-resources, 12 MB, 60 seconds.</li>
+<li><strong>It does not run JavaScript.</strong> Whatever a script loads afterwards (carousels, maps, videos, trackers) is not counted. In a browser the page therefore weighs at least this much, often more.</li>
+<li>The weight shown is for the <strong>whole page</strong>, not the first screen: lazy-loaded images are counted, and their share is shown.</li>
+<li>It measures neither CPU, memory nor battery on the device, and does not judge design intent. It produces <strong>no carbon estimate</strong>.</li>
+<li>One measurement per site, on a single day, with no cache or cookies, from a server that identifies itself as <code>PerennovaScan</code>. A homepage changes: the dated report holds for its date, not beyond.</li>
+<li>“Third-party host”: any hostname different from the page’s, including a subdomain of the same organisation.</li>
+<li>This barometer is not a compliance audit against the French RGESN guidelines.</li>
+</ul>
+<p><strong>Prior work.</strong> Greenspector published a ranking of 46 French city and metropolis websites in 2020 and again in 2022, measured on a real device (energy, data, CPU, memory): <a href="https://greenspector.com/en/digital-sobriety-requirements-for-cities-and-communities-ranking">their study</a> is richer than this table. This one measures less, but it is repeated every month and every figure carries its dated evidence.</p>
+<p><strong>Right of reply.</strong> You run one of these sites and dispute a measurement? Write to <a href="mailto:perennova@proton.me">perennova@proton.me</a>: the measurement is redone and the correction published here, dated.</p>
+<p><small>Measurements and page produced with an AI agent, reviewed and published by Perennova. Engine: perennova-scan v4.</small></p>
+</main>
+
+<footer>
+Perennova · <a href="/en/">eight trade-off questions for product teams</a> · <a href="/">the procurement criterion generator (in French)</a> · <a href="/barometre/" hreflang="fr">version française</a> · contact perennova@proton.me · <a href="/mentions-legales/" hreflang="fr">Mentions légales (legal notice, in French)</a><br>
+This tool measures bytes, requests and hosts; it produces no carbon estimate and is not an RGESN compliance audit. The thresholds are Perennova's, published and owned, not an official standard.
+</footer>
+</div>
+
+<script data-goatcounter="https://perennova.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
