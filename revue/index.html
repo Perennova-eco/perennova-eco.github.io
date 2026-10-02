@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Revue d’écoconception sur maquettes : cinq critères du RGESN, datés à chaque jalon · Perennova</title>
+<meta name="description" content="Une grille d’une page pour vérifier l’intention d’écoconception sur maquettes, à la recette et à la mise en ligne : cinq critères du RGESN, la preuve à joindre, le poids mesuré en face. Gratuite, sans compte, rien n’est enregistré.">
+<link rel="canonical" href="https://perennova-eco.github.io/revue/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Revue d’écoconception sur maquettes : cinq critères du RGESN, datés à chaque jalon">
+<meta property="og:description" content="Une grille d’une page pour vérifier l’intention d’écoconception sur maquettes, à la recette et à la mise en ligne : cinq critères du RGESN, la preuve à joindre, le poids mesuré en face. Gratuite, sans compte, rien n’est enregistré.">
+<meta property="og:url" content="https://perennova-eco.github.io/revue/">
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary">
+<style>:root{--ground:#F6F8F6;--surface:#FFF;--surface-2:#EFF3F0;--ink:#14201C;--ink-soft:#57685F;--ink-faint:#8A9A91;--rule:#D8E0DB;--rule-strong:#A9B7B0;--accent:#0F6B52;--accent-soft:#E3F0EA;--warn:#8A5D0B;--warn-soft:#F6EEDC;--mono:ui-monospace,SFMono-Regular,Menlo,monospace;--disp:"Arial Narrow",Helvetica,sans-serif;--body:system-ui,-apple-system,Segoe UI,sans-serif}@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--ground:#0D1311;--surface:#141C19;--surface-2:#1B2420;--ink:#E3EAE6;--ink-soft:#9DAEA6;--ink-faint:#6F8079;--rule:#243029;--rule-strong:#3A4A42;--accent:#4FC095;--accent-soft:#15291F;--warn:#D6A24A;--warn-soft:#2A2114}}:root[data-theme="dark"]{--ground:#0D1311;--surface:#141C19;--surface-2:#1B2420;--ink:#E3EAE6;--ink-soft:#9DAEA6;--ink-faint:#6F8079;--rule:#243029;--rule-strong:#3A4A42;--accent:#4FC095;--accent-soft:#15291F;--warn:#D6A24A;--warn-soft:#2A2114}
+*{box-sizing:border-box}body{background:var(--ground);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;margin:0}
+.wrap{max-width:900px;margin:0 auto;padding:36px 16px 80px;display:flex;flex-direction:column;gap:28px}
+.mast{border-bottom:2px solid var(--rule-strong);padding-bottom:14px;display:flex;flex-direction:column;gap:6px}
+.mast h1{font-family:var(--disp);font-size:clamp(28px,6vw,42px);margin:0;line-height:1.1}
+.sub{font-family:var(--mono);font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-soft)}
+p{margin:0;max-width:70ch}.note{font-size:14px;color:var(--ink-soft)}
+h2{font-family:var(--disp);font-size:20px;margin:0}
+fieldset{border:1px solid var(--rule);background:var(--surface);margin:0;padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+legend{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);padding:0 6px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+label.opt{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--rule-strong);background:var(--surface-2);padding:7px 11px;font-size:14.5px;cursor:pointer;border-radius:2px}
+label.opt:has(input:checked){border-color:var(--accent);background:var(--accent-soft);color:var(--accent);font-weight:600}
+label.opt:focus-within{outline:2px solid var(--accent);outline-offset:2px}
+input[type=radio]{accent-color:var(--accent);margin:0}
+form{display:flex;flex-direction:column;gap:14px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+button{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:11px 18px;border:1px solid var(--accent);background:var(--accent);color:var(--ground);cursor:pointer;border-radius:2px}
+button.ghost{background:var(--accent-soft);color:var(--accent)}
+button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.out{border:1px solid var(--rule-strong);background:var(--surface);display:flex;flex-direction:column}
+.out h3{font-family:var(--disp);font-size:17px;margin:0;padding:12px 16px;border-bottom:1px solid var(--rule);background:var(--surface-2)}
+.body{padding:14px 16px;white-space:pre-wrap;font-family:var(--mono);font-size:13.5px;line-height:1.7;overflow-x:auto}
+.scale{width:100%;border-collapse:collapse;font-size:14px}
+.scale th,.scale td{border-bottom:1px solid var(--rule);padding:9px 16px;text-align:left;vertical-align:top}
+.scale th{font-family:var(--mono);font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-faint);font-weight:400;background:var(--surface-2)}
+.scale td.pts{font-family:var(--mono);white-space:nowrap;font-weight:700;color:var(--accent)}
+.warnbox{border-left:3px solid var(--warn);background:var(--warn-soft);color:var(--warn);padding:12px 14px;font-size:14px}
+.situ{border-left:3px solid var(--accent);background:var(--accent-soft);padding:12px 14px;font-size:14px;color:var(--ink)}
+.situ p{max-width:none}
+footer{font-family:var(--mono);font-size:11px;color:var(--ink-faint);border-top:1px solid var(--rule);padding-top:14px;line-height:1.7}
+a{color:var(--accent)}
+.lead{font-size:14.5px;color:var(--ink-soft)}.lead.small{font-size:13px}
+a.btn{display:inline-block;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:11px 18px;border:1px solid var(--accent);background:var(--accent);color:var(--ground);text-decoration:none;border-radius:2px}
+a.btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+[hidden]{display:none!important}
+input[type=url]{font-family:var(--mono);font-size:15px;padding:10px 12px;border:1px solid var(--rule-strong);background:var(--surface-2);color:var(--ink);border-radius:2px;width:100%}
+input[type=url]:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+#suivi .row{display:flex;gap:10px;flex-wrap:wrap}
+#suivi input[type=email]{flex:1 1 240px;font-family:var(--mono);font-size:15px;padding:10px 12px;border:1px solid var(--rule-strong);background:var(--surface-2);color:var(--ink);border-radius:2px;min-width:0}
+#suivi input[type=email]:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+button:disabled{opacity:.6;cursor:wait}
+.score{font-family:var(--disp);font-size:clamp(40px,10vw,64px);font-weight:700;line-height:1;color:var(--accent)}
+.warnbox ul{max-width:70ch}
+main{display:flex;flex-direction:column;gap:16px}
+main ul{margin:0;padding-left:20px;max-width:70ch}
+main h2{margin-top:12px}
+main form.baro-form{flex-direction:row}
+main input[type=email]{font-family:var(--mono);font-size:15px;border:1px solid var(--rule-strong);background:var(--surface-2);color:var(--ink);border-radius:2px;min-width:0}
+</style>
+<style>
+.rv-meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));gap:.75rem;margin:1rem 0}
+.rv-meta label,.rv-crit label[for],.rv-poids label{display:block;font-weight:bold}
+.rv-meta input,.rv-meta select,.rv-crit textarea,.rv-poids input{width:100%;box-sizing:border-box;padding:.4rem;font:inherit}
+.rv-crit{margin:1rem 0;padding:.75rem 1rem;border:1px solid currentColor}
+.rv-q{font-style:italic}
+.rv-choix label{margin-right:1.25rem;white-space:nowrap}
+.rv-bilan{font-weight:bold;margin:1rem 0}
+.baro-form{display:flex;flex-wrap:wrap;gap:.5rem;align-items:end;margin:1rem 0}
+.baro-form label{flex-basis:100%;font-weight:bold}
+.baro-form input{flex:1 1 16rem;padding:.5rem}
+.baro-form button,.rv-print{padding:.5rem 1rem;font:inherit}
+@media print{header,footer,nav,.rv-noprint{display:none!important}.rv-crit{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="mast">
+<div class="sub"><a href="/">Perennova</a> · revue sur maquettes · cinq critères du RGESN · aucune estimation carbone</div>
+</header>
+
+<main>
+<h1>Revue d’écoconception sur maquettes : cinq critères d’intention, un poids, une date</h1>
+<p>Une mesure dit ce que pèse une page. Elle ne dit pas ce qu’on a voulu faire. Cette grille tient sur une page : cinq critères du RGESN qui se vérifient sur maquettes, avant la première ligne de code, puis de nouveau à la recette et à la mise en ligne, avec le poids mesuré en face. Remplie et datée à chaque jalon, elle montre si l’intention a tenu.</p>
+<p class="rv-noprint"><small>Tout reste dans votre navigateur : rien n’est envoyé, rien n’est enregistré. Imprimez la page ou enregistrez-la en PDF pour la garder.</small></p>
+
+<form id="rv-form" onsubmit="return false">
+<div class="rv-meta">
+<div><label for="rv-projet">Projet</label><input id="rv-projet" type="text" autocomplete="off"></div>
+<div><label for="rv-ecran">Écran ou parcours revu</label><input id="rv-ecran" type="text" autocomplete="off"></div>
+<div><label for="rv-jalon">Jalon</label><select id="rv-jalon"><option>Maquettes</option><option>Recette</option><option>Mise en ligne</option></select></div>
+<div><label for="rv-date">Date de la revue</label><input id="rv-date" type="date"></div>
+<div><label for="rv-qui">Relecteur</label><input id="rv-qui" type="text" autocomplete="off"></div>
+</div>
+
+<fieldset class="rv-crit">
+<legend><strong>Critère 4.1 du RGESN</strong></legend>
+<p class="rv-q">« Le service numérique comporte-t-il uniquement des animations, vidéos et sons dont la lecture automatique est désactivée ? »</p>
+<p><strong>Ce qu’on regarde sur la maquette.</strong> Aucune vidéo, aucune animation, aucun son ne démarre seul. Chaque média a un état d’arrêt dessiné et une commande de lecture visible.</p>
+<p><strong>Preuve à joindre :</strong> l’écran à l’état initial, avant toute action.</p>
+<p class="rv-choix">
+<label><input type="radio" name="c4-1" value="tenu"> tenu</label>
+<label><input type="radio" name="c4-1" value="non-tenu"> non tenu</label>
+<label><input type="radio" name="c4-1" value="sans-objet"> sans objet</label>
+</p>
+<label for="p4-1">Preuve ou décision</label>
+<textarea id="p4-1" rows="2"></textarea>
+</fieldset>
+<fieldset class="rv-crit">
+<legend><strong>Critère 4.14 du RGESN</strong></legend>
+<p class="rv-q">« Le service numérique évite-t-il le recours à des dark patterns dans son interface utilisateur ? »</p>
+<p><strong>Ce qu’on regarde sur la maquette.</strong> Refuser est aussi visible qu’accepter. Se désabonner, refuser ou quitter ne demande pas plus d’étapes que l’inverse. Aucune case précochée, aucun compte à rebours, aucune fausse rareté.</p>
+<p><strong>Preuve à joindre :</strong> les écrans de consentement, d’inscription et de sortie.</p>
+<p class="rv-choix">
+<label><input type="radio" name="c4-14" value="tenu"> tenu</label>
+<label><input type="radio" name="c4-14" value="non-tenu"> non tenu</label>
+<label><input type="radio" name="c4-14" value="sans-objet"> sans objet</label>
+</p>
+<label for="p4-14">Preuve ou décision</label>
+<textarea id="p4-14" rows="2"></textarea>
+</fieldset>
+<fieldset class="rv-crit">
+<legend><strong>Critère 4.7 du RGESN</strong></legend>
+<p class="rv-q">« Le service numérique opte-t-il pour les choix les plus sobres entre le texte, l’image l’audio ou la vidéo, selon les besoins utilisateurs ? »</p>
+<p><strong>Ce qu’on regarde sur la maquette.</strong> Pour chaque information, le format retenu est justifié : le texte avant l’image, l’image avant la vidéo. Chaque vidéo et chaque image pleine largeur a une raison écrite.</p>
+<p><strong>Preuve à joindre :</strong> la liste des médias de l’écran, avec la raison de chacun.</p>
+<p class="rv-choix">
+<label><input type="radio" name="c4-7" value="tenu"> tenu</label>
+<label><input type="radio" name="c4-7" value="non-tenu"> non tenu</label>
+<label><input type="radio" name="c4-7" value="sans-objet"> sans objet</label>
+</p>
+<label for="p4-7">Preuve ou décision</label>
+<textarea id="p4-7" rows="2"></textarea>
+</fieldset>
+<fieldset class="rv-crit">
+<legend><strong>Critère 4.3 du RGESN</strong></legend>
+<p class="rv-q">« Le service numérique optimise-t-il le parcours de navigation pour chaque fonctionnalité principale ? »</p>
+<p><strong>Ce qu’on regarde sur la maquette.</strong> Pour chaque fonctionnalité principale, le nombre d’écrans et d’actions entre l’entrée et le résultat est compté et écrit. Aucune étape n’existe sans utilité pour la personne.</p>
+<p><strong>Preuve à joindre :</strong> le parcours numéroté, écran par écran.</p>
+<p class="rv-choix">
+<label><input type="radio" name="c4-3" value="tenu"> tenu</label>
+<label><input type="radio" name="c4-3" value="non-tenu"> non tenu</label>
+<label><input type="radio" name="c4-3" value="sans-objet"> sans objet</label>
+</p>
+<label for="p4-3">Preuve ou décision</label>
+<textarea id="p4-3" rows="2"></textarea>
+</fieldset>
+<fieldset class="rv-crit">
+<legend><strong>Critère 4.11 du RGESN</strong></legend>
+<p class="rv-q">« Le service numérique informe-t-il l’utilisateur, avant le transfert, des poids et formats de fichier attendus ? »</p>
+<p><strong>Ce qu’on regarde sur la maquette.</strong> Avant tout dépôt de fichier, l’écran affiche les formats acceptés et le poids maximal. Sans objet si le service ne reçoit aucun fichier.</p>
+<p><strong>Preuve à joindre :</strong> l’écran du champ de dépôt.</p>
+<p class="rv-choix">
+<label><input type="radio" name="c4-11" value="tenu"> tenu</label>
+<label><input type="radio" name="c4-11" value="non-tenu"> non tenu</label>
+<label><input type="radio" name="c4-11" value="sans-objet"> sans objet</label>
+</p>
+<label for="p4-11">Preuve ou décision</label>
+<textarea id="p4-11" rows="2"></textarea>
+</fieldset>
+
+<fieldset class="rv-crit rv-poids">
+<legend><strong>Le poids, à partir de la recette</strong></legend>
+<p>Aux maquettes, il n’y a rien à peser : on note le budget visé. À la recette et à la mise en ligne, on mesure la page et on colle le lien du rapport daté.</p>
+<label for="rv-budget">Budget de poids visé pour cet écran (Ko)</label><input id="rv-budget" type="text" inputmode="numeric" autocomplete="off">
+<label for="rv-rapport">Lien du rapport daté de mesure</label><input id="rv-rapport" type="url" placeholder="https://perennova-eco.github.io/rapport/?id=…" autocomplete="off">
+<p class="rv-noprint"><a href="/scanner/">Mesurer la page</a> : même méthode à chaque jalon, rapport daté, gratuit, sans compte.</p>
+</fieldset>
+
+<p class="rv-bilan" id="rv-bilan" role="status" aria-live="polite">0 critère renseigné sur 5.</p>
+<p class="rv-noprint"><button type="button" class="rv-print" id="rv-print">Imprimer ou enregistrer en PDF</button></p>
+</form>
+
+<h2>Ce que cette grille ne dit pas</h2>
+<ul>
+<li>Cinq critères, pas le référentiel : la thématique « interface utilisateur » du RGESN en compte quinze, et le référentiel en a d’autres. Le bon choix de cinq dépend du type de service ; celui-ci convient à un site ou à un service en ligne courant.</li>
+<li>Ce n’est pas un audit de conformité au RGESN, et la grille ne produit aucune note : « tenu » ou « non tenu », avec la preuve.</li>
+<li>La colonne « ce qu’on regarde sur la maquette » est une lecture pratique de chaque critère, proposée par Perennova. Le texte qui fait foi est celui du référentiel : <a href="https://www.arcep.fr/uploads/tx_gspublication/referentiel_general_ecoconception_des_services_numeriques_version_2024.pdf">RGESN, version 2024 (Arcep, PDF)</a>.</li>
+<li>Elle ne remplace ni la mesure, ni un test sur un terminal ancien ou une connexion dégradée.</li>
+</ul>
+
+<h2 class="rv-noprint">Le suivi daté, jalon après jalon</h2>
+<div class="rv-noprint">
+<p>Un suivi qui garde, pour un projet, la revue et le poids de chaque jalon au même endroit est en préparation.</p>
+<form id="baro-form" class="baro-form" novalidate>
+<label for="baro-email">Être prévenu de l’ouverture du suivi</label>
+<input id="baro-email" name="email" type="email" required autocomplete="email" placeholder="vous@exemple.fr">
+<button type="submit">Me prévenir</button>
+</form>
+<p id="baro-msg" role="status" aria-live="polite"></p>
+<p><small>Votre adresse ne sert qu’à vous prévenir de l’ouverture du suivi. Elle est supprimée sur simple demande à perennova@proton.me.</small></p>
+</div>
+<p><small>Grille produite avec un agent d’IA, relue et publiée par Perennova. Version du 2 octobre 2026.</small></p>
+</main>
+<script>
+(function(){
+  function ev(p){try{if(window.goatcounter&&window.goatcounter.count){window.goatcounter.count({path:p,title:p,event:true});}}catch(e){}}
+  var d=document.getElementById('rv-date');
+  if(d&&!d.value){var t=new Date();d.value=t.getFullYear()+'-'+('0'+(t.getMonth()+1)).slice(-2)+'-'+('0'+t.getDate()).slice(-2);}
+  var f=document.getElementById('rv-form'),b=document.getElementById('rv-bilan'),vu=false;
+  function bilan(){
+    var n=0,tenu=0,non=0,so=0,r=f.querySelectorAll('input[type=radio]:checked');
+    for(var i=0;i<r.length;i++){n++;if(r[i].value==='tenu')tenu++;else if(r[i].value==='non-tenu')non++;else so++;}
+    b.textContent=n+' critère'+(n>1?'s':'')+' renseigné'+(n>1?'s':'')+' sur 5 : '+tenu+' tenu'+(tenu>1?'s':'')+', '+non+' non tenu'+(non>1?'s':'')+', '+so+' sans objet.';
+    if(n>0&&!vu){vu=true;ev('revue-commencee');}
+    if(n===5&&f.getAttribute('data-ok')!=='1'){f.setAttribute('data-ok','1');ev('revue-complete');}
+  }
+  f.addEventListener('change',bilan);
+  document.getElementById('rv-print').addEventListener('click',function(){ev('revue-imprimee');window.print();});
+  var g=document.getElementById('baro-form'),m=document.getElementById('baro-msg');
+  g.addEventListener('submit',function(e){
+    e.preventDefault();
+    var a=document.getElementById('baro-email').value.trim(); if(!a){return;}
+    ev('revue-inscription-clic'); m.textContent='Envoi…';
+    fetch('https://bgpvuyowxokmksbjrske.supabase.co/functions/v1/perennova-veille',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:a,source:'revue:2026-10'})})
+      .then(function(r){return r.json().catch(function(){return {ok:false};});})
+      .then(function(x){if(x&&x.ok){ev('revue-inscription-ok');m.textContent='C’est noté. Un seul message, le jour de l’ouverture.';g.reset();}else{m.textContent='Adresse refusée ou service indisponible. Écrivez à perennova@proton.me.';}})
+      .catch(function(){m.textContent='Service indisponible. Écrivez à perennova@proton.me.';});
+  });
+})();
+</script>
+
+<footer>
+Perennova · <a href="/">le critère environnemental et son barème pour une consultation numérique</a> · <a href="/marches-publics/">les cinq engagements rédigeables et leurs pièges</a> · <a href="/leviers/">où se joue vraiment l'empreinte d'un service numérique</a> · contact perennova@proton.me · <a href="/mentions-legales/">Mentions légales</a><br>
+Cet outil mesure des octets, des requêtes et des hôtes ; il ne produit aucune estimation carbone et n'est pas un audit de conformité au RGESN. Les seuils sont ceux de Perennova, publiés et assumés, pas une norme officielle.
+</footer>
+</div>
+
+<script data-goatcounter="https://perennova.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
