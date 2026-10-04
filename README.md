@@ -12,7 +12,7 @@ Le RGESN — référentiel général d'écoconception des services numériques, 
 
 Personne ne sort 78 critères en affinage de sprint. Cet outil ne remplace pas le référentiel et n'en reprend pas le contenu : il pose les huit questions qui tiennent dans une réunion de cinq minutes, en donne un score et désigne les deux leviers à attaquer en premier.
 
-Le parti pris : d'après l'étude ADEME-Arcep, les terminaux pèsent 65 à 92 % de l'empreinte du numérique selon l'indicateur retenu, essentiellement du fait de leur fabrication. Le levier produit le plus lourd n'est donc pas l'hébergement — c'est de ne pas pousser au renouvellement du matériel, et au-dessus encore, de ne pas implémenter la fonctionnalité.
+Le parti pris : d'après l'étude ADEME-Arcep, les terminaux pesaient entre 64 % et 92 % de l'empreinte du numérique selon l'indicateur retenu (édition de janvier 2022), essentiellement du fait de leur fabrication ; l'actualisation de janvier 2025 ramène cette part à 50 % de l'empreinte carbone. Le levier produit le plus lourd n'est donc pas l'hébergement — c'est de ne pas pousser au renouvellement du matériel, et au-dessus encore, de ne pas implémenter la fonctionnalité.
 
 ## Utilisation
 

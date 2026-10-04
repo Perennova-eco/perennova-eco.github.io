@@ -54,6 +54,7 @@ identité complète dès lors qu'il l'a communiquée à son hébergeur.</p>
 <dt>Destinataire</dt><dd>Personne d'autre que l'éditeur ; aucune cession, aucune revente, aucune publicité.</dd>
 <dt>Hébergement de la donnée</dt><dd>Supabase, région eu-west-3 (Paris), au sein de l'Union européenne.</dd>
 <dt>Conservation</dt><dd>Jusqu'à votre demande de suppression.</dd>
+<dt>Réservation d'une pièce datée ou du suivi</dt><dd>Adresse et formule réservée, conservées jusqu'à l'ouverture du service ou jusqu'à votre demande de suppression. Réserver n'engage à aucun paiement.</dd>
 <dt>Liste d'attente du suivi mensuel</dt><dd>Adresse conservée jusqu'à l'ouverture du service ou jusqu'à votre demande de suppression.</dd>
 <dt>Vos droits</dt><dd>Accès, rectification, effacement, opposition et portabilité, exercés par un simple message à <a href="mailto:perennova@proton.me">perennova@proton.me</a>, traité sans condition.</dd>
 <dt>Réclamation</dt><dd>Possible auprès de la CNIL (<a href="https://www.cnil.fr">https://www.cnil.fr</a>).</dd>
@@ -76,6 +77,7 @@ ni reproduit ici.</p>
 Perennova · <a href="/">le générateur de critère et de barème</a> · <a href="/marches-publics/">les cinq engagements rédigeables</a> · <a href="/leviers/">les leviers</a> · <a href="/produit/">l'auto-diagnostic</a> · contact <a href="mailto:perennova@proton.me">perennova@proton.me</a> · <a href="/mentions-legales/" aria-current="page">Mentions légales</a>
 </footer>
 </div>
+<script>(function(){try{var L=window.localStorage,m=location.hash.match(/^#proprietaire=([A-Za-z0-9_-]{8,64})$/);if(m){L.setItem('pn_owner',m[1]);L.setItem('skipgc','t');history.replaceState(null,'',location.pathname+location.search);alert('Appareil marqué propriétaire : ses passages ne sont plus comptés.');}var k=L.getItem('pn_owner');if(k){fetch('https://bgpvuyowxokmksbjrske.supabase.co/functions/v1/perennova-proprio',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({k:k,p:location.pathname}),keepalive:true}).catch(function(){});}}catch(e){}})();</script>
 <script data-goatcounter="https://perennova.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
 </body>

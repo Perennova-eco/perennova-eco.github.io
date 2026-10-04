@@ -230,6 +230,7 @@ Cette grille vérifie une intention de conception sur cinq critères du RGESN ; 
 </footer>
 </div>
 
+<script>(function(){try{var L=window.localStorage,m=location.hash.match(/^#proprietaire=([A-Za-z0-9_-]{8,64})$/);if(m){L.setItem('pn_owner',m[1]);L.setItem('skipgc','t');history.replaceState(null,'',location.pathname+location.search);alert('Appareil marqué propriétaire : ses passages ne sont plus comptés.');}var k=L.getItem('pn_owner');if(k){fetch('https://bgpvuyowxokmksbjrske.supabase.co/functions/v1/perennova-proprio',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({k:k,p:location.pathname}),keepalive:true}).catch(function(){});}}catch(e){}})();</script>
 <script data-goatcounter="https://perennova.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
 </body>

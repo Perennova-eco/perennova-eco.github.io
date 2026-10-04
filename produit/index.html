@@ -334,7 +334,7 @@
          "Une revue de suppression existe, au même rythme que les revues d'ajout"] },
 
     { t:"Connaissez-vous le terminal le plus ancien sur lequel votre service marche vraiment ?",
-      s:"Les terminaux pèsent 65 à 92 % de l'empreinte du numérique.",
+      s:"Les terminaux pèsent 50 % de l'empreinte carbone du numérique (ADEME-Arcep, actualisation de janvier 2025) ; entre 64 % et 92 % selon l'indicateur dans l'édition de 2022.",
       rank:2, lever:"Ne pas exclure les vieux terminaux",
       fix:"Écrivez le profil matériel minimum, puis achetez un téléphone d'occasion de six ans et testez dessus. L'émulateur ment sur la mémoire et la chauffe.",
       o:["Non, et ce n'est écrit nulle part",
@@ -480,6 +480,7 @@
   update();
 })();
 </script>
+<script>(function(){try{var L=window.localStorage,m=location.hash.match(/^#proprietaire=([A-Za-z0-9_-]{8,64})$/);if(m){L.setItem('pn_owner',m[1]);L.setItem('skipgc','t');history.replaceState(null,'',location.pathname+location.search);alert('Appareil marqué propriétaire : ses passages ne sont plus comptés.');}var k=L.getItem('pn_owner');if(k){fetch('https://bgpvuyowxokmksbjrske.supabase.co/functions/v1/perennova-proprio',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({k:k,p:location.pathname}),keepalive:true}).catch(function(){});}}catch(e){}})();</script>
 <script data-goatcounter="https://perennova.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
 </body>
