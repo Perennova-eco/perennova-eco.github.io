@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Volet environnemental du mémoire technique : l’assembler à partir de l’avis de marché · Perennova</title>
+<meta name="description" content="Outil gratuit et sans compte : saisissez le numéro d’un avis du BOAMP, cochez ce que votre entreprise fait vraiment, et obtenez le volet environnemental de votre mémoire technique en Word, avec le tableau engagement, indicateur, preuve.">
+<link rel="canonical" href="https://perennova-eco.github.io/volet/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Assembler le volet environnemental de votre mémoire technique">
+<meta property="og:description" content="À partir de l’avis de marché et de ce que votre entreprise fait vraiment : engagements, indicateurs, preuves, en Word. Gratuit, sans compte, rien n’est envoyé.">
+<meta property="og:url" content="https://perennova-eco.github.io/volet/">
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary">
+<style>:root{--ground:#F6F8F6;--surface:#FFF;--surface-2:#EFF3F0;--ink:#14201C;--ink-soft:#57685F;--ink-faint:#8A9A91;--rule:#D8E0DB;--rule-strong:#A9B7B0;--accent:#0F6B52;--accent-soft:#E3F0EA;--warn:#8A5D0B;--warn-soft:#F6EEDC;--mono:ui-monospace,SFMono-Regular,Menlo,monospace;--disp:"Arial Narrow",Helvetica,sans-serif;--body:system-ui,-apple-system,Segoe UI,sans-serif}@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--ground:#0D1311;--surface:#141C19;--surface-2:#1B2420;--ink:#E3EAE6;--ink-soft:#9DAEA6;--ink-faint:#6F8079;--rule:#243029;--rule-strong:#3A4A42;--accent:#4FC095;--accent-soft:#15291F;--warn:#D6A24A;--warn-soft:#2A2114}}:root[data-theme="dark"]{--ground:#0D1311;--surface:#141C19;--surface-2:#1B2420;--ink:#E3EAE6;--ink-soft:#9DAEA6;--ink-faint:#6F8079;--rule:#243029;--rule-strong:#3A4A42;--accent:#4FC095;--accent-soft:#15291F;--warn:#D6A24A;--warn-soft:#2A2114}
+*{box-sizing:border-box}body{background:var(--ground);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;margin:0}
+.wrap{max-width:900px;margin:0 auto;padding:36px 16px 80px;display:flex;flex-direction:column;gap:28px}
+.mast{border-bottom:2px solid var(--rule-strong);padding-bottom:14px}
+.sub{font-family:var(--mono);font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-soft)}
+main{display:flex;flex-direction:column;gap:18px}
+h1{font-family:var(--disp);font-size:clamp(28px,6vw,40px);margin:0;line-height:1.1}
+h2{font-family:var(--disp);font-size:21px;margin:14px 0 0}
+h3{font-family:var(--disp);font-size:17px;margin:0}
+p{margin:0;max-width:70ch}.note{font-size:14px;color:var(--ink-soft)}
+a{color:var(--accent)}
+ul{margin:0;padding-left:20px;max-width:70ch}
+fieldset{border:1px solid var(--rule);background:var(--surface);margin:0;padding:14px 16px;display:flex;flex-direction:column;gap:10px;min-width:0}
+legend{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);padding:0 6px}
+label{font-size:14.5px;display:flex;flex-direction:column;gap:4px}
+input[type=text],input[type=email],textarea,select{font-family:var(--body);font-size:15px;padding:9px 11px;border:1px solid var(--rule-strong);background:var(--surface-2);color:var(--ink);border-radius:2px;width:100%;min-width:0}
+textarea{min-height:84px;resize:vertical;line-height:1.5}
+input:focus-visible,textarea:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end}.row>label{flex:1 1 200px}
+button{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:11px 18px;border:1px solid var(--accent);background:var(--accent);color:var(--ground);cursor:pointer;border-radius:2px}
+button.ghost{background:var(--accent-soft);color:var(--accent)}button:disabled{opacity:.6;cursor:wait}
+.situ{border-left:3px solid var(--accent);background:var(--accent-soft);padding:12px 14px;font-size:14.5px;max-width:none}
+.warnbox{border-left:3px solid var(--warn);background:var(--warn-soft);color:var(--warn);padding:12px 14px;font-size:14.5px;max-width:none}
+.warnbox ul{max-width:none}
+.prat{border-top:1px solid var(--rule);padding-top:10px;display:flex;flex-direction:column;gap:8px}
+.prat:first-of-type{border-top:0;padding-top:0}
+label.chk{flex-direction:row;align-items:flex-start;gap:9px;font-size:15px;cursor:pointer}
+label.chk input{margin:4px 0 0;accent-color:var(--accent);flex:none;width:17px;height:17px}
+.det{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;padding-left:26px}
+.det label{font-size:13px;color:var(--ink-soft)}
+.doc{border:1px solid var(--rule-strong);background:var(--surface);padding:22px 20px;display:flex;flex-direction:column;gap:10px;overflow-x:auto}
+.doc h3{font-size:22px}.doc h4{font-family:var(--disp);font-size:17px;margin:10px 0 0}.doc h5{font-size:15px;margin:6px 0 0}
+.doc p,.doc ul{max-width:none}.doc blockquote{margin:0;padding:8px 12px;border-left:3px solid var(--rule-strong);background:var(--surface-2);white-space:pre-wrap}
+.doc table{border-collapse:collapse;width:100%;min-width:560px;font-size:14px}
+.doc th,.doc td{border:1px solid var(--rule-strong);padding:7px 9px;text-align:left;vertical-align:top}.doc th{background:var(--surface-2)}
+.actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.prix{display:flex;gap:14px;align-items:baseline;flex-wrap:wrap}.prix b{font-family:var(--disp);font-size:30px;color:var(--accent)}
+footer{font-family:var(--mono);font-size:11px;color:var(--ink-faint);border-top:1px solid var(--rule);padding-top:14px;line-height:1.7}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="mast"><div class="sub"><a href="/">Perennova</a> · volet environnemental du mémoire technique · gratuit, sans compte</div></header>
+
+<main>
+<h1>Assembler le volet environnemental de votre mémoire technique</h1>
+<p>Depuis le 22 août 2026, les critères d’attribution d’un marché public doivent prendre en compte l’environnement. Cet outil part de l’avis de marché et de ce que votre entreprise fait vraiment. Il rend un volet de deux à trois pages : un engagement par ligne, avec son indicateur, sa preuve et la personne qui en répond.</p>
+<p class="note">Tout se passe dans votre navigateur : vos réponses ne sont envoyées nulle part. L’outil n’invente rien et n’écrit pas une pratique sans preuve.</p>
+
+<h2>1 · Le marché</h2>
+<fieldset>
+<legend>Avis au BOAMP</legend>
+<div class="row">
+<label for="v-avis">Numéro de l’avis (exemple : 26-87176)<input id="v-avis" type="text" inputmode="text" autocomplete="off" placeholder="26-87176"></label>
+<button type="button" id="v-charger">Charger l’avis</button>
+</div>
+<p id="v-etat" class="note" role="status" aria-live="polite">Sans numéro, remplissez les champs à la main.</p>
+<p id="v-refus" class="warnbox" hidden>Cet avis relève des télécommunications ou des réseaux. Perennova n’assemble pas de volet pour ces marchés.</p>
+<label for="v-acheteur">Acheteur<input id="v-acheteur" type="text"></label>
+<label for="v-objet">Objet du marché<input id="v-objet" type="text"></label>
+<label for="v-limite">Date limite de remise des offres<input id="v-limite" type="text" placeholder="26 octobre 2026"></label>
+<label for="v-critere">Le critère environnemental, tel que l’acheteur l’a écrit (intitulé, pondération)<textarea id="v-critere" placeholder="Recopiez l’intitulé et la pondération depuis le règlement de la consultation."></textarea></label>
+<label for="v-sous">Sous-critères ou questions de l’acheteur, un par ligne<textarea id="v-sous" placeholder="Un sous-critère par ligne. Laissez vide s’il n’y en a pas."></textarea></label>
+<p class="note">L’avis ne reprend pas toujours le détail des critères : le règlement de la consultation fait foi. Corrigez ces deux champs d’après lui.</p>
+</fieldset>
+
+<h2>2 · Votre entreprise</h2>
+<fieldset>
+<legend>Le candidat</legend>
+<div class="row">
+<label for="v-nom">Nom de l’entreprise<input id="v-nom" type="text" autocomplete="organization"></label>
+<label for="v-metier">Métier, et lot auquel vous répondez<input id="v-metier" type="text"></label>
+</div>
+<div class="row">
+<label for="v-resp">Personne qui répond de ces engagements (nom, fonction)<input id="v-resp" type="text"></label>
+<label for="v-suivi">Fréquence du point de suivi avec l’acheteur<input id="v-suivi" type="text" placeholder="chaque trimestre"></label>
+</div>
+</fieldset>
+
+<h2>3 · Ce que vous faites vraiment</h2>
+<p>Cochez seulement ce qui est réel aujourd’hui. Pour chaque ligne cochée, donnez un chiffre, la preuve que vous pouvez joindre, et ce que vous vous engagez à tenir sur ce marché. Une ligne sans preuve ne sera pas écrite dans le volet.</p>
+<div id="v-prat"></div>
+<div class="actions"><button type="button" id="v-go">Assembler le volet</button><span id="v-msg" class="note" role="status" aria-live="polite"></span></div>
+
+<section id="v-sortie" hidden>
+<h2>4 · Votre volet</h2>
+<div id="v-alertes" class="warnbox" hidden></div>
+<div id="v-doc" class="doc"></div>
+<div class="actions"><button type="button" id="v-docx">Télécharger en Word (.docx)</button><button type="button" class="ghost" id="v-copie">Copier le texte</button></div>
+<p class="note">Relisez chaque ligne : ne gardez que ce que vous pouvez tenir et prouver, l’acheteur pourra vous le demander pendant l’exécution. Ce document ne garantit aucune note et n’est pas un conseil juridique.</p>
+
+<h2>Vous préférez le recevoir prêt à joindre ?</h2>
+<p>À partir de l’avis, du règlement de la consultation et de vos réponses, le volet est rédigé pour ce marché avec un agent d’IA, puis relu par une personne avant envoi.</p>
+<div class="prix"><b>49 €</b><span>le dossier · <strong>aucun paiement aujourd’hui : vous réservez, nous vous écrivons à l’ouverture.</strong></span></div>
+<form id="v-form" novalidate>
+<div class="row">
+<label for="v-email">Votre adresse électronique<input id="v-email" type="email" required autocomplete="email" placeholder="vous@entreprise.fr"></label>
+<button type="submit">Réserver</button>
+</div>
+</form>
+<p id="v-fmsg" role="status" aria-live="polite"></p>
+<p><small>Réserver n’engage à aucun achat. Le service n’est pas encore ouvert à la vente. Votre adresse ne sert qu’à vous écrire à l’ouverture ; elle est supprimée sur simple demande à perennova@proton.me. Offre et prix proposés par Sébastien Perennova.</small></p>
+</section>
+
+<h2>Ce que l’outil ne fait pas</h2>
+<ul>
+<li>Il n’invente ni label, ni chiffre, ni engagement : il met en forme ce que vous déclarez.</li>
+<li>Il ne lit pas le règlement de la consultation : il lit l’avis publié au BOAMP, qui est souvent plus court.</li>
+<li>Il ne traite pas les marchés de télécommunications et de réseaux.</li>
+<li>Il ne garantit aucune note. Perennova n’est lié à aucun acheteur public et ne répond à aucun marché.</li>
+</ul>
+</main>
+
+<footer>
+Perennova · <a href="/appels-offres/">les marchés publics numériques ouverts</a> · <a href="/scanner/">mesurer une page</a> · <a href="/piece-datee/">pièce datée</a> · contact perennova@proton.me · <a href="/mentions-legales/">Mentions légales</a><br>
+Source des avis : données ouvertes du BOAMP (DILA), Licence Ouverte 2.0, lues à l’instant depuis votre navigateur. Outil conçu avec un agent d’IA.
+</footer>
+</div>
+
+<script>
+(function(){
+  'use strict';
+  /* le compteur se charge après la page : un événement émis trop tôt attend jusqu'à 6 secondes */
+  function ev(p){var n=0;(function t(){try{if(window.goatcounter&&window.goatcounter.count){window.goatcounter.count({path:p,title:p,event:true});return;}}catch(e){return;}if(++n<20){setTimeout(t,300);}})();}
+  function $(id){return document.getElementById(id);}
+  function el(tag,txt,cls){var e=document.createElement(tag);if(txt!=null){e.textContent=txt;}if(cls){e.className=cls;}return e;}
+  function val(id){return $(id).value.replace(/\s+/g,' ').trim();}
+  function point(s){s=String(s||'').trim();return s&&!/[.!?…]$/.test(s)?s+'.':s;}
+  var API='https://boamp-datadila.opendatasoft.com/api/explore/v2.1/catalog/datasets/boamp/records';
+  var MOIS=['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+  var ENV=/environ|durable|\brse\b|sobri[ée]t|[ée]co-?con|[ée]colog|carbone|[ée]nerg|d[ée]chet|climat|responsable/i;
+  var TELECOM=/t[ée]l[ée]com|t[ée]l[ée]phon|r[ée]seau|fibre optique|haut d[ée]bit|radiocommunication/i;
+
+  /* Pratiques : [identifiant, thème, phrase écrite au volet, indice de chiffre, indice de preuve] */
+  var P=[
+   ['d1','Déplacements et véhicules','Nous regroupons les déplacements liés au marché et tenons à distance les réunions qui s’y prêtent','déplacements évités ou kilomètres par mois','planning des tournées, comptes rendus des réunions à distance'],
+   ['d2','Déplacements et véhicules','Une partie des véhicules affectés au marché est électrique, hybride ou roule au biocarburant','part des véhicules affectés au marché','cartes grises, contrats de location'],
+   ['d3','Déplacements et véhicules','Les conducteurs affectés au marché sont formés à l’écoconduite','personnes formées et année','attestations de formation'],
+   ['d4','Déplacements et véhicules','L’établissement qui exécute le marché est le plus proche du lieu d’exécution','distance en kilomètres','adresse de l’établissement, extrait Kbis'],
+   ['w1','Déchets','Nous trions les déchets de la prestation et les confions à une filière identifiée','taux de valorisation ou tonnage par an','bordereaux de suivi, contrat du collecteur'],
+   ['w2','Déchets','Nous reprenons ou réemployons les emballages et les matériels en fin d’usage','part reprise ou réemployée','procédure de reprise, bons d’enlèvement'],
+   ['w3','Déchets','Nous limitons les consommables de la prestation (impressions, emballages, produits à usage unique)','quantité évitée ou règle appliquée','procédure interne, factures comparées'],
+   ['a1','Achats et matériaux','Les produits utilisés pour le marché portent un écolabel officiel','part des achats du marché, et nom de l’écolabel','fiches produits, factures'],
+   ['a2','Achats et matériaux','Nous achetons du matériel reconditionné ou prolongeons la durée d’usage du matériel','durée d’usage moyenne ou part reconditionnée','factures, inventaire daté'],
+   ['a3','Achats et matériaux','Nous retenons des matériaux recyclés ou biosourcés, ou des fournisseurs proches du lieu d’exécution','part des matériaux ou distance des fournisseurs','fiches techniques, liste des fournisseurs'],
+   ['e1','Énergie','Nous suivons nos consommations d’énergie et les comparons d’une année sur l’autre','kilowattheures ou litres par an, et évolution','factures, tableau de suivi'],
+   ['e2','Énergie','Notre contrat d’électricité est couvert par des garanties d’origine renouvelable','part de la consommation couverte','contrat ou attestation du fournisseur'],
+   ['e3','Énergie','Nous avons réalisé un bilan de nos émissions de gaz à effet de serre','tonnes équivalent CO2, année et périmètre','le bilan, sa date et sa méthode'],
+   ['n1','Numérique','Nous appliquons un référentiel d’écoconception aux services numériques que nous livrons','référentiel (RGESN, GR491…) et critères vérifiés sur le total','déclaration d’écoconception ou grille remplie d’un service livré'],
+   ['n2','Numérique','Nous mesurons le poids et le nombre de requêtes des pages que nous livrons, avant et après','poids médian en kilo-octets, requêtes par page','rapport de mesure daté'],
+   ['n3','Numérique','Nous fixons un budget de poids par page et le vérifions en recette','budget en kilo-octets par page','cahier de recette'],
+   ['n4','Numérique','Notre hébergeur publie son efficacité énergétique ou la part renouvelable de son électricité','valeur publiée et sa date','document public de l’hébergeur'],
+   ['n5','Numérique','Nous prolongeons la durée d’usage de nos équipements informatiques','durée d’usage moyenne en années','inventaire daté'],
+   ['o1','Organisation et suivi','Nous détenons une certification ou un label environnemental en cours de validité','nom, organisme et date de fin de validité','certificat'],
+   ['o2','Organisation et suivi','Nous formons les équipes affectées au marché aux enjeux environnementaux de leur métier','personnes formées par an','attestations, plan de formation'],
+   ['o3','Organisation et suivi','Nous remettons à l’acheteur un bilan chiffré de ces engagements','fréquence ou date de remise','modèle du bilan']
+  ];
+  for(var k0=1;k0<=3;k0++){P.push(['x'+k0,'Autre pratique réelle','','chiffre ou précision','preuve que vous pouvez joindre']);}
+
+  /* Formulaire des pratiques */
+  var zone=$('v-prat'), theme='', fs=null;
+  function champ(id,lib,ph){var l=el('label',lib);l.htmlFor=id;var i=el('input');i.type='text';i.id=id;if(ph){i.placeholder=ph;}l.appendChild(i);return l;}
+  P.forEach(function(p){
+    if(p[1]!==theme){theme=p[1];fs=el('fieldset');fs.appendChild(el('legend',theme));zone.appendChild(fs);}
+    var d=el('div',null,'prat'), l=el('label',null,'chk'), c=el('input');
+    c.type='checkbox';c.id='p-'+p[0];l.appendChild(c);
+    if(p[2]){l.appendChild(el('span',p[2]));}
+    else{var t=el('input');t.type='text';t.id='t-'+p[0];t.placeholder='Décrivez la pratique en une phrase';t.setAttribute('aria-label','Autre pratique réelle');l.appendChild(t);
+      t.addEventListener('input',function(){if(t.value.trim()&&!c.checked){c.checked=true;c.dispatchEvent(new Event('change'));}});}
+    d.appendChild(l);
+    var det=el('div',null,'det');det.hidden=true;
+    det.appendChild(champ('c-'+p[0],'Chiffre ou précision',p[3]));
+    det.appendChild(champ('j-'+p[0],'Preuve que vous pouvez joindre',p[4]));
+    det.appendChild(champ('g-'+p[0],'Engagement sur ce marché','ce que vous tiendrez pendant l’exécution'));
+    var ls=el('label','Répond au sous-critère');ls.htmlFor='s-'+p[0];var s=el('select');s.id='s-'+p[0];ls.appendChild(s);ls.hidden=true;det.appendChild(ls);
+    d.appendChild(det);fs.appendChild(d);
+    c.addEventListener('change',function(){det.hidden=!c.checked;});
+  });
+  function sous(){return $('v-sous').value.split(/\n+/).map(function(s){return s.replace(/^[\s•\-–—*\d.)°]+/,'').replace(/\s+/g,' ').trim();}).filter(Boolean);}
+  function majSous(){
+    var L=sous();
+    P.forEach(function(p){var s=$('s-'+p[0]),v=s.value;s.textContent='';
+      var o=el('option','L’ensemble du critère');o.value='';s.appendChild(o);
+      L.forEach(function(t,i){var q=el('option',t.length>70?t.slice(0,68)+'…':t);q.value=String(i);s.appendChild(q);});
+      if(v&&Number(v)<L.length){s.value=v;} s.parentNode.hidden=!L.length;});
+  }
+  $('v-sous').addEventListener('input',majSous);majSous();
+
+  /* Lecture de l'avis : trois formats du BOAMP (formulaire simple, MAPA, eForms) */
+  function txt(v){return v&&typeof v==='object'?String(v['#text']||''):String(v||'');}
+  function criteres(o){
+    var out=[], vus={};
+    function add(c){var k=[c.t,c.p,c.d].join('|');if(c.t&&!vus[k]){vus[k]=1;out.push(c);}}
+    (function w(n){
+      if(!n||typeof n!=='object'){return;}
+      if(Array.isArray(n)){n.forEach(w);return;}
+      if(typeof n.criteresAttrib==='string'){n.criteresAttrib.replace(/\.\s+(?=[A-ZÉ])/g,'.\n').split(/\n+/).forEach(function(l){l=l.trim();if(l){add({t:l,p:'',d:''});}});}
+      if(n.criterePondere){[].concat(n.criterePondere).forEach(function(c){add({t:txt(c.critere).trim(),p:txt(c.criterePCT).trim(),d:''});});}
+      if(n['cbc:AwardingCriterionTypeCode']&&n['cbc:Description']){
+        var poids='';(function f(m){if(!m||typeof m!=='object'||poids){return;}if(m['efbc:ParameterNumeric']!=null){poids=txt(m['efbc:ParameterNumeric']);return;}for(var k in m){f(m[k]);}})(n['ext:UBLExtensions']);
+        add({t:txt(n['cbc:Description']).trim(),p:poids,d:txt(n['cbc:CalculationExpression']).trim()});
+      }
+      for(var k in n){w(n[k]);}
+    })(o);
+    return out;
+  }
+  function charger(id){
+    var etat=$('v-etat');$('v-refus').hidden=true;$('v-go').disabled=false;
+    if(!/^\d{2}-\d{1,7}$/.test(id)){etat.textContent='Numéro non reconnu : il a la forme 26-87176. Vous pouvez aussi remplir les champs à la main.';return;}
+    etat.textContent='Lecture de l’avis '+id+' au BOAMP…';$('v-charger').disabled=true;
+    fetch(API+'?limit=1&where='+encodeURIComponent('idweb="'+id+'"')).then(function(r){if(!r.ok){throw new Error('http');}return r.json();}).then(function(j){
+      $('v-charger').disabled=false;
+      var r=(j.results||[])[0];
+      if(!r){etat.textContent='Avis '+id+' introuvable dans les données du BOAMP. Remplissez les champs à la main.';ev('volet-avis-echec');return;}
+      var desc=[].concat(r.descripteur_libelle||[]).join(' ');
+      if(TELECOM.test(desc)||/t[ée]l[ée]communication|t[ée]l[ée]phonie|fibre optique/i.test(r.objet||'')){$('v-refus').hidden=false;$('v-go').disabled=true;etat.textContent='Avis '+id+' lu.';ev('volet-avis-refus');return;}
+      $('v-acheteur').value=r.nomacheteur||'';$('v-objet').value=r.objet||'';
+      if(r.datelimitereponse){var d=new Date(r.datelimitereponse);$('v-limite').value=d.getDate()+' '+MOIS[d.getMonth()]+' '+d.getFullYear();}
+      var don={};try{don=typeof r.donnees==='string'?JSON.parse(r.donnees):(r.donnees||{});}catch(e){}
+      var C=criteres(don), E=C.filter(function(c){return ENV.test(c.t+' '+c.d);});
+      $('v-critere').value=E.map(function(c){return c.t+(c.p?' — '+c.p+' %':'');}).join('\n');
+      var S=[];E.forEach(function(c){c.d.split(/\n+/).forEach(function(l){l=l.trim();if(l){S.push(l);}});});
+      $('v-sous').value=S.join('\n');majSous();
+      etat.textContent='Avis '+id+' lu au BOAMP : '+C.length+' critère'+(C.length>1?'s':'')+' publié'+(C.length>1?'s':'')+', dont '+E.length+' sur l’environnement.'+(E.length?'':' L’avis renvoie sans doute au règlement de la consultation : recopiez le critère ci-dessous.');
+      ev('volet-avis-ok');
+    }).catch(function(){$('v-charger').disabled=false;etat.textContent='La lecture du BOAMP n’a pas abouti. Remplissez les champs à la main.';ev('volet-avis-echec');});
+  }
+  $('v-charger').addEventListener('click',function(){charger(val('v-avis'));});
+  $('v-avis').addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();charger(val('v-avis'));}});
+  var q0=(new URLSearchParams(location.search).get('avis')||'').trim();
+  if(/^\d{2}-\d{1,7}$/.test(q0)){$('v-avis').value=q0;charger(q0);}
+
+  /* Assemblage : une pratique sans preuve n'est pas écrite */
+  var M=null;
+  function modele(){
+    var L=sous(), m={avis:val('v-avis'),acheteur:val('v-acheteur'),objet:val('v-objet'),limite:val('v-limite'),critere:$('v-critere').value.trim(),
+      nom:val('v-nom'),metier:val('v-metier'),resp:val('v-resp'),suivi:val('v-suivi'),sous:L,lignes:[],retire:[],alertes:[]};
+    P.forEach(function(p){
+      if(!$('p-'+p[0]).checked){return;}
+      var phrase=p[2]||val('t-'+p[0]); if(!phrase){return;}
+      var l={phrase:phrase,chiffre:val('c-'+p[0]),preuve:val('j-'+p[0]),engage:val('g-'+p[0]),sc:$('s-'+p[0]).value};
+      if(!l.preuve){m.retire.push(phrase);return;}
+      m.lignes.push(l);
+    });
+    m.retire.forEach(function(t){m.alertes.push('Non écrit, faute de preuve : « '+t+' ». À ajouter le jour où la pièce existe.');});
+    m.lignes.forEach(function(l){
+      if(!l.chiffre){m.alertes.push('Sans chiffre : « '+l.phrase+' ». Une ligne sans indicateur ne se note pas.');}
+      if(!l.engage){m.alertes.push('Sans engagement propre à ce marché : « '+l.phrase+' ». Des acheteurs n’analysent que les actions dédiées au marché, pas la politique générale de l’entreprise.');}
+    });
+    L.forEach(function(t,i){if(!m.lignes.some(function(l){return l.sc===String(i);})){m.alertes.push('Aucune ligne ne répond au sous-critère « '+t+' ».');}});
+    if(!m.critere){m.alertes.push('Le critère de l’acheteur n’est pas recopié : sans lui, le volet ne répond à rien de précis.');}
+    if(!m.resp){m.alertes.push('Aucune personne ne répond de ces engagements.');}
+    return m;
+  }
+  /* Le document, une seule description pour l'écran, le texte et le Word : [type, contenu] */
+  function blocs(m){
+    var B=[['h1','Volet environnemental'+(m.objet?' — '+m.objet:'')]], id=[];
+    if(m.nom){id.push('Candidat : '+m.nom+(m.metier?' ('+m.metier+')':''));}
+    if(m.acheteur){id.push('Acheteur : '+m.acheteur);}
+    if(m.avis){id.push('Avis BOAMP '+m.avis);}
+    if(m.limite){id.push('Remise des offres : '+m.limite);}
+    if(id.length){B.push(['p',id.join(' · ')]);}
+    B.push(['h2','1. Le critère tel que l’acheteur l’a écrit']);
+    B.push(['q',m.critere||'[À recopier depuis le règlement de la consultation]']);
+    B.push(['h2','2. Nos engagements pour ce marché']);
+    B.push(['p','Chaque ligne ci-dessous décrit une pratique en place dans notre entreprise, son indicateur, ce que nous nous engageons à tenir pendant l’exécution de ce marché et la preuve jointe.']);
+    function grp(titre,rows){if(!rows.length){return;}if(titre){B.push(['h3',titre]);}
+      rows.forEach(function(l){B.push(['li',point(l.phrase)+(l.chiffre?' Indicateur : '+point(l.chiffre):'')+(l.engage?' Engagement pour ce marché : '+point(l.engage):'')+' Preuve jointe : '+point(l.preuve)]);});}
+    if(m.sous.length){
+      m.sous.forEach(function(t,i){grp(t,m.lignes.filter(function(l){return l.sc===String(i);}));});
+      grp('Pour l’ensemble du critère',m.lignes.filter(function(l){return l.sc==='';}));
+    }else{grp('',m.lignes);}
+    if(!m.lignes.length){B.push(['p','[Aucune pratique prouvée n’a été saisie.]']);}
+    B.push(['h2','3. Tableau de suivi']);
+    B.push(['t',[['Engagement','Indicateur','Preuve jointe','Responsable']].concat(m.lignes.map(function(l){return [l.engage||l.phrase,l.chiffre||'[à chiffrer]',l.preuve,m.resp||'[à nommer]'];}))]);
+    if(m.resp||m.suivi){B.push(['p','Suivi pendant l’exécution : '+(m.resp||'[personne à nommer]')+' répond de ces engagements'+(m.suivi?' et en rend compte à l’acheteur '+m.suivi:'')+'.']);}
+    B.push(['h2','4. Pièces jointes à ce volet']);
+    var vues={};m.lignes.forEach(function(l){if(!vues[l.preuve]){vues[l.preuve]=1;B.push(['li',point(l.preuve)]);}});
+    if(!m.lignes.length){B.push(['p','[Aucune pièce.]']);}
+    return B;
+  }
+  function rendre(B){
+    var d=$('v-doc');d.textContent='';var ul=null;
+    B.forEach(function(b){
+      if(b[0]!=='li'){ul=null;}
+      if(b[0]==='h1'){d.appendChild(el('h3',b[1]));}
+      else if(b[0]==='h2'){d.appendChild(el('h4',b[1]));}
+      else if(b[0]==='h3'){d.appendChild(el('h5',b[1]));}
+      else if(b[0]==='p'){d.appendChild(el('p',b[1]));}
+      else if(b[0]==='q'){d.appendChild(el('blockquote',b[1]));}
+      else if(b[0]==='li'){if(!ul){ul=el('ul');d.appendChild(ul);}ul.appendChild(el('li',b[1]));}
+      else if(b[0]==='t'){var t=el('table');b[1].forEach(function(r,i){var tr=el('tr');r.forEach(function(c){tr.appendChild(el(i?'td':'th',c));});t.appendChild(tr);});d.appendChild(t);}
+    });
+  }
+  function texte(B){return B.map(function(b){
+    if(b[0]==='t'){return b[1].map(function(r){return r.join(' | ');}).join('\n');}
+    if(b[0]==='li'){return '- '+b[1];}
+    if(b[0]==='q'){return '« '+b[1]+' »';}
+    return (b[0]==='p'?'':'\n')+b[1];}).join('\n').trim();}
+  $('v-go').addEventListener('click',function(){
+    M=modele();var B=blocs(M);rendre(B);
+    var a=$('v-alertes');a.textContent='';
+    if(M.alertes.length){a.appendChild(el('strong','À vérifier avant d’envoyer ('+M.alertes.length+')'));var u=el('ul');M.alertes.forEach(function(t){u.appendChild(el('li',t));});a.appendChild(u);}
+    a.hidden=!M.alertes.length;$('v-sortie').hidden=false;
+    $('v-msg').textContent=M.lignes.length+' ligne'+(M.lignes.length>1?'s':'')+' écrite'+(M.lignes.length>1?'s':'')+', '+M.retire.length+' retirée'+(M.retire.length>1?'s':'')+' faute de preuve.';
+    $('v-sortie').scrollIntoView({behavior:'smooth',block:'start'});
+    ev('volet-genere');
+  });
+  $('v-copie').addEventListener('click',function(){
+    var t=texte(blocs(M)), b=$('v-copie');
+    try{navigator.clipboard.writeText(t).then(function(){b.textContent='Copié';},function(){b.textContent='Sélectionnez le texte à la main';});}catch(e){b.textContent='Sélectionnez le texte à la main';}
+    ev('volet-copie');
+  });
+
+  /* Word : un .docx minimal (archive sans compression) écrit dans le navigateur */
+  function x(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  function run(t,o){o=o||{};return '<w:r><w:rPr>'+(o.b?'<w:b/>':'')+(o.i?'<w:i/>':'')+'<w:sz w:val="'+(o.sz||22)+'"/></w:rPr><w:t xml:space="preserve">'+x(t)+'</w:t></w:r>';}
+  function par(t,o){o=o||{};return '<w:p><w:pPr>'+(o.keep?'<w:keepNext/>':'')+'<w:spacing w:before="'+(o.before||0)+'" w:after="'+(o.after==null?120:o.after)+'"/>'+(o.ind?'<w:ind w:left="'+o.ind+'"'+(o.hang?' w:hanging="'+o.hang+'"':'')+'/>':'')+'</w:pPr>'+run(t,o)+'</w:p>';}
+  function docx(B){
+    var W=[2700,2100,2600,2238], body='';
+    B.forEach(function(b){
+      if(b[0]==='h1'){body+=par(b[1],{b:1,sz:32,after:160});}
+      else if(b[0]==='h2'){body+=par(b[1],{b:1,sz:26,before:240,keep:1});}
+      else if(b[0]==='h3'){body+=par(b[1],{b:1,sz:22,before:120,keep:1});}
+      else if(b[0]==='p'){body+=par(b[1]);}
+      else if(b[0]==='q'){b[1].split(/\n+/).forEach(function(l){body+=par(l,{i:1,ind:360});});}
+      else if(b[0]==='li'){body+=par('•  '+b[1],{ind:360,hang:240});}
+      else if(b[0]==='t'){
+        var bd='';['top','left','bottom','right','insideH','insideV'].forEach(function(k){bd+='<w:'+k+' w:val="single" w:sz="4" w:space="0" w:color="808080"/>';});
+        body+='<w:tbl><w:tblPr><w:tblW w:w="9638" w:type="dxa"/><w:tblBorders>'+bd+'</w:tblBorders><w:tblCellMar><w:left w:w="80" w:type="dxa"/><w:right w:w="80" w:type="dxa"/></w:tblCellMar></w:tblPr><w:tblGrid>'+W.map(function(w){return '<w:gridCol w:w="'+w+'"/>';}).join('')+'</w:tblGrid>';
+        b[1].forEach(function(r,i){body+='<w:tr>'+r.map(function(c,k){return '<w:tc><w:tcPr><w:tcW w:w="'+W[k]+'" w:type="dxa"/>'+(i?'':'<w:shd w:val="clear" w:color="auto" w:fill="E7ECE9"/>')+'</w:tcPr>'+par(c,{b:!i,sz:20,after:60,before:60})+'</w:tc>';}).join('')+'</w:tr>';});
+        body+='</w:tbl>'+par('',{after:60});
+      }
+    });
+    var H='<?xml version="1.0" encoding="UTF-8" standalone="yes"?>';
+    return zip([
+      ['[Content_Types].xml',H+'<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/></Types>'],
+      ['_rels/.rels',H+'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/></Relationships>'],
+      ['word/document.xml',H+'<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body>'+body+'<w:sectPr><w:pgSz w:w="11906" w:h="16838"/><w:pgMar w:top="1134" w:right="1134" w:bottom="1134" w:left="1134" w:header="708" w:footer="708" w:gutter="0"/></w:sectPr></w:body></w:document>']
+    ]);
+  }
+  var T=(function(){var t=[],n,c,k;for(n=0;n<256;n++){c=n;for(k=0;k<8;k++){c=c&1?0xEDB88320^(c>>>1):c>>>1;}t[n]=c>>>0;}return t;})();
+  function crc(u){var c=0xFFFFFFFF;for(var i=0;i<u.length;i++){c=T[(c^u[i])&0xFF]^(c>>>8);}return (c^0xFFFFFFFF)>>>0;}
+  function zip(files){
+    var enc=new TextEncoder(), parts=[], cd=[], off=0;
+    function u16(n){return [n&255,(n>>>8)&255];} function u32(n){return [n&255,(n>>>8)&255,(n>>>16)&255,(n>>>24)&255];}
+    files.forEach(function(f){
+      var name=enc.encode(f[0]), data=enc.encode(f[1]), c=crc(data);
+      var meta=[].concat(u16(20),u16(0x0800),u16(0),u16(0),u16(0x21),u32(c),u32(data.length),u32(data.length),u16(name.length),u16(0));
+      var lh=new Uint8Array([].concat([0x50,0x4B,3,4],meta));
+      parts.push(lh,name,data);
+      cd.push(new Uint8Array([].concat([0x50,0x4B,1,2],u16(20),meta,u16(0),u16(0),u16(0),u32(0),u32(off))),name);
+      off+=lh.length+name.length+data.length;
+    });
+    var cs=0;cd.forEach(function(p){cs+=p.length;});
+    var end=new Uint8Array([].concat([0x50,0x4B,5,6],u16(0),u16(0),u16(files.length),u16(files.length),u32(cs),u32(off),u16(0)));
+    return new Blob(parts.concat(cd,[end]),{type:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'});
+  }
+  $('v-docx').addEventListener('click',function(){
+    var b=docx(blocs(M)), a=el('a'), u=URL.createObjectURL(b);
+    a.href=u;a.download='volet-environnemental'+(M.avis?'-'+M.avis:'')+'.docx';document.body.appendChild(a);a.click();a.remove();
+    setTimeout(function(){URL.revokeObjectURL(u);},4000);ev('volet-docx');
+  });
+
+  /* Réservation : même point de dépôt que la pièce datée, aucun paiement */
+  var f=$('v-form'), fm=$('v-fmsg');
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    var mail=$('v-email').value.trim(), avis=val('v-avis'); if(!mail){fm.textContent='Indiquez votre adresse électronique.';return;}
+    if(!/^\d{2}-\d{1,7}$/.test(avis)){avis='';}
+    ev('volet-reserver-clic');fm.textContent='Envoi…';
+    fetch('https://bgpvuyowxokmksbjrske.supabase.co/functions/v1/perennova-veille',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:mail,source:'reservation:volet49'+(avis?':avis='+avis:'')})})
+      .then(function(r){return r.json().catch(function(){return {ok:false};});})
+      .then(function(d){if(d&&d.ok){ev('volet-reservation-ok');fm.textContent='Réservation notée. Aucun paiement : nous vous écrivons à l’ouverture, et rien d’autre.';f.reset();}else{fm.textContent='Adresse refusée ou service indisponible. Écrivez à perennova@proton.me.';}})
+      .catch(function(){fm.textContent='Adresse refusée ou service indisponible. Écrivez à perennova@proton.me.';});
+  });
+})();
+</script>
+<script>(function(){try{var L=window.localStorage,m=location.hash.match(/^#proprietaire=([A-Za-z0-9_-]{8,64})$/);if(m){L.setItem('pn_owner',m[1]);L.setItem('skipgc','t');history.replaceState(null,'',location.pathname+location.search);alert('Appareil marqué propriétaire : ses passages ne sont plus comptés.');}var k=L.getItem('pn_owner');if(k){fetch('https://bgpvuyowxokmksbjrske.supabase.co/functions/v1/perennova-proprio',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({k:k,p:location.pathname}),keepalive:true}).catch(function(){});}}catch(e){}})();</script>
+<script data-goatcounter="https://perennova.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
