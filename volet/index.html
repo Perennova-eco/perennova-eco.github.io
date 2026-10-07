@@ -40,7 +40,8 @@ button.ghost{background:var(--accent-soft);color:var(--accent)}button:disabled{o
 .prat{border-top:1px solid var(--rule);padding-top:10px;display:flex;flex-direction:column;gap:8px}
 .prat:first-of-type{border-top:0;padding-top:0}
 label.chk{flex-direction:row;align-items:flex-start;gap:9px;font-size:15px;cursor:pointer}
-label.chk input{margin:4px 0 0;accent-color:var(--accent);flex:none;width:17px;height:17px}
+label.chk input[type=checkbox]{margin:4px 0 0;accent-color:var(--accent);flex:none;width:17px;height:17px}
+label.chk input[type=text]{flex:1 1 auto}
 .det{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;padding-left:26px}
 .det label{font-size:13px;color:var(--ink-soft)}
 .doc{border:1px solid var(--rule-strong);background:var(--surface);padding:22px 20px;display:flex;flex-direction:column;gap:10px;overflow-x:auto}
@@ -231,7 +232,7 @@ Source des avis : données ouvertes du BOAMP (DILA), Licence Ouverte 2.0, lues �
       var desc=[].concat(r.descripteur_libelle||[]).join(' ');
       if(TELECOM.test(desc)||/t[ée]l[ée]communication|t[ée]l[ée]phonie|fibre optique/i.test(r.objet||'')){$('v-refus').hidden=false;$('v-go').disabled=true;etat.textContent='Avis '+id+' lu.';ev('volet-avis-refus');return;}
       $('v-acheteur').value=r.nomacheteur||'';$('v-objet').value=r.objet||'';
-      if(r.datelimitereponse){var d=new Date(r.datelimitereponse);$('v-limite').value=d.getDate()+' '+MOIS[d.getMonth()]+' '+d.getFullYear();}
+      if(r.datelimitereponse){var d=new Date(r.datelimitereponse);if(!isNaN(d)){$('v-limite').value=d.getDate()+' '+MOIS[d.getMonth()]+' '+d.getFullYear();}}
       var don={};try{don=typeof r.donnees==='string'?JSON.parse(r.donnees):(r.donnees||{});}catch(e){}
       var C=criteres(don), E=C.filter(function(c){return ENV.test(c.t+' '+c.d);});
       $('v-critere').value=E.map(function(c){return c.t+(c.p?' — '+c.p+' %':'');}).join('\n');
@@ -313,23 +314,28 @@ Source des avis : données ouvertes du BOAMP (DILA), Licence Ouverte 2.0, lues �
     if(b[0]==='li'){return '- '+b[1];}
     if(b[0]==='q'){return '« '+b[1]+' »';}
     return (b[0]==='p'?'':'\n')+b[1];}).join('\n').trim();}
-  $('v-go').addEventListener('click',function(){
+  /* une seule fonction relit les champs : l'écran, la copie et le Word disent toujours la même chose */
+  function maj(){
     M=modele();var B=blocs(M);rendre(B);
     var a=$('v-alertes');a.textContent='';
     if(M.alertes.length){a.appendChild(el('strong','À vérifier avant d’envoyer ('+M.alertes.length+')'));var u=el('ul');M.alertes.forEach(function(t){u.appendChild(el('li',t));});a.appendChild(u);}
     a.hidden=!M.alertes.length;$('v-sortie').hidden=false;
     $('v-msg').textContent=M.lignes.length+' ligne'+(M.lignes.length>1?'s':'')+' écrite'+(M.lignes.length>1?'s':'')+', '+M.retire.length+' retirée'+(M.retire.length>1?'s':'')+' faute de preuve.';
+    return B;
+  }
+  $('v-go').addEventListener('click',function(){
+    maj();
     $('v-sortie').scrollIntoView({behavior:'smooth',block:'start'});
     ev('volet-genere');
   });
   $('v-copie').addEventListener('click',function(){
-    var t=texte(blocs(M)), b=$('v-copie');
+    var t=texte(maj()), b=$('v-copie');
     try{navigator.clipboard.writeText(t).then(function(){b.textContent='Copié';},function(){b.textContent='Sélectionnez le texte à la main';});}catch(e){b.textContent='Sélectionnez le texte à la main';}
     ev('volet-copie');
   });
 
   /* Word : un .docx minimal (archive sans compression) écrit dans le navigateur */
-  function x(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  function x(s){return String(s).replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F￾￿]/g,'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
   function run(t,o){o=o||{};return '<w:r><w:rPr>'+(o.b?'<w:b/>':'')+(o.i?'<w:i/>':'')+'<w:sz w:val="'+(o.sz||22)+'"/></w:rPr><w:t xml:space="preserve">'+x(t)+'</w:t></w:r>';}
   function par(t,o){o=o||{};return '<w:p><w:pPr>'+(o.keep?'<w:keepNext/>':'')+'<w:spacing w:before="'+(o.before||0)+'" w:after="'+(o.after==null?120:o.after)+'"/>'+(o.ind?'<w:ind w:left="'+o.ind+'"'+(o.hang?' w:hanging="'+o.hang+'"':'')+'/>':'')+'</w:pPr>'+run(t,o)+'</w:p>';}
   function docx(B){
@@ -373,7 +379,7 @@ Source des avis : données ouvertes du BOAMP (DILA), Licence Ouverte 2.0, lues �
     return new Blob(parts.concat(cd,[end]),{type:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'});
   }
   $('v-docx').addEventListener('click',function(){
-    var b=docx(blocs(M)), a=el('a'), u=URL.createObjectURL(b);
+    var b=docx(maj()), a=el('a'), u=URL.createObjectURL(b);
     a.href=u;a.download='volet-environnemental'+(M.avis?'-'+M.avis:'')+'.docx';document.body.appendChild(a);a.click();a.remove();
     setTimeout(function(){URL.revokeObjectURL(u);},4000);ev('volet-docx');
   });
