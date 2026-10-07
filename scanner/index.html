@@ -186,7 +186,7 @@ function show(j){
  ((j.detail&&j.detail.non_mesure)||[]).forEach(function(t){var li=document.createElement('li');li.textContent=t;ul.appendChild(li)});
  var RB=document.getElementById('r-rapport'),RL=document.getElementById('r-rapport-lien');
  document.getElementById('r-copie-etat').textContent='';
- if(j.rapport_url&&j.public_id){var lien=j.rapport_url;RL.href=lien;RL.textContent=lien;RB.hidden=false}else{RB.hidden=true}
+ if(j.rapport_url&&j.public_id){var lien='https://perennova-eco.github.io/rapport/?id='+encodeURIComponent(j.public_id);RL.href=lien;RL.textContent=lien;RB.hidden=false}else{RB.hidden=true}
  var SV=document.getElementById('suivi');if(SV){if(j.public_id){SV.setAttribute('data-id',j.public_id);SV.hidden=false}else{SV.hidden=true}}
  R.hidden=false;R.scrollIntoView({behavior:'smooth',block:'start'});
 }
@@ -255,9 +255,11 @@ f.addEventListener('submit',function(e){
 });
 })();
 </script>
-<script>(function(){try{var L=window.localStorage,m=location.hash.match(/^#proprietaire=([A-Za-z0-9_-]{8,64})$/);if(m){L.setItem('pn_owner',m[1]);L.setItem('skipgc','t');history.replaceState(null,'',location.pathname+location.search);alert('Appareil marqué propriétaire : ses passages ne sont plus comptés.');}var k=L.getItem('pn_owner');if(k){fetch('https://bgpvuyowxokmksbjrske.supabase.co/functions/v1/perennova-proprio',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({k:k,p:location.pathname}),keepalive:true}).catch(function(){});}}catch(e){}})();</script>
+<script>(function(){try{var L=window.localStorage,U='https://bgpvuyowxokmksbjrske.supabase.co/functions/v1/perennova-proprio',m=location.hash.match(/^#proprietaire=([A-Za-z0-9_-]{8,64})$/),P=function(k){return fetch(U,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({k:k,p:location.pathname}),keepalive:true});};if(m){history.replaceState(null,'',location.pathname+location.search);P(m[1]).then(function(r){return r.json();}).then(function(j){if(j&&j.ok===true){L.setItem('pn_owner',m[1]);L.setItem('skipgc','t');alert('Appareil marqué propriétaire : ses passages ne sont plus comptés.');}}).catch(function(){});return;}var k=L.getItem('pn_owner');if(k){P(k).then(function(r){if(r.status===403){L.removeItem('pn_owner');L.removeItem('skipgc');}}).catch(function(){});}}catch(e){}})();</script>
 <script data-goatcounter="https://perennova.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
+        async src="https://gc.zgo.at/count.v5.js"
+        crossorigin="anonymous"
+        integrity="sha384-atnOLvQb9t+jTSipvd75X2yginT4PjVbqDdlJAmxMm+wYElFmeR6EmLP5bYeoRVQ"></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
