@@ -12,6 +12,11 @@
 <meta property="og:description" content="Avant l’échéance d’août 2026, 41&nbsp;% des avis d’appel à la concurrence du BOAMP portaient la mention « critères environnementaux » ; du 24 août au 7 octobre, 55&nbsp;%. Chiffres par semaine, par métier et par département, poids du critère, méthode et limites.">
 <meta property="og:url" content="https://perennova-eco.github.io/critere-environnemental/">
 <meta property="og:locale" content="fr_FR">
+<meta property="og:image" content="https://perennova-eco.github.io/critere-environnemental/apercu.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Part des avis du BOAMP qui annoncent un critère environnemental : 41 % avant l’échéance d’août 2026, 55 % après.">
+<meta name="twitter:card" content="summary_large_image">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Dataset", "name": "Relevé Perennova du critère environnemental dans les avis de marché du BOAMP, n° 1", "description": "Avant l’échéance d’août 2026, 41 % des avis d’appel à la concurrence du BOAMP portaient la mention « critères environnementaux » ; du 24 août au 7 octobre, 55 %. Chiffres par semaine, par métier et par département, poids du critère, méthode et limites.", "url": "https://perennova-eco.github.io/critere-environnemental/", "datePublished": "2026-10-08", "temporalCoverage": "2026-06-01/2026-10-07", "inLanguage": "fr", "isAccessibleForFree": true, "license": "https://www.etalab.gouv.fr/licence-ouverte-open-licence/", "isBasedOn": "https://boamp-datadila.opendatasoft.com/explore/dataset/boamp/", "creator": {"@type": "Organization", "name": "Perennova", "url": "https://perennova-eco.github.io/"}}</script>
 <style>:root{--ground:#F6F8F6;--surface:#FFF;--surface-2:#EFF3F0;--ink:#14201C;--ink-soft:#57685F;--ink-faint:#6B7B73;--rule:#D8E0DB;--rule-strong:#A9B7B0;--accent:#0F6B52;--accent-soft:#E3F0EA;--mono:ui-monospace,SFMono-Regular,Menlo,monospace;--disp:"Arial Narrow",Helvetica,sans-serif;--body:system-ui,-apple-system,Segoe UI,sans-serif}@media (prefers-color-scheme:dark){:root{--ground:#0D1311;--surface:#141C19;--surface-2:#1B2420;--ink:#E3EAE6;--ink-soft:#9DAEA6;--ink-faint:#8A9A91;--rule:#243029;--rule-strong:#3A4A42;--accent:#4FC095;--accent-soft:#15291F}}
 *{box-sizing:border-box}body{background:var(--ground);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;margin:0}
@@ -310,6 +315,10 @@ footer{font-family:var(--mono);font-size:11px;color:var(--ink-faint);border-top:
 <p id="rc-msg" role="status" aria-live="polite" class="note"></p>
 <p class="note">Votre adresse ne sert qu’à vous envoyer ce relevé, une fois par mois. Elle est supprimée sur simple demande à perennova@proton.me.</p>
 
+<h2>Citer ce relevé</h2>
+<p id="rc-cite" class="situ">Du 24 août au 7 octobre 2026, 55 % des avis d’appel à la concurrence publiés au BOAMP portaient la mention « critères environnementaux », contre 41 % du 1er juin au 16 août 2026 (relevé Perennova, d’après les données ouvertes du BOAMP : https://perennova-eco.github.io/critere-environnemental/).</p>
+<p><button class="btn" type="button" id="rc-copie">Copier la phrase</button> · <a id="rc-csv" href="releve.csv" download>Télécharger les données (CSV)</a> <span id="rc-cmsg" role="status" aria-live="polite" class="note"></span></p>
+
 <h2>Méthode et limites</h2>
 <ul>
 <li><strong>Source.</strong> Les données ouvertes du BOAMP, publiées par la DILA sous Licence Ouverte 2.0, lues le 8 octobre 2026 par l’interface publique du jeu de données. Sont comptés les avis de nature « appel d’offres » (avis d’appel à la concurrence, procédures adaptées comprises), selon leur date de parution.</li>
@@ -350,5 +359,13 @@ Source : données ouvertes du BOAMP (DILA), Licence Ouverte 2.0, relevé automat
         async src="https://gc.zgo.at/count.v5.js"
         crossorigin="anonymous"
         integrity="sha384-atnOLvQb9t+jTSipvd75X2yginT4PjVbqDdlJAmxMm+wYElFmeR6EmLP5bYeoRVQ"></script>
+<script>
+(function(){
+  function ev(p){try{if(window.goatcounter&&window.goatcounter.count){window.goatcounter.count({path:p,title:p,event:true});}}catch(e){}}
+  var b=document.getElementById('rc-copie'),c=document.getElementById('rc-cite'),m=document.getElementById('rc-cmsg'),d=document.getElementById('rc-csv');
+  if(b&&c){b.addEventListener('click',function(){var t=c.textContent;try{navigator.clipboard.writeText(t).then(function(){m.textContent='Phrase copiée.';ev('releve-citation-copiee');},function(){m.textContent='Sélectionnez la phrase à la main.';});}catch(x){m.textContent='Sélectionnez la phrase à la main.';}});}
+  if(d){d.addEventListener('click',function(){ev('releve-csv');});}
+})();
+</script>
 </body>
 </html>

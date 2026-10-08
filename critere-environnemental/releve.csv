@@ -1,0 +1,128 @@
+table,cle,libelle,avis,avec_mention,avis_avant_echeance,avec_mention_avant_echeance
+periode,avant,1er juin au 16 août 2026,18302,7433,,
+periode,apres,24 août au 7 octobre 2026,9799,5367,,
+semaine,2026-06-01,semaine du 01/06,1853,741,,
+semaine,2026-06-08,semaine du 08/06,1849,738,,
+semaine,2026-06-15,semaine du 15/06,1882,770,,
+semaine,2026-06-22,semaine du 22/06,1762,714,,
+semaine,2026-06-29,semaine du 29/06,1998,805,,
+semaine,2026-07-06,semaine du 06/07,2142,858,,
+semaine,2026-07-13,semaine du 13/07,1373,528,,
+semaine,2026-07-20,semaine du 20/07,1722,715,,
+semaine,2026-07-27,semaine du 27/07,1595,638,,
+semaine,2026-08-03,semaine du 03/08,1243,536,,
+semaine,2026-08-10,semaine du 10/08,883,390,,
+semaine,2026-08-17,semaine du 17/08,1076,493,,
+semaine,2026-08-24,semaine du 24/08,1118,575,,
+semaine,2026-08-31,semaine du 31/08,1352,716,,
+semaine,2026-09-07,semaine du 07/09,1537,815,,
+semaine,2026-09-14,semaine du 14/09,1646,900,,
+semaine,2026-09-21,semaine du 21/09,1646,904,,
+semaine,2026-09-28,semaine du 28/09,1760,1027,,
+metier,Déchets non ménagers (prestations),Déchets non ménagers (prestations),105,72,154,89
+metier,Impression,Impression,113,73,173,90
+metier,Equipements spécialisés,Équipements spécialisés,169,109,294,166
+metier,Electricité (travaux),Électricité (travaux),386,245,682,340
+metier,Maintenance,Maintenance,442,280,757,402
+metier,Plomberie (travaux),Plomberie (travaux),212,132,373,168
+metier,Prestations de services,Prestations de services,1259,775,2291,1035
+metier,Formation,Formation,156,96,284,115
+metier,Peinture (travaux),Peinture (travaux),196,120,358,169
+metier,Espaces verts,Espaces verts,289,175,488,237
+metier,Menuiserie,Menuiserie,282,168,474,231
+metier,Transport,Transport,236,139,424,186
+metier,Voirie,Voirie,218,128,442,179
+metier,Informatique (prestations de services),Informatique (prestations de services),156,90,297,126
+metier,Climatisation,Climatisation,111,64,177,95
+metier,Nettoyage de locaux,Nettoyage de locaux,219,125,397,192
+metier,Chauffage (travaux),Chauffage (travaux),172,98,290,141
+metier,Terrassement,Terrassement,134,76,275,100
+metier,Gros oeuvre,Gros œuvre,223,123,425,176
+metier,"Carburant, hydrocarbure","Carburant, hydrocarbure",106,58,134,51
+metier,Ventilation,Ventilation,121,65,178,91
+metier,Bâtiment,Bâtiment,312,166,694,263
+metier,Etude,Étude,423,223,797,265
+metier,Tous corps d'état,Tous corps d’état,114,60,229,96
+metier,"Repas, traiteur","Repas, traiteur",130,65,165,70
+metier,Charpente,Charpente,100,49,212,78
+metier,Maîtrise d'oeuvre,Maîtrise d’œuvre,331,162,743,237
+metier,Contrôle technique,Contrôle technique,101,49,162,60
+metier,Assainissement,Assainissement,229,110,446,142
+metier,Couverture,Couverture,130,62,212,87
+metier,"Chauffage (exploitation, entretien)","Chauffage (exploitation, entretien)",100,47,215,80
+metier,Ingénierie,Ingénierie,137,62,330,94
+metier,Assistance à maîtrise d'ouvrage,Assistance à maîtrise d’ouvrage,192,86,396,122
+metier,Alimentation en eau potable,Alimentation en eau potable,156,68,267,63
+metier,Denrées alimentaires,Denrées alimentaires,167,67,246,111
+metier,Restauration collective,Restauration collective,116,44,197,81
+metier,Assurance,Assurance,574,183,939,135
+departement,01,Ain,136,82,204,85
+departement,02,Aisne,139,80,210,96
+departement,06,Alpes-Maritimes,214,148,493,280
+departement,10,Aube,106,73,188,112
+departement,13,Bouches-du-Rhône,439,226,832,305
+departement,14,Calvados,155,81,283,127
+departement,17,Charente-Maritime,140,83,291,132
+departement,21,Côte-d’Or,130,71,250,107
+departement,22,Côtes-d’Armor,124,71,192,65
+departement,25,Doubs,122,76,279,120
+departement,26,Drôme,111,59,176,80
+departement,27,Eure,155,73,300,107
+departement,29,Finistère,199,107,304,116
+departement,30,Gard,178,102,375,152
+departement,31,Haute-Garonne,263,167,503,265
+departement,33,Gironde,306,163,616,292
+departement,34,Hérault,263,173,486,282
+departement,35,Ille-et-Vilaine,251,134,416,174
+departement,38,Isère,245,160,453,224
+departement,40,Landes,100,38,223,99
+departement,42,Loire,154,90,254,136
+departement,44,Loire-Atlantique,282,132,480,168
+departement,45,Loiret,147,97,293,113
+departement,49,Maine-et-Loire,160,79,247,99
+departement,50,Manche,155,101,288,132
+departement,51,Marne,159,114,267,148
+departement,53,Mayenne,106,61,128,51
+departement,54,Meurthe-et-Moselle,196,124,376,196
+departement,55,Meuse,100,64,176,89
+departement,56,Morbihan,183,106,250,98
+departement,57,Moselle,208,144,432,217
+departement,59,Nord,449,219,853,343
+departement,60,Oise,170,100,300,122
+departement,62,Pas-de-Calais,276,158,565,230
+departement,63,Puy-de-Dôme,120,86,188,97
+departement,64,Pyrénées-Atlantiques,101,52,181,65
+departement,66,Pyrénées-Orientales,108,69,206,86
+departement,67,Bas-Rhin,244,143,442,198
+departement,68,Haut-Rhin,155,90,330,132
+departement,69,Rhône,408,263,675,364
+departement,71,Saône-et-Loire,112,51,235,82
+departement,72,Sarthe,117,62,192,66
+departement,73,Savoie,141,95,259,118
+departement,74,Haute-Savoie,199,123,343,140
+departement,75,Paris,882,506,1793,822
+departement,76,Seine-Maritime,309,185,511,237
+departement,77,Seine-et-Marne,371,228,700,331
+departement,78,Yvelines,379,232,762,345
+departement,80,Somme,159,81,315,111
+departement,83,Var,262,153,525,239
+departement,84,Vaucluse,151,71,313,125
+departement,85,Vendée,129,61,239,96
+departement,87,Haute-Vienne,102,54,187,89
+departement,88,Vosges,137,81,193,104
+departement,91,Essonne,355,223,679,328
+departement,92,Hauts-de-Seine,444,273,945,461
+departement,93,Seine-Saint-Denis,416,241,770,351
+departement,94,Val-de-Marne,401,230,746,350
+departement,95,Val-d’Oise,308,187,603,264
+departement,971,Guadeloupe,145,71,237,73
+departement,972,Martinique,119,64,219,99
+departement,973,Guyane,101,49,212,66
+departement,974,La Réunion,149,90,330,116
+departement,976,Mayotte,127,72,183,60
+type_de_marche,SERVICES,Services,5370,2891,9761,3651
+type_de_marche,TRAVAUX,Travaux,2291,1300,4680,1972
+type_de_marche,FOURNITURES,Fournitures,2137,1176,3858,1810
+type_d_avis,JOUE,Avis européens (formulaire du JOUE),5527,3015,10468,4456
+type_d_avis,FNS,Avis nationaux (formulaire national standard),3466,1992,6475,2554
+type_d_avis,MAPA,Procédures adaptées (MAPA),765,340,1270,391
