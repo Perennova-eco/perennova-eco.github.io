@@ -52,6 +52,7 @@ label.chk input[type=text]{flex:1 1 auto}
 .actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 .prix{display:flex;gap:14px;align-items:baseline;flex-wrap:wrap}.prix b{font-family:var(--disp);font-size:30px;color:var(--accent)}
 footer{font-family:var(--mono);font-size:11px;color:var(--ink-faint);border-top:1px solid var(--rule);padding-top:14px;line-height:1.7}
+.det.plein{padding-left:0}
 [hidden]{display:none!important}
 </style>
 </head>
@@ -61,7 +62,7 @@ footer{font-family:var(--mono);font-size:11px;color:var(--ink-faint);border-top:
 
 <main>
 <h1>Assembler le volet environnemental de votre mémoire technique</h1>
-<p>Depuis le 22 août 2026, les critères d’attribution d’un marché public doivent prendre en compte l’environnement. Cet outil part de l’avis de marché et de ce que votre entreprise fait vraiment. Il rend un volet de deux à trois pages : un engagement par ligne, avec son indicateur, sa preuve et la personne qui en répond.</p>
+<p>Depuis le 22 août 2026, les critères d’attribution d’un marché public doivent prendre en compte l’environnement. Cet outil part de l’avis de marché et de ce que votre entreprise fait vraiment. Il rend un volet de deux à trois pages : un engagement par ligne, avec son indicateur, sa preuve et la personne qui en répond. Vous pouvez y ajouter vos références, vos certifications, vos études de cas et votre méthode.</p>
 <p class="note">Tout se passe dans votre navigateur : vos réponses ne sont envoyées nulle part. L’outil n’invente rien et n’écrit pas une pratique sans preuve.</p>
 
 <h2>1 · Le marché</h2>
@@ -97,10 +98,18 @@ footer{font-family:var(--mono);font-size:11px;color:var(--ink-faint);border-top:
 <h2>3 · Ce que vous faites vraiment</h2>
 <p>Cochez seulement ce qui est réel aujourd’hui. Pour chaque ligne cochée, donnez un chiffre, la preuve que vous pouvez joindre, et ce que vous vous engagez à tenir sur ce marché. Une ligne sans preuve ne sera pas écrite dans le volet.</p>
 <div id="v-prat"></div>
+
+<h2 id="preuves">4 · Vos preuves : références, certifications, études de cas, méthode</h2>
+<p>Ces quatre blocs sont facultatifs. L’acheteur croit ce qu’il peut vérifier : une ligne que personne ne peut confirmer n’est pas écrite dans le volet.</p>
+<div id="v-preuves"></div>
+<fieldset>
+<legend>Méthode pour ce marché</legend>
+<label for="v-methode">Comment vous tiendrez ces engagements pendant l’exécution, une étape par ligne<textarea id="v-methode" placeholder="Mesure de départ le premier mois&#10;Plan d’actions arrêté avec l’acheteur&#10;Point de suivi chaque trimestre&#10;Bilan chiffré à la fin de chaque année"></textarea></label>
+</fieldset>
 <div class="actions"><button type="button" id="v-go">Assembler le volet</button><span id="v-msg" class="note" role="status" aria-live="polite"></span></div>
 
 <section id="v-sortie" hidden>
-<h2>4 · Votre volet</h2>
+<h2>5 · Votre volet</h2>
 <div id="v-alertes" class="warnbox" hidden></div>
 <div id="v-doc" class="doc"></div>
 <div class="actions"><button type="button" id="v-docx">Télécharger en Word (.docx)</button><button type="button" class="ghost" id="v-copie">Copier le texte</button></div>
@@ -216,6 +225,33 @@ Source des avis : données ouvertes du BOAMP (DILA), Licence Ouverte 2.0, lues �
   }
   $('v-sous').addEventListener('input',majSous);majSous();
 
+  /* Preuves : [préfixe, titre, nombre de lignes, champs [suffixe, libellé, indice], champ sans lequel la ligne n'est pas écrite, règle affichée] */
+  var R=[
+   ['r','Références comparables',3,[['a','Client, marché et année','Ville de …, entretien de douze écoles, 2025'],['b','Résultat environnemental obtenu, chiffré','78 % des déchets valorisés sur la durée du marché'],['c','Qui peut le confirmer, ou pièce jointe','attestation de bonne exécution ; contact du client, avec son accord']],'c','Une référence que personne ne peut confirmer n’est pas écrite.'],
+   ['k','Certifications, labels et contributions',3,[['a','Certification, label ou contribution','ISO 14001 ; contribution à un référentiel, à un groupe de travail, à une publication'],['b','Organisme et date','organisme, fin de validité ou date de la contribution'],['c','Pièce jointe ou adresse publique','certificat ; page publique qui vous nomme']],'c','Sans pièce ni adresse publique, la ligne n’est pas écrite. Ne répétez pas une certification déjà cochée à l’étape 3.'],
+   ['u','Études de cas',2,[['a','Situation de départ','client, problème, chiffre de départ'],['b','Ce que vous avez fait','actions menées, durée'],['c','Résultat mesuré','chiffre et date de la mesure'],['d','Pièce jointe','rapport, bilan, attestation du client']],'c','Une étude de cas sans résultat mesuré n’est pas écrite.']
+  ];
+  var zp=$('v-preuves');
+  R.forEach(function(g){
+    var f=el('fieldset');f.appendChild(el('legend',g[1]));f.appendChild(el('p',g[5],'note'));
+    for(var i=1;i<=g[2];i++){
+      var d=el('div',null,'prat'), det=el('div',null,'det plein');
+      g[3].forEach(function(c){det.appendChild(champ(g[0]+i+c[0],c[1],i===1?c[2]:''));});
+      d.appendChild(det);f.appendChild(d);
+    }
+    zp.appendChild(f);
+  });
+  function preuves(g){
+    var out=[], hors=[];
+    for(var i=1;i<=g[2];i++){
+      var o={}, plein=false;
+      g[3].forEach(function(c){o[c[0]]=val(g[0]+i+c[0]);if(o[c[0]]){plein=true;}});
+      if(!plein){continue;}
+      if(!o[g[4]]||!o.a){hors.push(o.a||o.b||o.c||o.d);}else{out.push(o);}
+    }
+    return {ok:out,hors:hors};
+  }
+
   /* Lecture de l'avis : trois formats du BOAMP (formulaire simple, MAPA, eForms) */
   function txt(v){return v&&typeof v==='object'?String(v['#text']||''):String(v||'');}
   function criteres(o){
@@ -265,6 +301,9 @@ Source des avis : données ouvertes du BOAMP (DILA), Licence Ouverte 2.0, lues �
   function modele(){
     var L=sous(), m={avis:val('v-avis'),acheteur:val('v-acheteur'),objet:val('v-objet'),limite:val('v-limite'),critere:$('v-critere').value.trim(),
       nom:val('v-nom'),metier:val('v-metier'),resp:val('v-resp'),suivi:val('v-suivi'),sous:L,lignes:[],retire:[],alertes:[]};
+    var pr=preuves(R[0]), pk=preuves(R[1]), pu=preuves(R[2]);
+    m.refs=pr.ok;m.certs=pk.ok;m.cas=pu.ok;
+    m.methode=$('v-methode').value.split(/\n+/).map(function(s){return s.replace(/^[\s•\-–—*\d.)°]+/,'').replace(/\s+/g,' ').trim();}).filter(Boolean);
     P.forEach(function(p){
       if(!$('p-'+p[0]).checked){return;}
       var phrase=p[2]||val('t-'+p[0]); if(!phrase){return;}
@@ -280,6 +319,10 @@ Source des avis : données ouvertes du BOAMP (DILA), Licence Ouverte 2.0, lues �
     L.forEach(function(t,i){if(!m.lignes.some(function(l){return l.sc===String(i);})){m.alertes.push('Aucune ligne ne répond au sous-critère « '+t+' ».');}});
     if(!m.critere){m.alertes.push('Le critère de l’acheteur n’est pas recopié : sans lui, le volet ne répond à rien de précis.');}
     if(!m.resp){m.alertes.push('Aucune personne ne répond de ces engagements.');}
+    pr.hors.forEach(function(t){m.alertes.push('Référence non écrite : « '+t+' ». Il manque le nom du client, ou bien la personne ou la pièce qui peut la confirmer.');});
+    pk.hors.forEach(function(t){m.alertes.push('Certification ou contribution non écrite : « '+t+' ». Il manque son nom, ou la pièce ou l’adresse publique qui la prouve.');});
+    pu.hors.forEach(function(t){m.alertes.push('Étude de cas non écrite : « '+t+' ». Il manque la situation de départ ou le résultat mesuré.');});
+    m.refs.forEach(function(o){if(!o.b){m.alertes.push('Référence sans résultat chiffré : « '+o.a+' ». Elle prouve que vous avez fait le marché, pas ce que vous y avez obtenu.');}});
     return m;
   }
   /* Le document, une seule description pour l'écran, le texte et le Word : [type, contenu] */
@@ -304,9 +347,33 @@ Source des avis : données ouvertes du BOAMP (DILA), Licence Ouverte 2.0, lues �
     B.push(['h2','3. Tableau de suivi']);
     B.push(['t',[['Engagement','Indicateur','Preuve jointe','Responsable']].concat(m.lignes.map(function(l){return [l.engage||l.phrase,l.chiffre||'[à chiffrer]',l.preuve,m.resp||'[à nommer]'];}))]);
     if(m.resp||m.suivi){B.push(['p','Suivi pendant l’exécution : '+(m.resp||'[personne à nommer]')+' répond de ces engagements'+(m.suivi?' et en rend compte à l’acheteur '+m.suivi:'')+'.']);}
-    B.push(['h2','4. Pièces jointes à ce volet']);
-    var vues={};m.lignes.forEach(function(l){if(!vues[l.preuve]){vues[l.preuve]=1;B.push(['li',point(l.preuve)]);}});
-    if(!m.lignes.length){B.push(['p','[Aucune pièce.]']);}
+    var no=3, pieces=m.lignes.map(function(l){return l.preuve;});
+    function titre(t){no++;return no+'. '+t;}
+    if(m.methode.length){
+      B.push(['h2',titre('Notre méthode pour ce marché')]);
+      m.methode.forEach(function(t,i){B.push(['li','Étape '+(i+1)+' — '+point(t)]);});
+    }
+    if(m.refs.length){
+      B.push(['h2',titre('Références comparables')]);
+      m.refs.forEach(function(o){B.push(['li',point(o.a)+(o.b?' Résultat obtenu : '+point(o.b):'')+' Confirmation : '+point(o.c)]);pieces.push(o.c);});
+    }
+    if(m.certs.length){
+      B.push(['h2',titre('Certifications, labels et contributions')]);
+      m.certs.forEach(function(o){B.push(['li',point(o.a)+(o.b?' '+point(o.b):'')+' Preuve : '+point(o.c)]);pieces.push(o.c);});
+    }
+    if(m.cas.length){
+      B.push(['h2',titre('Études de cas')]);
+      m.cas.forEach(function(o,i){
+        B.push(['h3','Cas '+(i+1)]);
+        B.push(['li','Situation de départ : '+point(o.a)]);
+        if(o.b){B.push(['li','Ce que nous avons fait : '+point(o.b)]);}
+        B.push(['li','Résultat mesuré : '+point(o.c)]);
+        if(o.d){B.push(['li','Pièce jointe : '+point(o.d)]);pieces.push(o.d);}
+      });
+    }
+    B.push(['h2',titre('Pièces jointes à ce volet')]);
+    var vues={};pieces.forEach(function(t){if(!vues[t]){vues[t]=1;B.push(['li',point(t)]);}});
+    if(!pieces.length){B.push(['p','[Aucune pièce.]']);}
     return B;
   }
   function rendre(B){
@@ -340,6 +407,7 @@ Source des avis : données ouvertes du BOAMP (DILA), Licence Ouverte 2.0, lues �
     maj();
     $('v-sortie').scrollIntoView({behavior:'smooth',block:'start'});
     ev('volet-genere');
+    if(M.refs.length+M.certs.length+M.cas.length+M.methode.length){ev('volet-preuves');}
   });
   $('v-copie').addEventListener('click',function(){
     var t=texte(maj()), b=$('v-copie');
