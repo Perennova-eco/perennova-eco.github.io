@@ -1,0 +1,54 @@
+# Perennova
+
+> Perennova publie des outils gratuits et des relevés tirés de données ouvertes sur deux sujets : le critère environnemental des marchés publics français, et l'éco-conception des services numériques. Le site est en français, avec trois pages en anglais. Chaque relevé donne sa méthode, ses limites et sa date. Les relevés sont produits avec un agent d'IA.
+
+Contexte : depuis août 2026, au moins un critère d'attribution d'un marché public français doit prendre en compte les caractéristiques environnementales de l'offre (article L. 2152-7 du code de la commande publique, modifié par l'article 35 de la loi Climat et résilience).
+
+## Données publiées par Perennova
+
+- [Relevé du critère environnemental dans les avis du BOAMP](https://perennova-eco.github.io/critere-environnemental/) : relevé n° 1, publié le 8 octobre 2026. Du 24 août au 7 octobre 2026, 55 % des avis d'appel à la concurrence publiés au BOAMP portaient la mention « critères environnementaux » (9 799 avis), contre 41 % du 1er juin au 16 août 2026 (18 302 avis). Chiffres par semaine, par métier et par département, poids du critère, méthode et limites. Le relevé lit les avis, pas les règlements de consultation : ce n'est pas un taux de conformité. Source : données ouvertes du BOAMP, Licence Ouverte 2.0.
+- [Données du relevé, fichier CSV](https://perennova-eco.github.io/critere-environnemental/releve.csv) : les tableaux du relevé, téléchargeables.
+- [Baromètre du poids des pages d'accueil des 20 plus grandes villes de France](https://perennova-eco.github.io/barometre/) : édition n° 1, mesures du 2 octobre 2026. 17 pages mesurées sur 20, poids médian de 3 445 Ko. Octets, requêtes et hôtes tiers, par la même méthode pour toutes ; aucune estimation carbone. Refait chaque mois.
+- [Marchés publics numériques qui nomment l'éco-conception](https://perennova-eco.github.io/appels-offres/) : deux relevés sur 90 jours, tirés des données ouvertes du BOAMP : les avis dont le texte nomme l'éco-conception, la sobriété numérique, le numérique responsable ou le RGESN, et les marchés de sites internet encore ouverts. Chaque ligne renvoie à l'avis officiel.
+
+## Outils gratuits, sans compte
+
+- [Assembleur du volet environnemental du mémoire technique](https://perennova-eco.github.io/volet/) : à partir du numéro d'un avis du BOAMP et de ce que l'entreprise fait vraiment, l'outil rend un volet de deux à trois pages au format Word, avec un engagement par ligne, son indicateur et sa preuve. Les réponses restent dans le navigateur.
+- [Générateur de critère environnemental et de barème](https://perennova-eco.github.io/) : pour un acheteur public, un critère rédigé pour une consultation numérique et le barème de notation qui va avec.
+- [Scanner d'éco-conception](https://perennova-eco.github.io/scanner/) : mesure les octets réellement téléchargés, le nombre de requêtes et les dépendances tierces d'une page publique, et remplit un barème sur 20.
+- [Revue d'écoconception sur maquettes](https://perennova-eco.github.io/revue/) : une grille d'une page, cinq critères du RGESN à vérifier sur maquettes, à la recette et à la mise en ligne.
+- [Huit questions d'arbitrage](https://perennova-eco.github.io/produit/) : auto-diagnostic d'éco-conception pour une équipe produit, avec un score et deux leviers prioritaires.
+
+## Critère environnemental par métier
+
+Chaque page montre ce que les avis de marché ouverts du métier écrivent sur l'environnement, le poids du critère quand il est publié, et des exemples d'engagements avec indicateur et preuve pour le mémoire technique.
+
+- [Nettoyage de locaux](https://perennova-eco.github.io/volet/nettoyage/)
+- [Entretien des espaces verts](https://perennova-eco.github.io/volet/espaces-verts/)
+- [Travaux de peinture](https://perennova-eco.github.io/volet/peinture/)
+- [Restauration collective](https://perennova-eco.github.io/volet/restauration-collective/)
+- [Formation](https://perennova-eco.github.io/volet/formation/)
+- [Transport](https://perennova-eco.github.io/volet/transport/)
+- [Maîtrise d'œuvre](https://perennova-eco.github.io/volet/maitrise-oeuvre/)
+
+## Repères
+
+- [Engagement environnemental dans une réponse à marché public](https://perennova-eco.github.io/marches-publics/) : cinq formulations mesurables pour une prestation numérique, avec leur mode de preuve.
+- [Les six leviers d'éco-conception d'un service numérique](https://perennova-eco.github.io/leviers/) : classés par impact, avec leurs sources.
+
+## English
+
+- [Eco-design scanner](https://perennova-eco.github.io/en/scanner/): measures the bytes actually downloaded, the number of requests and the third-party dependencies of a public page, and fills in a score out of 20. Free, no account.
+- [Barometer: homepage weight of France's 20 largest cities](https://perennova-eco.github.io/en/barometer/): edition 1, measured on 2 October 2026. 17 pages measured out of 20, median weight 3,445 KB. Bytes, requests and third-party hosts, one method for all; no carbon estimate. Repeated monthly.
+- [Eight trade-off questions](https://perennova-eco.github.io/en/): an eco-design self-check for product teams.
+
+## Pour citer
+
+Citez la page, sa date et la source des données. Exemple : « Du 24 août au 7 octobre 2026, 55 % des avis d'appel à la concurrence publiés au BOAMP portaient la mention "critères environnementaux", contre 41 % du 1er juin au 16 août 2026 (relevé Perennova, d'après les données ouvertes du BOAMP : https://perennova-eco.github.io/critere-environnemental/). »
+
+## Optional
+
+- [Pièce datée pour un dossier de marché public](https://perennova-eco.github.io/piece-datee/) : mesure datée d'un site, à joindre à un mémoire technique ; sur réservation.
+- [Mentions légales](https://perennova-eco.github.io/mentions-legales/) : éditeur, hébergeur, données personnelles, mesure d'audience.
+- [Conditions de vente](https://perennova-eco.github.io/conditions-de-vente/)
+- [Plan du site](https://perennova-eco.github.io/sitemap.xml)
