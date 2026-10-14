@@ -59,6 +59,10 @@ a.btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 <div class="sub">Article 35 de la loi Climat et Résilience · applicable depuis le 21 août 2026</div>
 </header>
 
+<div class="situ" id="audit-offre">
+<p><strong>Audit technique de votre site pour Google et les IA : 15&nbsp;€, en PDF sous 3 jours.</strong> Trois pages mesurées (poids, scripts, texte lisible sans JavaScript, accès des robots d’IA) et dix corrections classées par effet. <a id="audit-lien" rel="noopener" href="https://comeup.com/fr/service/555139/realiser-l-audit-technique-seo-de-votre-site-pour-google-et-les-ia">Commander sur ComeUp</a> (paiement sur ComeUp, frais de service de la plateforme en plus). Audit préparé avec un assistant d’IA et validé par Sébastien.</p>
+</div>
+
 <p id="releve-lien"><strong>Ce que font les acheteurs.</strong> 41&nbsp;% des avis d’appel à la concurrence du BOAMP portaient la mention « critères environnementaux » avant l’échéance d’août 2026, 55&nbsp;% depuis. <a href="/critere-environnemental/">Le relevé, par métier et par département</a>. Vous êtes candidat : <a href="/volet/">assembler le volet environnemental de votre mémoire</a>.</p>
 <p>Depuis le 21 août 2026, l'article 35 de la loi Climat et résilience impose au moins un critère
 environnemental à l'attribution de tout marché public, prestations intellectuelles et projets
@@ -212,7 +216,6 @@ Un barème dit ce qu'on exige ; le <a href="/scanner/">scanner</a> mesure ce qu'
 <footer>
 Perennova · <a href="https://perennova-eco.github.io/marches-publics/">les cinq engagements rédigeables et leurs pièges</a> · <a href="https://perennova-eco.github.io/leviers/">où se joue vraiment l'empreinte d'un service numérique</a> · <a href="/produit/">l'auto-diagnostic en huit questions pour les équipes produit</a> · <a href="/appels-offres/">les marchés publics de sites internet ouverts</a> · contact perennova@proton.me · <a href="/mentions-legales/">Mentions légales</a><br>
 À lire avant cette page, et gratuits : le <a href="https://institutnr.org/clausier-numerique-ecoresponsable">clausier numérique responsable INR / FTCC</a> pour les exigences, le <a href="https://ecoresponsable.numerique.gouv.fr/publications/">RGESN et les guides de la mission interministérielle</a> pour le référentiel. Perennova n'en revend ni n'en reprend le contenu : elle ajoute la notation.<br>
-La méthode complète derrière ce générateur — grille de 20 critères, trame de comité, registre d'arbitrage — existe en kit : <a href="https://payhip.com/b/5okXM">aperçu gratuit</a>. L'outil ci-dessus reste libre et le restera.<br>
 Cet outil n'est pas un avis juridique et son auteur n'est pas juriste. Le dossier de consultation fait loi. Aucune clause ne garantit la conformité d'une offre : elle organise la comparaison, elle ne la remplace pas. Les pondérations proposées sont des repères, pas des obligations — la pondération relève de l'acheteur.
 </footer>
 </div>
@@ -302,6 +305,7 @@ if(V)V.addEventListener('submit',function(){pvEvent('veille-inscription-clic')})
 })();
 </script>
 <script>(function(){try{var L=window.localStorage,U='https://bgpvuyowxokmksbjrske.supabase.co/functions/v1/perennova-proprio',m=location.hash.match(/^#proprietaire=([A-Za-z0-9_-]{8,64})$/),P=function(k){return fetch(U,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({k:k,p:location.pathname}),keepalive:true});};if(m){history.replaceState(null,'',location.pathname+location.search);P(m[1]).then(function(r){return r.json();}).then(function(j){if(j&&j.ok===true){L.setItem('pn_owner',m[1]);L.setItem('skipgc','t');alert('Appareil marqué propriétaire : ses passages ne sont plus comptés.');}}).catch(function(){});return;}var k=L.getItem('pn_owner');if(k){P(k).then(function(r){if(r.status===403){L.removeItem('pn_owner');L.removeItem('skipgc');}}).catch(function(){});}}catch(e){}})();</script>
+<script>(function(){var a=document.getElementById('audit-lien');if(a){a.addEventListener('click',function(){pvEvent('audit-clic');});}})();</script>
 <script data-goatcounter="https://perennova.goatcounter.com/count"
         async src="https://gc.zgo.at/count.v5.js"
         crossorigin="anonymous"

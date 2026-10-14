@@ -143,6 +143,10 @@ justifié par le fait mesuré. Gratuit, sans compte.</p>
 </div>
 </div>
 
+<div class="situ" id="audit-offre">
+<p><strong>Audit technique de votre site pour Google et les IA : 15&nbsp;€, en PDF sous 3 jours.</strong> Trois pages mesurées (poids, scripts, texte lisible sans JavaScript, accès des robots d’IA) et dix corrections classées par effet. <a id="audit-lien" rel="noopener" href="https://comeup.com/fr/service/555139/realiser-l-audit-technique-seo-de-votre-site-pour-google-et-les-ia">Commander sur ComeUp</a> (paiement sur ComeUp, frais de service de la plateforme en plus). Audit préparé avec un assistant d’IA et validé par Sébastien.</p>
+</div>
+
 <div class="situ">
 <p><strong>Et ensuite ?</strong> Une mesure dit où en est une page ; elle ne dit pas ce qu'il faut exiger d'un prestataire.
 Pour <a href="/">écrire le critère et le barème de votre consultation</a>, le générateur de l'accueil produit les deux en six réponses.
@@ -257,6 +261,7 @@ f.addEventListener('submit',function(e){
 })();
 </script>
 <script>(function(){try{var L=window.localStorage,U='https://bgpvuyowxokmksbjrske.supabase.co/functions/v1/perennova-proprio',m=location.hash.match(/^#proprietaire=([A-Za-z0-9_-]{8,64})$/),P=function(k){return fetch(U,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({k:k,p:location.pathname}),keepalive:true});};if(m){history.replaceState(null,'',location.pathname+location.search);P(m[1]).then(function(r){return r.json();}).then(function(j){if(j&&j.ok===true){L.setItem('pn_owner',m[1]);L.setItem('skipgc','t');alert('Appareil marqué propriétaire : ses passages ne sont plus comptés.');}}).catch(function(){});return;}var k=L.getItem('pn_owner');if(k){P(k).then(function(r){if(r.status===403){L.removeItem('pn_owner');L.removeItem('skipgc');}}).catch(function(){});}}catch(e){}})();</script>
+<script>(function(){var a=document.getElementById('audit-lien');if(a){a.addEventListener('click',function(){pvEvent('audit-clic');});}})();</script>
 <script data-goatcounter="https://perennova.goatcounter.com/count"
         async src="https://gc.zgo.at/count.v5.js"
         crossorigin="anonymous"
