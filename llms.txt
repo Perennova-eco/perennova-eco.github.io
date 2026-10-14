@@ -48,7 +48,6 @@ Citez la page, sa date et la source des données. Exemple : « Du 24 août au 7 
 
 ## Optional
 
-- [Pièce datée pour un dossier de marché public](https://perennova-eco.github.io/piece-datee/) : mesure datée d'un site, à joindre à un mémoire technique ; sur réservation.
 - [Mentions légales](https://perennova-eco.github.io/mentions-legales/) : éditeur, hébergeur, données personnelles, mesure d'audience.
 - [Conditions de vente](https://perennova-eco.github.io/conditions-de-vente/)
 - [Plan du site](https://perennova-eco.github.io/sitemap.xml)
