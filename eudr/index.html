@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' https://gc.zgo.at; style-src 'unsafe-inline'; img-src 'self' data: https://perennova.goatcounter.com; connect-src https://bgpvuyowxokmksbjrske.supabase.co https://perennova.goatcounter.com; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fichier de parcelles EUDR : contrôle et réparation du GeoJSON, gratuit | Perennova</title>
+<meta name="description" content="Contrôlez et réparez votre fichier de géolocalisation pour la déclaration de diligence raisonnée EUDR (TRACES) : 6 décimales, anneaux fermés, trous, croisements, coordonnées inversées, code pays, 25 Mo. CSV, KML ou GeoJSON. Le fichier ne quitte pas votre ordinateur.">
+<link rel="canonical" href="https://perennova-eco.github.io/eudr/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Fichier de parcelles EUDR : contrôle et réparation, gratuit">
+<meta property="og:description" content="CSV, KML ou GeoJSON en entrée ; un GeoJSON conforme aux règles du système EUDR en sortie. Rien n'est envoyé.">
+<meta property="og:url" content="https://perennova-eco.github.io/eudr/">
+<meta property="og:locale" content="fr_FR">
+<style>:root{--ground:#F6F8F6;--surface:#FFF;--surface-2:#EFF3F0;--ink:#14201C;--ink-soft:#57685F;--ink-faint:#8A9A91;--rule:#D8E0DB;--rule-strong:#A9B7B0;--accent:#0F6B52;--accent-soft:#E3F0EA;--warn:#8A5D0B;--warn-soft:#F6EEDC;--mono:ui-monospace,SFMono-Regular,Menlo,monospace;--disp:"Arial Narrow",Helvetica,sans-serif;--body:system-ui,-apple-system,Segoe UI,sans-serif}@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--ground:#0D1311;--surface:#141C19;--surface-2:#1B2420;--ink:#E3EAE6;--ink-soft:#9DAEA6;--ink-faint:#6F8079;--rule:#243029;--rule-strong:#3A4A42;--accent:#4FC095;--accent-soft:#15291F;--warn:#D6A24A;--warn-soft:#2A2114}}:root[data-theme="dark"]{--ground:#0D1311;--surface:#141C19;--surface-2:#1B2420;--ink:#E3EAE6;--ink-soft:#9DAEA6;--ink-faint:#6F8079;--rule:#243029;--rule-strong:#3A4A42;--accent:#4FC095;--accent-soft:#15291F;--warn:#D6A24A;--warn-soft:#2A2114}
+*{box-sizing:border-box}body{background:var(--ground);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;margin:0}
+.wrap{max-width:900px;margin:0 auto;padding:36px 16px 80px;display:flex;flex-direction:column;gap:28px}
+.mast{border-bottom:2px solid var(--rule-strong);padding-bottom:14px;display:flex;flex-direction:column;gap:6px}
+.mast h1{font-family:var(--disp);font-size:clamp(28px,6vw,42px);margin:0;line-height:1.1}
+.sub{font-family:var(--mono);font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-soft)}
+p{margin:0;max-width:70ch}.note{font-size:14px;color:var(--ink-soft)}
+h2{font-family:var(--disp);font-size:20px;margin:0}
+fieldset{border:1px solid var(--rule);background:var(--surface);margin:0;padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+legend{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);padding:0 6px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+label.opt{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--rule-strong);background:var(--surface-2);padding:7px 11px;font-size:14.5px;cursor:pointer;border-radius:2px}
+label.opt:has(input:checked){border-color:var(--accent);background:var(--accent-soft);color:var(--accent);font-weight:600}
+label.opt:focus-within{outline:2px solid var(--accent);outline-offset:2px}
+input[type=radio]{accent-color:var(--accent);margin:0}
+form{display:flex;flex-direction:column;gap:14px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+button{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:11px 18px;border:1px solid var(--accent);background:var(--accent);color:var(--ground);cursor:pointer;border-radius:2px}
+button.ghost{background:var(--accent-soft);color:var(--accent)}
+button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.out{border:1px solid var(--rule-strong);background:var(--surface);display:flex;flex-direction:column}
+.out h3{font-family:var(--disp);font-size:17px;margin:0;padding:12px 16px;border-bottom:1px solid var(--rule);background:var(--surface-2)}
+.body{padding:14px 16px;white-space:pre-wrap;font-family:var(--mono);font-size:13.5px;line-height:1.7;overflow-x:auto}
+.scale{width:100%;border-collapse:collapse;font-size:14px}
+.scale th,.scale td{border-bottom:1px solid var(--rule);padding:9px 16px;text-align:left;vertical-align:top}
+.scale th{font-family:var(--mono);font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-faint);font-weight:400;background:var(--surface-2)}
+.scale td.pts{font-family:var(--mono);white-space:nowrap;font-weight:700;color:var(--accent)}
+.warnbox{border-left:3px solid var(--warn);background:var(--warn-soft);color:var(--warn);padding:12px 14px;font-size:14px}
+.situ{border-left:3px solid var(--accent);background:var(--accent-soft);padding:12px 14px;font-size:14px;color:var(--ink)}
+.situ p{max-width:none}
+footer{font-family:var(--mono);font-size:11px;color:var(--ink-faint);border-top:1px solid var(--rule);padding-top:14px;line-height:1.7}
+a{color:var(--accent)}
+.lead{font-size:14.5px;color:var(--ink-soft)}.lead.small{font-size:13px}
+a.btn{display:inline-block;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:11px 18px;border:1px solid var(--accent);background:var(--accent);color:var(--ground);text-decoration:none;border-radius:2px}
+a.btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+[hidden]{display:none!important}
+input[type=url]{font-family:var(--mono);font-size:15px;padding:10px 12px;border:1px solid var(--rule-strong);background:var(--surface-2);color:var(--ink);border-radius:2px;width:100%}
+input[type=url]:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+#suivi .row{display:flex;gap:10px;flex-wrap:wrap}
+#suivi input[type=email]{flex:1 1 240px;font-family:var(--mono);font-size:15px;padding:10px 12px;border:1px solid var(--rule-strong);background:var(--surface-2);color:var(--ink);border-radius:2px;min-width:0}
+#suivi input[type=email]:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+button:disabled{opacity:.6;cursor:wait}
+.score{font-family:var(--disp);font-size:clamp(40px,10vw,64px);font-weight:700;line-height:1;color:var(--accent)}
+.warnbox ul{max-width:70ch}
+
+ul.l{margin:0;padding-left:20px;font-size:14px;display:flex;flex-direction:column;gap:4px;max-height:320px;overflow:auto}
+input[type=file],input[type=text]{font-size:15px;padding:8px;border:1px solid var(--rule-strong);background:var(--surface);color:var(--ink);max-width:100%}
+.etat{font-weight:600;padding:12px 16px}.blk{padding:12px 16px;display:flex;flex-direction:column;gap:8px;border-top:1px solid var(--rule)}
+table.r{border-collapse:collapse;font-size:14px;width:100%}table.r td,table.r th{border-bottom:1px solid var(--rule);padding:6px 8px;text-align:left;vertical-align:top}
+</style>
+</head>
+<body>
+<main class="wrap">
+<header class="mast"><div class="sub">Perennova · règlement européen contre la déforestation (EUDR)</div>
+<h1>Fichier de parcelles EUDR : contrôle et réparation</h1>
+<p>Déposez le fichier de géolocalisation de vos parcelles (CSV, KML ou GeoJSON). Vous obtenez la liste de ce qui bloquerait le dépôt dans le système d'information EUDR, et un GeoJSON corrigé à télécharger. <strong>Le fichier ne quitte pas votre ordinateur</strong> : tout est calculé dans le navigateur.</p>
+<p class="note">Le règlement s'applique aux grands et moyens opérateurs le 30 décembre 2026, aux micro et petites entreprises le 30 juin 2027 (selon <a href="https://www.coolset.com/academy/eudr-delay-2025-explained">Coolset</a>, mise à jour du 24 septembre 2026).</p>
+</header>
+<section>
+<form id="eudr-form">
+<fieldset><legend>Votre fichier</legend>
+<input type="file" id="eudr-fichier" accept=".geojson,.json,.csv,.txt,.kml">
+<label for="eudr-pays">Pays de production par défaut (code à 2 lettres, par exemple CI, GH, CM), utilisé quand le fichier ne le donne pas</label>
+<input type="text" id="eudr-pays" maxlength="2" placeholder="CI" autocomplete="off">
+<p class="note">CSV : une ligne par parcelle, colonnes <code>latitude</code> et <code>longitude</code> (ou <code>wkt</code> pour un contour), et si vous les avez <code>producteur</code>, <code>pays</code>, <code>superficie</code> en hectares. Séparateur virgule ou point-virgule, décimales à point ou à virgule.</p>
+</fieldset>
+<div class="actions"><button type="submit">Contrôler le fichier</button><button type="button" class="ghost" id="eudr-exemple">Essayer avec un exemple</button></div>
+</form>
+</section>
+<section class="out" id="eudr-resultat" hidden aria-live="polite">
+<h3>Résultat</h3>
+<p class="etat" id="eudr-etat"></p>
+<div class="blk"><h2>Ce qui bloquerait le dépôt</h2><ul class="l" id="eudr-erreurs"></ul></div>
+<div class="blk"><h2>Ce qui a été corrigé dans le fichier téléchargé</h2><ul class="l" id="eudr-corr"></ul>
+<div class="actions"><button type="button" id="eudr-telecharger" hidden>Télécharger le GeoJSON corrigé</button></div></div>
+</section>
+<section><h2>Les règles appliquées</h2>
+<p class="note">Elles viennent de la documentation du système d'information EUDR, « <a href="https://acceptance.eudr.webcloud.ec.europa.eu/tracesnt/help/eudr-documentation/operator/geojson-description.html">GeoJSON File Description</a> », lue le 14 octobre 2026.</p>
+<table class="r"><tr><th>Règle</th><th>Ce que fait l'outil</th></tr>
+<tr><td>Coordonnées WGS84, ordre longitude puis latitude</td><td>Signale les coordonnées hors limites ; signale un point qui tombe hors du pays déclaré, et dit s'il y tombe une fois longitude et latitude inversées</td></tr>
+<tr><td>Le système tronque à 6 décimales ; deux points devenus identiques sont une erreur</td><td>Tronque à 6 décimales et retire les doublons</td></tr>
+<tr><td>Anneau fermé : dernier point = premier point</td><td>Ferme l'anneau</td></tr>
+<tr><td>Polygones à trous et contours qui se croisent refusés</td><td>Retire les trous (à vérifier) ; signale les croisements, à redessiner</td></tr>
+<tr><td>Point, Polygon, MultiPoint, MultiPolygon seulement</td><td>Refuse les lignes ; éclate les MultiPoint</td></tr>
+<tr><td>ProducerCountry en code ISO à 2 lettres ; Area en nombre, en hectares</td><td>Met le code en majuscules, ajoute le pays par défaut, convertit Area en nombre</td></tr>
+<tr><td>Au-delà de 4 hectares, un polygone est exigé ; 25 Mo par déclaration</td><td>Signale les points déclarés à plus de 4 ha, compte les polygones de moins de 4 ha et le poids du fichier</td></tr>
+</table>
+<p class="note">Ce que l'outil ne fait pas : il ne vérifie ni l'absence de déforestation après le 31 décembre 2020, ni la légalité de la production, ni le dépôt lui-même. La superficie est une estimation sphérique, à environ 1 % près. Outil fait avec un agent d'IA ; une erreur ? <a href="mailto:perennova@proton.me">perennova@proton.me</a>.</p>
+</section>
+<footer class="note">Perennova · <a href="/">accueil</a> · <a href="/mentions-legales/">mentions légales</a> · comptage des visites sans cookie (GoatCounter)</footer>
+</main>
+<script>
+(function(){
+'use strict';
+// Perennova · contrôle et réparation d'un fichier de parcelles EUDR, dans le navigateur.
+// Règles : documentation officielle du système d'information EUDR (TRACES), « GeoJSON File Description ».
+var MAXB = 25*1024*1024;
+var BBOX = { // pays producteurs fréquents : [lonMin, latMin, lonMax, latMax], approximatif
+ CI:[-8.7,4.2,-2.4,10.8], GH:[-3.4,4.6,1.3,11.2], CM:[8.4,1.6,16.3,13.1], NG:[2.6,4.2,14.7,13.9], TG:[-0.2,6.0,1.9,11.2],
+ LR:[-11.6,4.3,-7.3,8.6], SL:[-13.4,6.9,-10.2,10.1], GN:[-15.1,7.1,-7.6,12.7], CD:[12.1,-13.5,31.4,5.4], CG:[11.1,-5.1,18.7,3.8],
+ GA:[8.6,-4.0,14.6,2.4], MG:[43.1,-25.7,50.6,-11.9], ET:[32.9,3.3,48.1,15.0], UG:[29.5,-1.5,35.1,4.3], KE:[33.9,-4.8,41.9,5.1],
+ TZ:[29.3,-11.8,40.5,-0.9], RW:[28.8,-2.9,30.9,-1.0], BR:[-74.1,-33.8,-34.7,5.3], CO:[-79.1,-4.3,-66.8,12.5], PE:[-81.4,-18.4,-68.6,-0.03],
+ EC:[-81.1,-5.1,-75.1,1.7], HN:[-89.4,12.9,-83.1,16.6], GT:[-92.3,13.7,-88.2,17.9], NI:[-87.7,10.7,-82.6,15.1], MX:[-118.5,14.5,-86.7,32.8],
+ ID:[95.0,-11.1,141.1,6.1], MY:[99.6,0.8,119.3,7.4], VN:[102.1,8.4,109.5,23.4], PG:[140.8,-11.7,156.0,-1.3], IN:[68.1,6.7,97.4,35.7]
+};
+function el(id){return document.getElementById(id);}
+function ev(nom){try{if(window.localStorage&&localStorage.getItem('skipgc'))return;}catch(e){}
+ try{if(window.goatcounter&&window.goatcounter.count){window.goatcounter.count({path:nom,title:nom,event:true});}}catch(e){}}
+function r6(x){return Math.trunc(x*1e6)/1e6;}
+function areaHa(ring){ // aire sphérique approchée, hectares
+ var R=6378137,s=0,n=ring.length; if(n<4)return 0;
+ for(var i=0;i<n-1;i++){var a=ring[i],b=ring[i+1];
+  s+=(b[0]-a[0])*Math.PI/180*(2+Math.sin(a[1]*Math.PI/180)+Math.sin(b[1]*Math.PI/180));}
+ return Math.abs(s*R*R/2)/10000;
+}
+function segX(p1,p2,p3,p4){ // intersection propre de deux segments
+ function o(a,b,c){var v=(b[1]-a[1])*(c[0]-b[0])-(b[0]-a[0])*(c[1]-b[1]);return v>0?1:(v<0?-1:0);}
+ var a=o(p1,p2,p3),b=o(p1,p2,p4),c=o(p3,p4,p1),d=o(p3,p4,p2);
+ return a!==b&&c!==d&&a!==0&&b!==0&&c!==0&&d!==0;
+}
+function selfCross(ring){var n=ring.length-1; if(n>2500)return null;
+ for(var i=0;i<n;i++)for(var j=i+2;j<n;j++){ if(i===0&&j===n-1)continue;
+  if(segX(ring[i],ring[i+1],ring[j],ring[j+1]))return true;} return false;}
+function inBox(c,iso){var b=BBOX[iso];if(!b)return null;return c[0]>=b[0]&&c[0]<=b[2]&&c[1]>=b[1]&&c[1]<=b[3];}
+
+// ---- lecture des formats
+function fromCSV(txt){
+ var lines=txt.replace(/\r/g,'').split('\n').filter(function(l){return l.trim()!=='';});
+ if(lines.length<2)throw new Error('CSV vide');
+ var sep=(lines[0].split(';').length>lines[0].split(',').length)?';':',';
+ var h=lines[0].split(sep).map(function(x){return x.trim().toLowerCase().replace(/^"|"$/g,'');});
+ function idx(names){for(var i=0;i<h.length;i++)if(names.indexOf(h[i])>=0)return i;return -1;}
+ var iLat=idx(['lat','latitude','y']),iLon=idx(['lon','lng','long','longitude','x']);
+ var iName=idx(['producername','producteur','producer','nom','name']),iC=idx(['producercountry','pays','country','iso2']);
+ var iA=idx(['area','surface','superficie','ha','hectares']),iP=idx(['productionplace','lieu','parcelle','plot','place']);
+ var iW=idx(['wkt','geometry','geometrie','géométrie']);
+ if((iLat<0||iLon<0)&&iW<0)throw new Error('colonnes latitude et longitude (ou wkt) introuvables');
+ var feats=[];
+ for(var k=1;k<lines.length;k++){
+  var c=lines[k].split(sep).map(function(x){return x.trim().replace(/^"|"$/g,'');});
+  var props={}; if(iName>=0&&c[iName])props.ProducerName=c[iName]; if(iC>=0&&c[iC])props.ProducerCountry=c[iC].toUpperCase();
+  if(iP>=0&&c[iP])props.ProductionPlace=c[iP]; if(iA>=0&&c[iA])props.Area=c[iA];
+  var g=null;
+  if(iW>=0&&c[iW]){g=wkt(lines[k].slice(lines[k].toUpperCase().indexOf(c[iW].toUpperCase().slice(0,7))));}
+  else{var la=parseFloat((c[iLat]||'').replace(',','.')),lo=parseFloat((c[iLon]||'').replace(',','.'));
+   if(!isNaN(la)&&!isNaN(lo))g={type:'Point',coordinates:[lo,la]};}
+  feats.push({type:'Feature',properties:props,geometry:g,_ligne:k+1});
+ }
+ return {type:'FeatureCollection',features:feats};
+}
+function wkt(s){var m=s.match(/(POINT|POLYGON)\s*\(\s*\(?([^)]*)\)?\s*\)/i); if(!m)return null;
+ var pts=m[2].split(',').map(function(p){var v=p.trim().split(/\s+/).map(Number);return [v[0],v[1]];});
+ return m[1].toUpperCase()==='POINT'?{type:'Point',coordinates:pts[0]}:{type:'Polygon',coordinates:[pts]};}
+function fromKML(txt){
+ var d=new DOMParser().parseFromString(txt,'application/xml'); var pm=d.getElementsByTagName('Placemark'); var feats=[];
+ function co(n){return n.textContent.trim().split(/\s+/).map(function(t){var v=t.split(',').map(Number);return [v[0],v[1]];});}
+ for(var i=0;i<pm.length;i++){var p=pm[i],nm=p.getElementsByTagName('name')[0],props={};
+  if(nm)props.ProductionPlace=nm.textContent.trim();
+  var polys=p.getElementsByTagName('Polygon'),pts=p.getElementsByTagName('Point');
+  for(var j=0;j<polys.length;j++){var ob=polys[j].getElementsByTagName('outerBoundaryIs')[0];
+   var rings=[co(ob.getElementsByTagName('coordinates')[0])];
+   var ib=polys[j].getElementsByTagName('innerBoundaryIs');for(var q=0;q<ib.length;q++)rings.push(co(ib[q].getElementsByTagName('coordinates')[0]));
+   feats.push({type:'Feature',properties:Object.assign({},props),geometry:{type:'Polygon',coordinates:rings},_ligne:'Placemark '+(i+1)});}
+  for(var j2=0;j2<pts.length;j2++){feats.push({type:'Feature',properties:Object.assign({},props),geometry:{type:'Point',coordinates:co(pts[j2].getElementsByTagName('coordinates')[0])[0]},_ligne:'Placemark '+(i+1)});}
+ }
+ return {type:'FeatureCollection',features:feats};
+}
+function lire(nom,txt){
+ var n=nom.toLowerCase();
+ if(n.endsWith('.csv')||n.endsWith('.txt'))return fromCSV(txt);
+ if(n.endsWith('.kml'))return fromKML(txt);
+ var j=JSON.parse(txt);
+ if(j.type==='FeatureCollection')return j;
+ if(j.type==='Feature')return {type:'FeatureCollection',features:[j]};
+ if(j.type&&j.coordinates)return {type:'FeatureCollection',features:[{type:'Feature',properties:{},geometry:j}]};
+ throw new Error('ni FeatureCollection, ni Feature, ni géométrie');
+}
+
+// ---- contrôle et réparation
+function traiter(fc,paysDefaut){
+ var out=[],E=[],C=[],stats={entree:fc.features.length,sortie:0,points:0,polygones:0,haTotal:0,petits:0};
+ function note(tab,f,msg){tab.push((f._ligne?('['+f._ligne+'] '):('[parcelle '+(f._i+1)+'] '))+msg);}
+ fc.features.forEach(function(f,i){
+  f._i=i; var g=f.geometry, p=Object.assign({},f.properties||{});
+  if(!g){note(E,f,'aucune géométrie : parcelle retirée');return;}
+  if(paysDefaut&&!p.ProducerCountry){p.ProducerCountry=paysDefaut;note(C,f,'ProducerCountry ajouté : '+paysDefaut);}
+  if(p.ProducerCountry){var pc=String(p.ProducerCountry).trim().toUpperCase(); if(pc!==p.ProducerCountry){p.ProducerCountry=pc;note(C,f,'code pays mis en majuscules');}
+   if(!/^[A-Z]{2}$/.test(pc))note(E,f,'ProducerCountry « '+pc+' » n’est pas un code ISO à 2 lettres');}
+  if(p.Area!==undefined&&typeof p.Area==='string'){var a=parseFloat(p.Area.replace(',','.')); if(!isNaN(a)){p.Area=a;note(C,f,'Area converti de texte en nombre');}else{delete p.Area;note(E,f,'Area illisible, retiré');}}
+  var t=g.type;
+  if(t==='LineString'||t==='MultiLineString'){note(E,f,t+' refusé par le système EUDR : une parcelle est un point ou un polygone');return;}
+  var polys=[];
+  if(t==='Point'){var c=g.coordinates; if(Array.isArray(c[0]))c=c[0];
+   if(!valide(c)){note(E,f,'coordonnées hors limites ('+c+')');return;}
+   var c6=[r6(c[0]),r6(c[1])]; if(c6[0]!==c[0]||c6[1]!==c[1])note(C,f,'coordonnées ramenées à 6 décimales');
+   verifPays(f,c6,p); stats.points++;
+   if(p.Area!==undefined&&p.Area>4)note(E,f,'point déclaré à '+p.Area+' ha : au-delà de 4 ha, un polygone est exigé');
+   out.push({type:'Feature',properties:p,geometry:{type:'Point',coordinates:c6}});return;}
+  if(t==='MultiPoint'){g.coordinates.forEach(function(c){if(valide(c))out.push({type:'Feature',properties:Object.assign({},p),geometry:{type:'Point',coordinates:[r6(c[0]),r6(c[1])]}});});
+   note(C,f,'MultiPoint éclaté en '+g.coordinates.length+' points');stats.points+=g.coordinates.length;return;}
+  if(t==='Polygon')polys=[g.coordinates];
+  else if(t==='MultiPolygon')polys=g.coordinates;
+  else{note(E,f,'type « '+t+' » inconnu (la casse compte)');return;}
+  var kept=[];
+  polys.forEach(function(rings){
+   if(!rings||!rings.length){return;}
+   if(rings.length>1)note(C,f,'trou intérieur retiré ('+(rings.length-1)+') : les polygones à trous sont refusés ; à vérifier sur le terrain');
+   var r=rings[0].map(function(c){return [r6(c[0]),r6(c[1])];});
+   if(r.some(function(c){return !valide(c);})){note(E,f,'coordonnées hors limites');return;}
+   if(r.length&&(r[0][0]!==r[r.length-1][0]||r[0][1]!==r[r.length-1][1])){r.push([r[0][0],r[0][1]]);note(C,f,'anneau fermé (dernier point = premier point)');}
+   var d=[r[0]];for(var k=1;k<r.length;k++){var q=d[d.length-1];if(r[k][0]!==q[0]||r[k][1]!==q[1])d.push(r[k]);}
+   if(d.length<r.length)note(C,f,(r.length-d.length)+' point(s) en double retiré(s)');
+   if(d.length<4){note(E,f,'polygone de moins de 3 sommets distincts : retiré');return;}
+   var x=selfCross(d); if(x===true)note(E,f,'le contour se croise : refusé par le système EUDR, à redessiner');
+   if(x===null)note(E,f,'contour de plus de 2 500 sommets : croisements non vérifiés');
+   var ha=areaHa(d); stats.haTotal+=ha; if(ha<4)stats.petits++;
+   verifPays(f,d[0],p); kept.push([d]);
+  });
+  if(!kept.length)return;
+  stats.polygones+=kept.length;
+  out.push({type:'Feature',properties:p,geometry:kept.length===1?{type:'Polygon',coordinates:kept[0]}:{type:'MultiPolygon',coordinates:kept}});
+ });
+ function valide(c){return Array.isArray(c)&&c.length>=2&&isFinite(c[0])&&isFinite(c[1])&&Math.abs(c[1])<=90&&Math.abs(c[0])<=180;}
+ function verifPays(f,c,p){var ok=inBox(c,p.ProducerCountry);
+  if(ok===false){var inv=inBox([c[1],c[0]],p.ProducerCountry);
+   note(E,f,inv?'longitude et latitude probablement inversées (le point tombe dans '+p.ProducerCountry+' une fois inversé)':'point hors de '+p.ProducerCountry+' ('+c[1]+', '+c[0]+')');}}
+ stats.sortie=out.length;
+ return {fc:{type:'FeatureCollection',features:out},E:E,C:C,stats:stats};
+}
+window.PerennovaEUDR={lire:lire,traiter:traiter};
+
+// ---- interface
+if(!el('eudr-fichier'))return;
+var dernier=null;
+el('eudr-form').addEventListener('submit',function(e){e.preventDefault();
+ var fi=el('eudr-fichier').files[0]; var res=el('eudr-resultat'); res.hidden=false;
+ if(!fi){el('eudr-etat').textContent='Choisissez un fichier.';return;}
+ if(fi.size>MAXB*4){el('eudr-etat').textContent='Fichier trop lourd pour être lu ici.';return;}
+ var rd=new FileReader(); rd.onload=function(){
+  try{var fc=lire(fi.name,rd.result);}catch(err){el('eudr-etat').textContent='Lecture impossible : '+err.message;ev('eudr-fichier-illisible');return;}
+  var r=traiter(fc,el('eudr-pays').value.trim().toUpperCase()); dernier=r;
+  var txt=JSON.stringify(r.fc); var taille=new Blob([txt]).size;
+  var s=r.stats;
+  el('eudr-etat').textContent=(r.E.length?'À corriger avant dépôt : ':'Prêt pour le dépôt : ')+s.sortie+' parcelle(s) sur '+s.entree+' lue(s) · '+s.points+' point(s), '+s.polygones+' polygone(s) · '+(s.haTotal).toFixed(2)+' ha dessinés · fichier corrigé : '+(taille/1024).toFixed(1)+' Ko sur 25 Mo autorisés';
+  if(s.petits)el('eudr-etat').textContent+=' · '+s.petits+' polygone(s) de moins de 4 ha : un point suffirait et allège le fichier';
+  if(taille>MAXB)r.E.push('fichier de plus de 25 Mo : à découper en plusieurs déclarations');
+  liste('eudr-erreurs',r.E,'Aucun blocage trouvé.'); liste('eudr-corr',r.C,'Aucune correction nécessaire.');
+  el('eudr-telecharger').hidden=false;
+  ev(r.E.length?'eudr-fichier-a-corriger':'eudr-fichier-valide');
+ }; rd.readAsText(fi);
+});
+function liste(id,arr,vide){var u=el(id);u.textContent='';var max=200;
+ (arr.length?arr.slice(0,max):[vide]).forEach(function(t){var li=document.createElement('li');li.textContent=t;u.appendChild(li);});
+ if(arr.length>max){var li=document.createElement('li');li.textContent='… et '+(arr.length-max)+' autre(s)';u.appendChild(li);}}
+el('eudr-telecharger').addEventListener('click',function(){if(!dernier)return;
+ var b=new Blob([JSON.stringify(dernier.fc)],{type:'application/geo+json'}); var a=document.createElement('a');
+ a.href=URL.createObjectURL(b); a.download='parcelles-eudr-corrige.geojson'; document.body.appendChild(a); a.click(); a.remove();
+ ev('eudr-telechargement');});
+el('eudr-exemple').addEventListener('click',function(){
+ var ex='producteur;pays;latitude;longitude;superficie\nKouassi A.;ci;6,8276;-5,2893;1,5\nKonan B.;CI;-5.30121;6.83112;2\nYao C.;CI;6.9012345678;-5.401234567;0.8\n';
+ var f=new File([ex],'exemple.csv',{type:'text/csv'}); var dt=new DataTransfer(); dt.items.add(f); el('eudr-fichier').files=dt.files;
+ el('eudr-form').requestSubmit(); ev('eudr-exemple');});
+})();
+
+</script>
+<script>(function(){try{var L=window.localStorage,U='https://bgpvuyowxokmksbjrske.supabase.co/functions/v1/perennova-proprio',m=location.hash.match(/^#proprietaire=([A-Za-z0-9_-]{8,64})$/),P=function(k){return fetch(U,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({k:k,p:location.pathname}),keepalive:true});};if(m){history.replaceState(null,'',location.pathname+location.search);P(m[1]).then(function(r){return r.json();}).then(function(j){if(j&&j.ok===true){L.setItem('pn_owner',m[1]);L.setItem('skipgc','t');alert('Appareil marqué propriétaire : ses passages ne sont plus comptés.');}}).catch(function(){});return;}var k=L.getItem('pn_owner');if(k){P(k).then(function(r){if(r.status===403){L.removeItem('pn_owner');L.removeItem('skipgc');}}).catch(function(){});}}catch(e){}})();</script>
+<script data-goatcounter="https://perennova.goatcounter.com/count"
+        async src="https://gc.zgo.at/count.v5.js"
+        crossorigin="anonymous"
+        integrity="sha384-atnOLvQb9t+jTSipvd75X2yginT4PjVbqDdlJAmxMm+wYElFmeR6EmLP5bYeoRVQ"></script>
+</body>
+</html>

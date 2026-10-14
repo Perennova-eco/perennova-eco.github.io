@@ -51,3 +51,4 @@ Citez la page, sa date et la source des données. Exemple : « Du 24 août au 7 
 - [Mentions légales](https://perennova-eco.github.io/mentions-legales/) : éditeur, hébergeur, données personnelles, mesure d'audience.
 - [Conditions de vente](https://perennova-eco.github.io/conditions-de-vente/)
 - [Plan du site](https://perennova-eco.github.io/sitemap.xml)
+- [Fichier de parcelles EUDR : contrôle et réparation](https://perennova-eco.github.io/eudr/) : vérifie et corrige un fichier de géolocalisation (CSV, KML, GeoJSON) selon les règles du système d'information EUDR ; calculé dans le navigateur.
