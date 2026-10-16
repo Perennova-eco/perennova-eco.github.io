@@ -63,7 +63,11 @@ ul.l{margin:0;padding-left:20px;font-size:14px;display:flex;flex-direction:colum
 input[type=file],input[type=text]{font-size:15px;padding:8px;border:1px solid var(--rule-strong);background:var(--surface);color:var(--ink);max-width:100%}
 .etat{font-weight:600;padding:12px 16px}.blk{padding:12px 16px;display:flex;flex-direction:column;gap:8px;border-top:1px solid var(--rule)}
 table.r{border-collapse:collapse;font-size:14px;width:100%}table.r td,table.r th{border-bottom:1px solid var(--rule);padding:6px 8px;text-align:left;vertical-align:top}
-#liste-form{flex-direction:row;flex-wrap:wrap;align-items:stretch}#liste-form input[type=email]{flex:1 1 220px}
+#pro fieldset{min-width:0}#pro .row{display:flex;gap:10px;flex-wrap:wrap;align-items:stretch}#pro input[type=text],#pro input[type=email]{flex:1 1 220px;min-width:0}
+#pro-table{border-collapse:collapse;width:100%;font-size:13.5px}#pro-table td,#pro-table th{border-bottom:1px solid var(--rule);padding:6px 8px;text-align:left;vertical-align:top}
+.pro-wrap{overflow-x:auto}#pro-rapport{display:none}
+@media print{body{background:#fff;color:#000}.wrap>*:not(#pro-rapport){display:none!important}#pro-rapport{display:block!important;font:12px/1.5 system-ui,sans-serif}#pro-rapport h1{font-size:18px}#pro-rapport table{border-collapse:collapse;width:100%}#pro-rapport td,#pro-rapport th{border:1px solid #999;padding:4px 6px;text-align:left;vertical-align:top}}
+#pro form.row{flex-direction:row}
 </style>
 </head>
 <body>
@@ -91,10 +95,21 @@ table.r{border-collapse:collapse;font-size:14px;width:100%}table.r td,table.r th
 <div class="blk"><h2>What was fixed in the downloaded file</h2><ul class="l" id="eudr-corr"></ul>
 <div class="actions"><button type="button" id="eudr-telecharger" hidden>Download the fixed GeoJSON</button></div></div>
 </section>
-<section id="suivi"><fieldset><legend>Many files, every season?</legend>
-<p>For exporters and cooperatives who file for hundreds or thousands of plots: batch checking of several files, a compliance report per lot (PDF) and an API. Planned price <strong>€49 per month</strong>, cancel any time. It does not exist yet: leave your work address and you will be told when it opens. No other use of your address.</p>
-<form id="liste-form" class="row"><input type="email" id="liste-email" required autocomplete="email" placeholder="you@company.com" aria-label="Work email"><button type="submit">Join the list</button></form>
-<p class="note" id="liste-etat" aria-live="polite"></p></fieldset></section>
+<section id="pro"><fieldset><legend>Pro · €49 per month</legend>
+<p>For exporters and cooperatives who file for many plots: check <strong>several files at once</strong>, and print <strong>one dated compliance report</strong> (save as PDF) with each file's SHA-256 fingerprint, plots read, blocking errors and fixes, lot by lot: a trace for your due diligence file. Cancel any time. Billing and VAT are handled by Polar, the merchant of record.</p>
+<div class="actions" id="pro-achat" hidden><a class="btn" id="pro-acheter" href="#" rel="noopener">Subscribe · €49/month</a></div>
+<div id="pro-bientot"><p class="note">Online payment opens in the coming days. Leave your work email and you get one message when it does.</p>
+<form id="liste-form" class="row"><input type="email" id="liste-email" required autocomplete="email" placeholder="you@company.com" aria-label="Email"><button type="submit">OK</button></form>
+<p class="note" id="liste-etat" aria-live="polite"></p></div>
+<p class="note">Already subscribed? Paste the licence key from your Polar receipt.</p>
+<form id="pro-cle-form" class="row"><input type="text" id="pro-cle" autocomplete="off" placeholder="Licence key" aria-label="Licence key"><button type="submit" class="ghost">Activate</button></form>
+<p class="note" id="pro-etat" aria-live="polite"></p>
+<div id="pro-outil" hidden><label for="pro-fichiers">Files (CSV, KML, GeoJSON), several at once</label>
+<input type="file" id="pro-fichiers" multiple accept=".geojson,.json,.csv,.txt,.kml">
+<div class="actions"><button type="button" id="pro-lancer">Check all files</button><button type="button" class="ghost" id="pro-imprimer" hidden>Print the compliance report (PDF)</button></div>
+<div class="pro-wrap"><table id="pro-table" hidden><thead><tr><th>File</th><th>Plots</th><th>Blocking</th><th>Fixed</th><th>SHA-256 (first 16)</th><th></th></tr></thead><tbody></tbody></table></div></div>
+</fieldset></section>
+<section id="pro-rapport" aria-hidden="true"></section>
 <section><h2>The rules applied</h2>
 <p class="note">They come from the EUDR Information System documentation, “<a href="https://acceptance.eudr.webcloud.ec.europa.eu/tracesnt/help/eudr-documentation/operator/geojson-description.html">GeoJSON File Description</a>”, read on 14 October 2026.</p>
 <table class="r"><tr><th>Rule</th><th>What the tool does</th></tr>
@@ -281,11 +296,45 @@ el('eudr-exemple').addEventListener('click',function(){
  var ex='producer,country,latitude,longitude,area\nKwame A.,gh,6.6885,-1.6244,1.5\nAma B.,GH,-1.62113,6.69120,2\nKofi C.,GH,6.7012345678,-1.601234567,0.8\n';
  var f=new File([ex],'sample.csv',{type:'text/csv'}); var dt=new DataTransfer(); dt.items.add(f); el('eudr-fichier').files=dt.files;
  el('eudr-form').requestSubmit(); ev('eudr-en-exemple');});
-if(el('liste-form'))el('liste-form').addEventListener('submit',function(e){e.preventDefault();var m=el('liste-email').value.trim(),st=el('liste-etat');st.textContent='Sending…';
- fetch('https://bgpvuyowxokmksbjrske.supabase.co/functions/v1/perennova-veille',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:m,source:'reservation:eudr-en-lots'})})
- .then(function(r){return r.json();}).then(function(j){st.textContent=j&&j.ok?'Thank you: you will get one message when batch checking opens.':'Not recorded: '+((j&&j.erreur)||'error')+'.';if(j&&j.ok)ev('eudr-en-liste');}).catch(function(){st.textContent='Not recorded (network). Write to perennova@proton.me.';});});
 })();
 
+</script>
+<script>
+(function(){'use strict';
+var L={"actok": "Pro is active on this browser.", "actko": "Key not accepted: ", "rtitle": "EUDR geolocation files: compliance check report", "rgen": "Generated on", "rby": "by the Perennova EUDR checker (perennova-eco.github.io/en/eudr/), in the browser; no file was uploaded.", "rnote": "This report checks the format rules of the EUDR Information System (GeoJSON File Description). It does not check deforestation-free status, legality, or the upload itself.", "rerr": "Blocking", "rfix": "Fixed", "none": "none", "lot": "Lot", "dl": "GeoJSON"}, U='https://bgpvuyowxokmksbjrske.supabase.co/functions/v1/perennova-licence', P='eudr-en-';
+function el(i){return document.getElementById(i);}
+function ev(n){try{if(window.localStorage&&localStorage.getItem('skipgc'))return;}catch(e){}try{if(window.goatcounter&&window.goatcounter.count)window.goatcounter.count({path:P+n,title:P+n,event:true});}catch(e){}}
+function stock(k,v){try{if(v===null)localStorage.removeItem(k);else localStorage.setItem(k,v);}catch(e){}}
+function lu(k){try{return localStorage.getItem(k);}catch(e){return null;}}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+fetch(U).then(function(r){return r.json();}).then(function(c){if(c&&c.pret&&c.checkout_url){var a=el('pro-acheter');a.href=c.checkout_url;el('pro-achat').hidden=false;el('pro-bientot').hidden=true;a.addEventListener('click',function(){ev('pro-achat-clic');});}}).catch(function(){});
+if(el('liste-form'))el('liste-form').addEventListener('submit',function(e){e.preventDefault();var st=el('liste-etat');st.textContent='…';
+ fetch('https://bgpvuyowxokmksbjrske.supabase.co/functions/v1/perennova-veille',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:el('liste-email').value.trim(),source:'reservation:eudr-en-lots'})})
+ .then(function(r){return r.json();}).then(function(j){st.textContent=j&&j.ok?'✓':'✗ '+((j&&j.erreur)||'');if(j&&j.ok)ev('pro-liste');}).catch(function(){st.textContent='✗';});});
+function ouvrir(){el('pro-outil').hidden=false;el('pro-etat').textContent=L.actok;}
+function valider(k,silencieux){return fetch(U,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:k,page:P})}).then(function(r){return r.json();}).then(function(j){
+ if(j&&j.ok){stock('eudr_pro',k);ouvrir();if(!silencieux)ev('pro-active');}else{stock('eudr_pro',null);if(!silencieux)el('pro-etat').textContent=L.actko+((j&&j.statut)||'?');}});}
+el('pro-cle-form').addEventListener('submit',function(e){e.preventDefault();var k=el('pro-cle').value.trim();if(k)valider(k,false).catch(function(){el('pro-etat').textContent=L.actko+'réseau/network';});});
+var k0=lu('eudr_pro');if(k0)valider(k0,true).catch(function(){});
+var lots=[];
+function hex(buf){return Array.prototype.map.call(new Uint8Array(buf),function(x){return ('0'+x.toString(16)).slice(-2);}).join('');}
+function lireFichier(f){return new Promise(function(ok){var r=new FileReader();r.onload=function(){var txt=r.result;crypto.subtle.digest('SHA-256',new TextEncoder().encode(txt)).then(function(h){
+ var o={nom:f.name,sha:hex(h)};try{var fc=window.PerennovaEUDR.lire(f.name,txt);var pays=(el('eudr-pays')&&el('eudr-pays').value||'').trim().toUpperCase();var res=window.PerennovaEUDR.traiter(fc,pays);o.res=res;}catch(err){o.erreur=err.message;}ok(o);});};r.readAsText(f);});}
+el('pro-lancer').addEventListener('click',function(){var fs=Array.prototype.slice.call(el('pro-fichiers').files||[]);if(!fs.length)return;
+ Promise.all(fs.map(lireFichier)).then(function(r){lots=r;var tb=el('pro-table').querySelector('tbody');tb.textContent='';
+  lots.forEach(function(o,i){var tr=document.createElement('tr');var s=o.res?o.res.stats:null;
+   tr.innerHTML='<td>'+esc(o.nom)+'</td><td>'+(s?s.sortie+'/'+s.entree:'—')+'</td><td>'+(o.res?o.res.E.length:esc(o.erreur||''))+'</td><td>'+(o.res?o.res.C.length:'—')+'</td><td><code>'+o.sha.slice(0,16)+'</code></td><td></td>';
+   if(o.res){var b=document.createElement('button');b.type='button';b.className='ghost';b.textContent=L.dl;b.addEventListener('click',function(){var bl=new Blob([JSON.stringify(o.res.fc)],{type:'application/geo+json'});var a=document.createElement('a');a.href=URL.createObjectURL(bl);a.download=o.nom.replace(/\.[^.]+$/,'')+'-eudr-fixed.geojson';document.body.appendChild(a);a.click();a.remove();ev('pro-telechargement');});tr.lastChild.appendChild(b);}
+   tb.appendChild(tr);});
+  el('pro-table').hidden=false;el('pro-imprimer').hidden=false;ev('pro-lot');});});
+el('pro-imprimer').addEventListener('click',function(){if(!lots.length)return;var d=new Date();var h='<h1>'+esc(L.rtitle)+'</h1><p>'+esc(L.rgen)+' '+d.toISOString().replace('T',' ').slice(0,16)+' UTC '+esc(L.rby)+'</p><p>'+esc(L.rnote)+'</p>';
+ lots.forEach(function(o,i){h+='<h2>'+esc(L.lot)+' '+(i+1)+' · '+esc(o.nom)+'</h2><p>SHA-256 : <code>'+o.sha+'</code></p>';
+  if(!o.res){h+='<p>'+esc(o.erreur||'')+'</p>';return;}var s=o.res.stats;
+  h+='<p>'+s.sortie+'/'+s.entree+' · '+s.points+' points · '+s.polygones+' polygons · '+s.haTotal.toFixed(2)+' ha</p>';
+  h+='<table><tr><th>'+esc(L.rerr)+' ('+o.res.E.length+')</th><th>'+esc(L.rfix)+' ('+o.res.C.length+')</th></tr><tr><td>'+(o.res.E.map(esc).join('<br>')||esc(L.none))+'</td><td>'+(o.res.C.map(esc).join('<br>')||esc(L.none))+'</td></tr></table>';});
+ el('pro-rapport').innerHTML=h;ev('pro-rapport');window.print();});
+window.PerennovaPro={ouvrir:ouvrir};
+})();
 </script>
 <script>(function(){try{var L=window.localStorage,U='https://bgpvuyowxokmksbjrske.supabase.co/functions/v1/perennova-proprio',m=location.hash.match(/^#proprietaire=([A-Za-z0-9_-]{8,64})$/),P=function(k){return fetch(U,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({k:k,p:location.pathname}),keepalive:true});};if(m){history.replaceState(null,'',location.pathname+location.search);P(m[1]).then(function(r){return r.json();}).then(function(j){if(j&&j.ok===true){L.setItem('pn_owner',m[1]);L.setItem('skipgc','t');alert('Appareil marqué propriétaire : ses passages ne sont plus comptés.');}}).catch(function(){});return;}var k=L.getItem('pn_owner');if(k){P(k).then(function(r){if(r.status===403){L.removeItem('pn_owner');L.removeItem('skipgc');}}).catch(function(){});}}catch(e){}})();</script>
 <script data-goatcounter="https://perennova.goatcounter.com/count"
