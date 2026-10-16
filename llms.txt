@@ -52,3 +52,4 @@ Citez la page, sa date et la source des données. Exemple : « Du 24 août au 7 
 - [Conditions de vente](https://perennova-eco.github.io/conditions-de-vente/)
 - [Plan du site](https://perennova-eco.github.io/sitemap.xml)
 - [Fichier de parcelles EUDR : contrôle et réparation](https://perennova-eco.github.io/eudr/) : vérifie et corrige un fichier de géolocalisation (CSV, KML, GeoJSON) selon les règles du système d'information EUDR ; calculé dans le navigateur.
+- [EUDR plot file: check and fix (English)](https://perennova-eco.github.io/en/eudr/): checks and fixes a plot geolocation file (CSV, KML, GeoJSON) against the EUDR Information System rules; no sign-up, runs in the browser.
