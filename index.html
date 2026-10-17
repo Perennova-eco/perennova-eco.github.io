@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' https://gc.zgo.at; style-src 'unsafe-inline'; img-src 'self' data: https://perennova.goatcounter.com; connect-src https://bgpvuyowxokmksbjrske.supabase.co https://boamp-datadila.opendatasoft.com https://perennova.goatcounter.com; base-uri 'none'; form-action 'none'">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Critère environnemental d'un marché numérique : le barème</title>
-<meta name="description" content="Outil gratuit : un critère environnemental rédigé et son barème de notation, pour une consultation numérique. Article 35, applicable depuis le 21 août 2026.">
+<meta name="description" content="Outil gratuit : un critère environnemental rédigé et son barème de notation, pour une consultation numérique. Article 35, applicable depuis le 22 août 2026.">
 <link rel="canonical" href="https://perennova-eco.github.io/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Critère environnemental d'un marché numérique : le barème">
@@ -56,7 +56,7 @@ a.btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 <header class="mast">
 <div class="sub">Perennova · outil libre, sans compte, vos réponses restent dans votre navigateur</div>
 <h1>Le critère environnemental de votre consultation numérique</h1>
-<div class="sub">Article 35 de la loi Climat et Résilience · applicable depuis le 21 août 2026</div>
+<div class="sub">Article 35 de la loi Climat et Résilience · applicable depuis le 22 août 2026</div>
 </header>
 
 <div class="situ" id="audit-offre">
@@ -64,14 +64,14 @@ a.btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 </div>
 
 <p id="releve-lien"><strong>Ce que font les acheteurs.</strong> 41&nbsp;% des avis d’appel à la concurrence du BOAMP portaient la mention « critères environnementaux » avant l’échéance d’août 2026, 55&nbsp;% depuis. <a href="/critere-environnemental/">Le relevé, par métier et par département</a>. Vous êtes candidat : <a href="/volet/">assembler le volet environnemental de votre mémoire</a>.</p>
-<p>Depuis le 21 août 2026, l'article 35 de la loi Climat et résilience impose au moins un critère
+<p>Depuis le 22 août 2026, l'article 35 de la loi Climat et résilience impose au moins un critère
 environnemental à l'attribution de tout marché public, prestations intellectuelles et projets
 numériques compris. Écrire la clause est une chose ; savoir <strong>comment la noter</strong> en est
 une autre. Cet outil produit les deux : un critère rédigé pour une consultation numérique, et le
 <strong>barème de notation</strong> qui va avec — pondération, échelle, pièces à demander au
 candidat. Gratuit, rien à installer, rien à créer comme compte.</p>
 
-<p>Depuis le 21 août 2026, tout marché public doit comporter <strong>au moins un critère environnemental à l'attribution</strong> et <strong>une condition d'exécution environnementale</strong>, prestations intellectuelles comprises. La clause doit être précise, mesurable, et produire un impact réel — un engagement générique ne suffit pas.</p>
+<p>Depuis le 22 août 2026, un marché public attribué sur des critères doit en compter <strong>au moins un qui prend en compte l'environnement</strong>, et ses conditions d'exécution doivent comporter <strong>une clause environnementale</strong>, prestations intellectuelles comprises ; les marchés de défense et de sécurité font exception. D'après la fiche de la direction des affaires juridiques de Bercy (juillet 2026), « l’essentiel est que cette clause soit précise, mesurable et produise un impact réel ».</p>
 <p class="note">Sur un achat de matériel, les repères existent. Sur un site, un portail de démarches ou une application métier, il faut écrire soi-même la clause <em>et</em> le barème qui servira à noter les offres. Cet outil produit les deux, à partir de six réponses. Tout se passe dans votre navigateur. Aucun compte, aucune de vos réponses ne quitte votre navigateur. Le site compte les visites avec un outil sans cookie, qui ne conserve aucune adresse IP (GoatCounter), et rien d'autre.</p>
 
 <div class="situ">
@@ -162,7 +162,7 @@ Un barème dit ce qu'on exige ; le <a href="/scanner/">scanner</a> mesure ce qu'
 <section id="veille" style="margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid currentColor">
   <h2>Recevoir les mises à jour</h2>
   <p>Le cadre change : l'article 35 de la loi Climat et résilience est pleinement applicable
-     depuis le 21 août 2026. Si vous voulez être prévenu quand le barème ou les clauses types
+     depuis le 22 août 2026. Si vous voulez être prévenu quand le barème ou les clauses types
      évoluent, laissez une adresse. Un message quand il y a quelque chose, jamais autrement.</p>
   <form id="veille-form" novalidate>
     <label for="veille-email">Adresse professionnelle</label>
@@ -233,7 +233,7 @@ var F=document.getElementById('f');
 var baremeGenere=false;
 function v(n){return F.elements[n].value}
 var LABELS={vitrine:"site institutionnel",demarches:"portail de démarches en ligne",metier:"application métier",tma:"maintenance et évolution du service existant"};
-function weight(m){return m==='grand'?'15 %':m==='moyen'?'10 %':'5 à 10 %'}
+function weight(m){return m==='grand'?'15 %':m==='moyen'?'10 %':'10 %'}
 function build(){
  var objet=v('objet'),pub=v('public'),duree=v('duree'),montant=v('montant'),parc=v('parc'),exist=v('existant');
  var nom=LABELS[objet];
@@ -269,7 +269,7 @@ function build(){
  +"3. Un tableau des budgets de poids par parcours, avec l'outil de mesure et sa version.\n"
  +(exist==='oui'?"4. Un relevé des mêmes valeurs sur le service existant, quand il est accessible, pour établir la comparaison.\n":"4. Un calendrier de remesurage des engagements sur la durée du marché.\n")
  +"5. Le cas échéant, la déclaration d'écoconception mentionnée par le référentiel général d'écoconception des services numériques (RGESN), en précisant qu'elle est demandée à titre d'information et n'est pas notée en tant que telle.\n\n"
- +"À ne pas demander : un bilan carbone d'entreprise, un label, ou une certification générale. Ces pièces ne disent rien du service acheté et écartent les petites structures sans améliorer l'offre — or les marchés publics sont attribués à 60 % à des PME.";
+ +"À ne pas demander : un bilan carbone d'entreprise, un label, ou une certification générale. Ces pièces ne disent rien du service acheté et écartent les petites structures sans améliorer l'offre — or six marchés publics sur dix, en nombre, vont à des PME (59,9 % en 2023, pour 27,2 % des montants : recensement de l'Observatoire économique de la commande publique).";
 
  var E="Ce texte est un point de départ à relire par votre service juridique et à adapter à votre dossier. Il n'est pas un avis juridique : son auteur n'est pas juriste. La pondération proposée ("+weight(montant)+") est un repère courant, pas une obligation : elle relève de l'acheteur. Enfin, la notation ci-dessus compare des engagements, pas des résultats — ce sont les conditions d'exécution qui les rendent opposables.";
 
