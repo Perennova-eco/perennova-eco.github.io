@@ -91,7 +91,6 @@ ul.hosts{margin:0;padding:12px 16px 12px 34px;font-family:var(--mono);font-size:
 <a class="btn" href="/scanner/" style="background:var(--accent-soft);color:var(--accent)">Mesurer une autre page</a>
 </div>
 
-<p class="note noprint" id="audit-offre">Pour aller plus loin que cette mesure : <a id="audit-lien" rel="noopener" href="https://comeup.com/fr/service/555139/realiser-l-audit-technique-seo-de-votre-site-pour-google-et-les-ia">l’audit technique de votre site pour Google et les IA · 15&nbsp;€, en PDF sous 3 jours</a>. Trois pages mesurées, dix corrections classées par effet. Commande et paiement sur ComeUp, frais de service de la plateforme en plus. Audit préparé avec un assistant d’IA et validé par Sébastien.</p>
 
 <p class="note" id="r-load" role="status" aria-live="polite">Chargement du rapport…</p>
 
@@ -306,7 +305,6 @@ f.addEventListener('submit',function(e){
 })();
 </script>
 <script>(function(){try{if(location.hash==='#toggle-goatcounter'){history.replaceState(null,'',location.pathname+location.search);}var L=window.localStorage,U='https://bgpvuyowxokmksbjrske.supabase.co/functions/v1/perennova-proprio',m=location.hash.match(/^#proprietaire=([A-Za-z0-9_-]{8,64})$/),P=function(k){return fetch(U,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({k:k,p:location.pathname}),keepalive:true});};if(m){history.replaceState(null,'',location.pathname+location.search);P(m[1]).then(function(r){return r.json();}).then(function(j){if(j&&j.ok===true){L.setItem('pn_owner',m[1]);L.setItem('skipgc','t');alert('Appareil marqué propriétaire : ses passages ne sont plus comptés.');}}).catch(function(){});return;}var k=L.getItem('pn_owner');if(k){P(k).then(function(r){if(r.status===403){L.removeItem('pn_owner');L.removeItem('skipgc');}}).catch(function(){});}}catch(e){}})();</script>
-<script>(function(){var a=document.getElementById('audit-lien');if(a){a.addEventListener('click',function(){pvEvent('audit-clic');});}})();</script>
 <script data-goatcounter="https://perennova.goatcounter.com/count"
         async src="https://gc.zgo.at/count.v5.js"
         crossorigin="anonymous"
