@@ -110,6 +110,11 @@ table.r{border-collapse:collapse;font-size:14px;width:100%}table.r td,table.r th
 <div class="actions"><button type="button" id="pro-lancer">Check all files</button><button type="button" class="ghost" id="pro-imprimer" hidden>Print the compliance report (PDF)</button></div>
 <div class="pro-wrap"><table id="pro-table" hidden><thead><tr><th>File</th><th>Plots</th><th>Blocking</th><th>Fixed</th><th>SHA-256 (first 16)</th><th></th></tr></thead><tbody></tbody></table></div></div>
 </fieldset></section>
+<section id="importer"><fieldset><legend>Importer · €390 per month</legend>
+<p>For EU operators and traders who receive plot files from many suppliers: check <strong>every supplier's file before you file your due diligence statement</strong>, and keep <strong>one dated report listing each supplier file</strong> with its SHA-256 fingerprint, plots read, blocking errors and fixes. Unlimited files and suppliers, all Pro features; files are read in your browser and never uploaded. Cancel any time. Billing and VAT are handled by Polar, the merchant of record.</p>
+<div class="actions" id="imp-achat" hidden><a class="btn" id="imp-acheter" href="#" rel="noopener">Subscribe · €390/month</a></div>
+<p class="note">Questions before subscribing, or several legal entities: <a href="mailto:perennova@proton.me?subject=EUDR%20importer">perennova@proton.me</a>. Already subscribed? Paste the licence key from your Polar receipt in the Pro box above.</p>
+</fieldset></section>
 <section id="pro-rapport" aria-hidden="true"></section>
 <section><h2>The rules applied</h2>
 <p class="note">They come from the EUDR Information System documentation, “<a href="https://acceptance.eudr.webcloud.ec.europa.eu/tracesnt/help/eudr-documentation/operator/geojson-description.html">GeoJSON File Description</a>”, read on 14 October 2026.</p>
@@ -308,7 +313,7 @@ function ev(n){try{if(window.localStorage&&localStorage.getItem('skipgc'))return
 function stock(k,v){try{if(v===null)localStorage.removeItem(k);else localStorage.setItem(k,v);}catch(e){}}
 function lu(k){try{return localStorage.getItem(k);}catch(e){return null;}}
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
-fetch(U).then(function(r){return r.json();}).then(function(c){if(c&&c.pret&&c.checkout_url){var a=el('pro-acheter');a.href=c.checkout_url;el('pro-achat').hidden=false;el('pro-bientot').hidden=true;a.addEventListener('click',function(){ev('pro-achat-clic');});}}).catch(function(){});
+fetch(U).then(function(r){return r.json();}).then(function(c){if(c&&c.pret&&c.checkout_url){var a=el('pro-acheter');a.href=c.checkout_url;el('pro-achat').hidden=false;el('pro-bientot').hidden=true;a.addEventListener('click',function(){ev('pro-achat-clic');});}if(c&&c.importateur_pret&&c.checkout_url_importateur){var b=el('imp-acheter');b.href=c.checkout_url_importateur;el('imp-achat').hidden=false;b.addEventListener('click',function(){ev('imp-achat-clic');});}}).catch(function(){});
 if(el('liste-form'))el('liste-form').addEventListener('submit',function(e){e.preventDefault();var st=el('liste-etat');st.textContent='…';
  fetch('https://bgpvuyowxokmksbjrske.supabase.co/functions/v1/perennova-veille',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:el('liste-email').value.trim(),source:'reservation:eudr-en-lots'})})
  .then(function(r){return r.json();}).then(function(j){st.textContent=j&&j.ok?'✓':'✗ '+((j&&j.erreur)||'');if(j&&j.ok)ev('pro-liste');}).catch(function(){st.textContent='✗';});});
