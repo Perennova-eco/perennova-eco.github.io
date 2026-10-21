@@ -30,7 +30,7 @@ jobs:
         run: |
           python3 - <<'PY'
           import json, os, re, subprocess
-          host = "https://perennova-eco.github.io/"
+          host = "https://perennova.eu/"
           sitemap = re.findall(r"<loc>([^<]+)</loc>", open("sitemap.xml", encoding="utf-8").read())
           before, after = os.environ.get("BEFORE", ""), os.environ["AFTER"]
           tout = os.environ["EVENT"] != "push" or not before or set(before) == {"0"}
@@ -66,7 +66,7 @@ jobs:
           URLS: ${{ steps.urls.outputs.json }}
         run: |
           KEY=ed26ca246a0fa172da76238cc950b062
-          BODY=$(python3 -c 'import json,os;print(json.dumps({"host":"perennova-eco.github.io","key":"'$KEY'","keyLocation":"https://perennova-eco.github.io/'$KEY'.txt","urlList":json.loads(os.environ["URLS"])}))')
+          BODY=$(python3 -c 'import json,os;print(json.dumps({"host":"perennova.eu","key":"'$KEY'","keyLocation":"https://perennova.eu/'$KEY'.txt","urlList":json.loads(os.environ["URLS"])}))')
           CODE=$(curl -s -o reponse.txt -w "%{http_code}" -X POST "https://api.indexnow.org/indexnow" \
             -H "Content-Type: application/json; charset=utf-8" -d "$BODY")
           echo "IndexNow : HTTP $CODE"; cat reponse.txt; echo

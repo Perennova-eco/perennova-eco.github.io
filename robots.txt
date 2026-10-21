@@ -1,7 +1,7 @@
 # Perennova · robots.txt
 # Tout le site est ouvert à tous les robots.
 # Les robots de recherche et de lecture des assistants d'IA sont nommés ci-dessous : ils sont autorisés.
-# Description du site en texte simple : https://perennova-eco.github.io/llms.txt
+# Description du site en texte simple : https://perennova.eu/llms.txt
 
 User-agent: *
 Allow: /
@@ -22,4 +22,4 @@ User-agent: Applebot-Extended
 User-agent: CCBot
 Allow: /
 
-Sitemap: https://perennova-eco.github.io/sitemap.xml
+Sitemap: https://perennova.eu/sitemap.xml
