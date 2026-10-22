@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' https://gc.zgo.at; style-src 'unsafe-inline'; img-src 'self' data: https://perennova.goatcounter.com; connect-src https://bgpvuyowxokmksbjrske.supabase.co https://perennova.goatcounter.com; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CBAM supplier emissions data checker — free, in your browser | Perennova</title>
+<meta name="description" content="Check the embedded emissions data your non-EU supplier sent (Excel or CSV) against the 16 data points of Annex IV, point 1.2, of Implementing Regulation (EU) 2025/2547: missing fields, UN/LOCODE, CN code, units, verification report, carbon price evidence. Get a ready-to-send request. Nothing is uploaded.">
+<link rel="canonical" href="https://perennova.eu/en/cbam/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="CBAM supplier emissions data: check it before you declare">
+<meta property="og:description" content="Excel or CSV in; what is missing against the 16 CBAM data points out, with the request to send back. Nothing is uploaded.">
+<meta property="og:url" content="https://perennova.eu/en/cbam/">
+<meta property="og:locale" content="en_GB">
+<style>:root{--ground:#F6F8F6;--surface:#FFF;--surface-2:#EFF3F0;--ink:#14201C;--ink-soft:#57685F;--ink-faint:#8A9A91;--rule:#D8E0DB;--rule-strong:#A9B7B0;--accent:#0F6B52;--accent-soft:#E3F0EA;--warn:#8A5D0B;--warn-soft:#F6EEDC;--mono:ui-monospace,SFMono-Regular,Menlo,monospace;--disp:"Arial Narrow",Helvetica,sans-serif;--body:system-ui,-apple-system,Segoe UI,sans-serif}@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--ground:#0D1311;--surface:#141C19;--surface-2:#1B2420;--ink:#E3EAE6;--ink-soft:#9DAEA6;--ink-faint:#6F8079;--rule:#243029;--rule-strong:#3A4A42;--accent:#4FC095;--accent-soft:#15291F;--warn:#D6A24A;--warn-soft:#2A2114}}:root[data-theme="dark"]{--ground:#0D1311;--surface:#141C19;--surface-2:#1B2420;--ink:#E3EAE6;--ink-soft:#9DAEA6;--ink-faint:#6F8079;--rule:#243029;--rule-strong:#3A4A42;--accent:#4FC095;--accent-soft:#15291F;--warn:#D6A24A;--warn-soft:#2A2114}
+*{box-sizing:border-box}body{background:var(--ground);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;margin:0}
+.wrap{max-width:900px;margin:0 auto;padding:36px 16px 80px;display:flex;flex-direction:column;gap:28px}
+.mast{border-bottom:2px solid var(--rule-strong);padding-bottom:14px;display:flex;flex-direction:column;gap:6px}
+.mast h1{font-family:var(--disp);font-size:clamp(28px,6vw,42px);margin:0;line-height:1.1}
+.sub{font-family:var(--mono);font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-soft)}
+p{margin:0;max-width:70ch}.note{font-size:14px;color:var(--ink-soft)}
+h2{font-family:var(--disp);font-size:20px;margin:0}
+fieldset{border:1px solid var(--rule);background:var(--surface);margin:0;padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+legend{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);padding:0 6px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+label.opt{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--rule-strong);background:var(--surface-2);padding:7px 11px;font-size:14.5px;cursor:pointer;border-radius:2px}
+label.opt:has(input:checked){border-color:var(--accent);background:var(--accent-soft);color:var(--accent);font-weight:600}
+label.opt:focus-within{outline:2px solid var(--accent);outline-offset:2px}
+input[type=radio]{accent-color:var(--accent);margin:0}
+form{display:flex;flex-direction:column;gap:14px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+button{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:11px 18px;border:1px solid var(--accent);background:var(--accent);color:var(--ground);cursor:pointer;border-radius:2px}
+button.ghost{background:var(--accent-soft);color:var(--accent)}
+button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.out{border:1px solid var(--rule-strong);background:var(--surface);display:flex;flex-direction:column}
+.out h3{font-family:var(--disp);font-size:17px;margin:0;padding:12px 16px;border-bottom:1px solid var(--rule);background:var(--surface-2)}
+.body{padding:14px 16px;white-space:pre-wrap;font-family:var(--mono);font-size:13.5px;line-height:1.7;overflow-x:auto}
+.scale{width:100%;border-collapse:collapse;font-size:14px}
+.scale th,.scale td{border-bottom:1px solid var(--rule);padding:9px 16px;text-align:left;vertical-align:top}
+.scale th{font-family:var(--mono);font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-faint);font-weight:400;background:var(--surface-2)}
+.scale td.pts{font-family:var(--mono);white-space:nowrap;font-weight:700;color:var(--accent)}
+.warnbox{border-left:3px solid var(--warn);background:var(--warn-soft);color:var(--warn);padding:12px 14px;font-size:14px}
+.situ{border-left:3px solid var(--accent);background:var(--accent-soft);padding:12px 14px;font-size:14px;color:var(--ink)}
+.situ p{max-width:none}
+footer{font-family:var(--mono);font-size:11px;color:var(--ink-faint);border-top:1px solid var(--rule);padding-top:14px;line-height:1.7}
+a{color:var(--accent)}
+.lead{font-size:14.5px;color:var(--ink-soft)}.lead.small{font-size:13px}
+a.btn{display:inline-block;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:11px 18px;border:1px solid var(--accent);background:var(--accent);color:var(--ground);text-decoration:none;border-radius:2px}
+a.btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+[hidden]{display:none!important}
+input[type=url]{font-family:var(--mono);font-size:15px;padding:10px 12px;border:1px solid var(--rule-strong);background:var(--surface-2);color:var(--ink);border-radius:2px;width:100%}
+input[type=url]:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+#suivi .row{display:flex;gap:10px;flex-wrap:wrap}
+#suivi input[type=email]{flex:1 1 240px;font-family:var(--mono);font-size:15px;padding:10px 12px;border:1px solid var(--rule-strong);background:var(--surface-2);color:var(--ink);border-radius:2px;min-width:0}
+#suivi input[type=email]:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+button:disabled{opacity:.6;cursor:wait}
+.score{font-family:var(--disp);font-size:clamp(40px,10vw,64px);font-weight:700;line-height:1;color:var(--accent)}
+.warnbox ul{max-width:70ch}
+
+ul.l{margin:0;padding-left:20px;font-size:14px;display:flex;flex-direction:column;gap:4px;max-height:320px;overflow:auto}
+input[type=file],input[type=text]{font-size:15px;padding:8px;border:1px solid var(--rule-strong);background:var(--surface);color:var(--ink);max-width:100%}
+.etat{font-weight:600;padding:12px 16px}.blk{padding:12px 16px;display:flex;flex-direction:column;gap:8px;border-top:1px solid var(--rule)}
+table.r{border-collapse:collapse;font-size:14px;width:100%}table.r td,table.r th{border-bottom:1px solid var(--rule);padding:6px 8px;text-align:left;vertical-align:top}
+#pro fieldset{min-width:0}#pro .row{display:flex;gap:10px;flex-wrap:wrap;align-items:stretch}#pro input[type=text],#pro input[type=email]{flex:1 1 220px;min-width:0}
+#pro-table{border-collapse:collapse;width:100%;font-size:13.5px}#pro-table td,#pro-table th{border-bottom:1px solid var(--rule);padding:6px 8px;text-align:left;vertical-align:top}
+.pro-wrap{overflow-x:auto}#pro-rapport{display:none}
+@media print{body{background:#fff;color:#000}.wrap>*:not(#pro-rapport){display:none!important}#pro-rapport{display:block!important;font:12px/1.5 system-ui,sans-serif}#pro-rapport h1{font-size:18px}#pro-rapport table{border-collapse:collapse;width:100%}#pro-rapport td,#pro-rapport th{border:1px solid #999;padding:4px 6px;text-align:left;vertical-align:top}}
+#pro form.row{flex-direction:row}
+</style>
+<style>textarea:focus-visible{outline:2px solid var(--accent);outline-offset:2px}@media print{body{background:#fff;color:#000}.wrap>*:not(#pro-rapport){display:none!important}#pro-rapport{display:block!important;font:12px/1.5 system-ui,sans-serif}#pro-rapport table{border-collapse:collapse;width:100%}#pro-rapport td,#pro-rapport th{border:1px solid #999;padding:4px;vertical-align:top}}</style>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%232E5B48'/%3E%3Cpath d='M16 24c0-6 3-9 7-10-1 6-3 9-7 10zM16 24c0-6-3-9-7-10 1 6 3 9 7 10z' fill='%23E4EBE4'/%3E%3C/svg%3E">
+</head>
+<body>
+<main class="wrap">
+<header class="mast"><div class="sub">Perennova · EU Carbon Border Adjustment Mechanism (CBAM) · for importers and authorised declarants</div>
+<h1>CBAM supplier emissions data: check it before you declare</h1>
+<p>Drop the file your non-EU supplier sent you (Excel .xlsx or CSV, one row per good). You get, row by row, what is <strong>missing or would not hold</strong> against the 16 data points the installation operator owes you, and a ready-to-send request listing exactly what to ask back. <strong>No sign-up, and the file never leaves your computer</strong>: everything runs in your browser.</p>
+<p class="note">The definitive CBAM regime applies from 1 January 2026 to importers of more than 50 tonnes of CBAM goods a year (<a href="https://taxation-customs.ec.europa.eu/carbon-border-adjustment-mechanism/cbam-definitive-regime_en">European Commission</a>). The annual declaration is due by 30 September of the following year, and certificate sales start on 1 February 2027 (<a href="https://www.dihk.de/en/facilitations-for-the-carbon-border-adjustment-mechanism-cbam--168366">DIHK</a>). Both read on 22 October 2026.</p>
+</header>
+<section>
+<form id="cbam-form">
+<fieldset><legend>Your supplier's file</legend>
+<input type="file" id="cbam-fichier" accept=".xlsx,.csv,.txt">
+<p class="note">First row = column names. The tool recognises the columns of <a href="#" id="cbam-modele">our free template (CSV)</a> and common variants (e.g. <code>CN code</code>, <code>UN/LOCODE</code>, <code>SEE direct</code>). In an Excel file, the first sheet is read.</p>
+</fieldset>
+<div class="actions"><button type="submit">Check the file</button><button type="button" class="ghost" id="cbam-exemple">Try a sample file</button></div>
+</form>
+</section>
+<section class="out" id="cbam-resultat" hidden aria-live="polite">
+<h3>Result</h3>
+<p class="etat" id="cbam-etat"></p>
+<div class="blk"><h2>Missing or not acceptable as it stands</h2><ul class="l" id="cbam-bloquant"></ul></div>
+<div class="blk"><h2>To check with the supplier</h2><ul class="l" id="cbam-verifier"></ul></div>
+<div class="blk" id="cbam-demande-blk" hidden><h2>Request to send back to the supplier</h2><p class="note">Copy, adapt, send from your own mailbox. Nothing is sent by this page.</p><textarea id="cbam-demande" rows="10" readonly style="width:100%;font-family:var(--mono);font-size:13px;padding:10px;border:1px solid var(--rule-strong);background:var(--surface-2);color:var(--ink)"></textarea>
+<div class="actions"><button type="button" class="ghost" id="cbam-copier">Copy the request</button></div></div>
+</section>
+<section id="pro"><fieldset><legend>Pro · €99 per month</legend>
+<p>For importers and customs representatives who collect data from many installations: check <strong>every supplier file at once</strong>, get <strong>one request per supplier</strong>, and print <strong>one dated report</strong> (save as PDF) with each file's SHA-256 fingerprint and its gaps, file by file: a trace of the checks behind your annual declaration.</p>
+<div class="actions" id="pro-achat" hidden><a class="btn" id="pro-acheter" data-goatcounter-click="paiement-en-cbam-pro" href="#" rel="noopener">Subscribe · €99/month</a></div>
+<p class="note" id="pro-attente">Online subscription: the button appears here as soon as payment is open. Questions, or several legal entities: <a href="mailto:contact@perennova.eu?subject=CBAM%20Pro">contact@perennova.eu</a>.</p>
+<p class="note">Already subscribed? Paste the licence key from your Polar receipt.</p>
+<form id="pro-cle-form" class="row"><input type="text" id="pro-cle" autocomplete="off" placeholder="Licence key" aria-label="Licence key"><button type="submit" class="ghost">Activate</button></form>
+<p class="note" id="pro-etat" aria-live="polite"></p>
+<div id="pro-outil" hidden><label for="pro-fichiers">Supplier files (.xlsx, .csv), several at once</label>
+<input type="file" id="pro-fichiers" multiple accept=".xlsx,.csv,.txt">
+<div class="actions"><button type="button" id="pro-lancer">Check all files</button><button type="button" class="ghost" id="pro-imprimer" hidden>Print the report (PDF)</button></div>
+<div class="pro-wrap"><table id="pro-table" hidden><thead><tr><th>File</th><th>Rows</th><th>Missing</th><th>To check</th><th>SHA-256 (first 16)</th><th></th></tr></thead><tbody></tbody></table></div></div>
+</fieldset></section>
+<section id="pro-rapport" aria-hidden="true"></section>
+<section><h2>What is checked</h2>
+<p class="note">The 16 data points come from point 1.2 of Annex IV to Implementing Regulation (EU) 2025/2547, as listed by <a href="https://cbamguide.com/compliance/data-requirements/">cbamguide.com</a> (read on 22 October 2026). Check the Official Journal text before relying on a single point.</p>
+<table class="r"><tr><th>Data point</th><th>What the tool does</th></tr>
+<tr><td>1–2 · Operator and installation: name, address, CBAM Registry identifier, UN/LOCODE, coordinates of the main emission source</td><td>Flags a missing field, a UN/LOCODE that is not 2 letters + 3 characters, coordinates out of range or with fewer than 6 decimals</td></tr>
+<tr><td>3 · Production process and route of each good</td><td>Flags a missing route; flags a CN code that is not 8 digits or not found in our list of CBAM headings (cement, electricity, fertilisers, iron and steel, aluminium, hydrogen)</td></tr>
+<tr><td>4 · Specific direct (and, where required, indirect) embedded emissions per tonne, share on default values, free allocation, benchmark</td><td>Flags a missing or non-numeric value, a share outside 0–100 %, a value above 50 tCO2e per tonne (often kilograms entered as tonnes), and missing indirect emissions for cement and fertilisers (goods outside Annex II)</td></tr>
+<tr><td>5–11 · Installation emissions, heat, zero-rated fuels, waste gases, CO2 capture, on-site electricity</td><td>Flags a point left blank: the supplier should state “none” rather than leave it empty</td></tr>
+<tr><td>12–16 · Precursors: CN code, country, default or actual value, origin installation, reporting period</td><td>Flags a precursor without country or basis, and an actual value without its origin installation</td></tr>
+<tr><td>Method and evidence</td><td>Flags actual values without a verification report reference, a footprint calculated under the GHG Protocol or ISO 14067 (not accepted as actual values), and a carbon price paid without supporting evidence</td></tr>
+</table>
+<p class="note">What the tool does not do: it does not verify the emissions themselves, replace an accredited verifier, compute your certificate cost, or submit anything to the CBAM Registry. Tool built with an AI agent; found an error? <a href="mailto:contact@perennova.eu">contact@perennova.eu</a>.</p>
+</section>
+<footer class="note">Perennova · <a href="/en/">home</a> · <a href="/en/eudr/">EUDR plot file checker</a> · <a href="/mentions-legales/" lang="fr">legal notice (French)</a> · cookie-free visit counting (GoatCounter)</footer>
+</main>
+<script>
+(function(){
+'use strict';
+// Perennova · CBAM supplier emissions data check, in the browser (pari 60, 22/10/2026).
+// Points de données : annexe IV, point 1.2, règlement d'exécution (UE) 2025/2547 (liste lue sur cbamguide.com le 22/10/2026).
+var U='https://bgpvuyowxokmksbjrske.supabase.co/functions/v1/perennova-licence', P='cbam-en-';
+function el(i){return document.getElementById(i);}
+function ev(n){try{if(window.localStorage&&localStorage.getItem('skipgc'))return;}catch(e){}try{if(window.goatcounter&&window.goatcounter.count)window.goatcounter.count({path:P+n,title:P+n,event:true});}catch(e){}}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function stock(k,v){try{if(v===null)localStorage.removeItem(k);else localStorage.setItem(k,v);}catch(e){}}
+function lu(k){try{return localStorage.getItem(k);}catch(e){return null;}}
+
+// ---- colonnes reconnues (clé interne : variantes, comparées sans casse ni ponctuation)
+var COLS={
+ supplier:['supplier','operator','operatorname','operator_name','companyname','company','fournisseur'],
+ operator_address:['operatoraddress','address','companyaddress'],
+ installation:['installation','installationname','plant','site'],
+ registry_id:['cbamregistryid','registryid','cbamregistryidentifier','installationid','o3ciid','cbaminstallationid'],
+ unlocode:['unlocode','locode','unlocodeofinstallation'],
+ lat:['latitude','lat','mainemissionsourcelatitude'],
+ lon:['longitude','lon','lng','mainemissionsourcelongitude'],
+ cn:['cncode','cn','cn8','combinednomenclature','hscode','goodscode'],
+ good:['good','goods','description','gooddescription','product'],
+ route:['productionroute','route','productionprocess','process'],
+ period_start:['reportingperiodstart','periodstart','from','start'],
+ period_end:['reportingperiodend','periodend','to','end'],
+ see_direct:['seedirect','directsee','specificdirectembeddedemissions','directembeddedemissions','directemissionspertonne','seedirecttco2et'],
+ see_indirect:['seeindirect','indirectsee','specificindirectembeddedemissions','indirectembeddedemissions','indirectemissionspertonne','seeindirecttco2et'],
+ default_share:['defaultshare','shareofdefaultvalues','defaultvaluesshare','defaultshare%','defaultsharepct'],
+ free_allocation:['freeallocation','specificembeddedfreeallocation','freeallocationtco2et'],
+ benchmark:['benchmark','cbambenchmark','benchmarkconfirmed'],
+ total_direct:['totaldirectemissions','installationdirectemissions','directemissionstco2e'],
+ indirect_installation:['indirectemissionsinstallation','installationindirectemissions','indirectemissionstco2e'],
+ heat:['measurableheat','heat','heatflows'],
+ zero_fuels:['zeroratedfuels','zerofuels','biomass'],
+ waste_gases:['wastegases','wastegas'],
+ co2_capture:['co2capture','ccs','capture'],
+ electricity_gen:['electricitygeneration','onsiteelectricity','onsiteelectricitygeneration'],
+ precursor_cn:['precursorcn','precursorcncode','precursor'],
+ precursor_country:['precursorcountry','precursororigin','precursorcountryoforigin'],
+ precursor_basis:['precursorbasis','precursorvaluetype','precursordefaultoractual'],
+ precursor_see:['precursorsee','precursorembeddedemissions','precursorspecificembeddedemissions'],
+ precursor_installation:['precursorinstallation','precursororigininstallation','precursoroperator'],
+ verification_ref:['verificationreport','verificationreportref','verificationreportreference','verifier','verifiername'],
+ method:['method','methodology','calculationbasis','standard'],
+ carbon_price:['carbonpricepaid','carbonprice','carbonpriceeurt'],
+ carbon_price_evidence:['carbonpriceevidence','carbonpriceproof','evidence']
+};
+var MODELE=['supplier','operator_address','installation','registry_id','unlocode','lat','lon','cn','good','route','period_start','period_end','see_direct','see_indirect','default_share','free_allocation','benchmark','total_direct','indirect_installation','heat','zero_fuels','waste_gases','co2_capture','electricity_gen','precursor_cn','precursor_country','precursor_basis','precursor_see','precursor_installation','verification_ref','method','carbon_price','carbon_price_evidence'];
+var NOMS={supplier:'operator name',operator_address:'operator address',installation:'installation name',registry_id:'CBAM Registry identifier',unlocode:'UN/LOCODE',lat:'latitude',lon:'longitude',cn:'CN code',good:'good',route:'production route',period_start:'reporting period start',period_end:'reporting period end',see_direct:'specific direct embedded emissions (tCO2e/t)',see_indirect:'specific indirect embedded emissions (tCO2e/t)',default_share:'share on default values (%)',free_allocation:'specific embedded free allocation (tCO2e/t)',benchmark:'CBAM benchmark used',total_direct:'total direct emissions of the installation (tCO2e)',indirect_installation:'indirect emissions of the installation (tCO2e)',heat:'measurable heat imported/exported',zero_fuels:'zero-rated fuels',waste_gases:'waste gases',co2_capture:'CO2 capture',electricity_gen:'on-site electricity generation',precursor_cn:'precursor CN code',precursor_country:'precursor country of origin',precursor_basis:'precursor value: default or actual',precursor_see:'precursor specific embedded emissions',precursor_installation:'precursor origin installation',verification_ref:'verification report reference',method:'calculation method',carbon_price:'carbon price paid (EUR/t)',carbon_price_evidence:'carbon price evidence'};
+function norm(s){return String(s==null?'':s).toLowerCase().replace(/[\s_\-\.\/()]+/g,'').replace(/co₂/g,'co2');}
+var IDX={};Object.keys(COLS).forEach(function(k){IDX[norm(k)]=k;COLS[k].forEach(function(v){IDX[norm(v)]=k;});});
+
+// ---- CBAM : en-têtes NC de l'annexe I (liste de contrôle, préfixes)
+var CN_PREF=['25070080','2523','2716','2808','2814','283421','3102','3105','28041000','72','7301','7302','7303','7304','7305','7306','7307','7308','7309','7310','7311','7318','7326','7601','7603','7604','7605','7606','7607','7608','7609','7610','7611','7612','7613','7614','7616'];
+function secteur(cn){if(/^(2507|2523)/.test(cn))return 'cement';if(/^2716/.test(cn))return 'electricity';if(/^(2808|2814|2834|3102|3105)/.test(cn))return 'fertilisers';if(/^2804/.test(cn))return 'hydrogen';if(/^76/.test(cn))return 'aluminium';if(/^7[23]/.test(cn))return 'iron and steel';return '';}
+
+// ---- lecture CSV
+function csv(txt){
+ txt=txt.replace(/^﻿/,'');var first=txt.split('\n')[0];var sep=(first.split(';').length>first.split(',').length)?';':(first.split('\t').length>first.split(',').length?'\t':',');
+ var rows=[],row=[],f='',q=false;
+ for(var i=0;i<txt.length;i++){var c=txt[i];
+  if(q){if(c==='"'){if(txt[i+1]==='"'){f+='"';i++;}else q=false;}else f+=c;}
+  else if(c==='"')q=true; else if(c===sep){row.push(f);f='';} else if(c==='\n'){row.push(f);rows.push(row);row=[];f='';} else if(c!=='\r')f+=c;}
+ if(f!==''||row.length){row.push(f);rows.push(row);}
+ return rows.filter(function(r){return r.some(function(x){return String(x).trim()!=='';});});
+}
+// ---- lecture XLSX (zip + XML, sans bibliothèque)
+function inflate(u8){var ds=new DecompressionStream('deflate-raw');var s=new Blob([u8]).stream().pipeThrough(ds);return new Response(s).arrayBuffer().then(function(b){return new Uint8Array(b);});}
+function unzip(buf){
+ var dv=new DataView(buf),u8=new Uint8Array(buf),eocd=-1;
+ for(var i=buf.byteLength-22;i>=Math.max(0,buf.byteLength-65557);i--){if(dv.getUint32(i,true)===0x06054b50){eocd=i;break;}}
+ if(eocd<0)throw new Error('not a valid .xlsx file');
+ var n=dv.getUint16(eocd+10,true),off=dv.getUint32(eocd+16,true),files={};
+ for(var k=0;k<n;k++){
+  if(dv.getUint32(off,true)!==0x02014b50)break;
+  var meth=dv.getUint16(off+10,true),csz=dv.getUint32(off+20,true),nl=dv.getUint16(off+28,true),xl=dv.getUint16(off+30,true),cl=dv.getUint16(off+32,true),lho=dv.getUint32(off+42,true);
+  var name=new TextDecoder().decode(u8.subarray(off+46,off+46+nl));
+  var lnl=dv.getUint16(lho+26,true),lxl=dv.getUint16(lho+28,true),start=lho+30+lnl+lxl;
+  files[name]={meth:meth,data:u8.subarray(start,start+csz)};
+  off+=46+nl+xl+cl;}
+ return files;
+}
+function lireZip(f){return f.meth===0?Promise.resolve(f.data):inflate(f.data);}
+function xlsx(buf){
+ var files=unzip(buf),td=new TextDecoder();
+ function get(n){return files[n]?lireZip(files[n]).then(function(b){return td.decode(b);}):Promise.resolve(null);}
+ return Promise.all([get('xl/workbook.xml'),get('xl/_rels/workbook.xml.rels'),get('xl/sharedStrings.xml')]).then(function(r){
+  var dp=new DOMParser(),cible='xl/worksheets/sheet1.xml';
+  if(r[0]&&r[1]){var wb=dp.parseFromString(r[0],'application/xml'),sh=wb.getElementsByTagName('sheet')[0];
+   if(sh){var rid=sh.getAttribute('r:id')||sh.getAttributeNS('http://schemas.openxmlformats.org/officeDocument/2006/relationships','id');
+    var rels=dp.parseFromString(r[1],'application/xml').getElementsByTagName('Relationship');
+    for(var i=0;i<rels.length;i++)if(rels[i].getAttribute('Id')===rid){var t=rels[i].getAttribute('Target').replace(/^\/?xl\//,'').replace(/^\//,'');cible='xl/'+t;}}}
+  var ss=[];if(r[2]){var si=dp.parseFromString(r[2],'application/xml').getElementsByTagName('si');for(var j=0;j<si.length;j++){var ts=si[j].getElementsByTagName('t'),s='';for(var q=0;q<ts.length;q++)s+=ts[q].textContent;ss.push(s);}}
+  return get(cible).then(function(x){if(!x)throw new Error('first sheet not found');
+   var d=dp.parseFromString(x,'application/xml'),rws=d.getElementsByTagName('row'),out=[];
+   for(var a=0;a<rws.length;a++){var cs=rws[a].getElementsByTagName('c'),row=[];
+    for(var b=0;b<cs.length;b++){var ref=cs[b].getAttribute('r')||'',col=0,m=ref.match(/^[A-Z]+/);
+     if(m){for(var z=0;z<m[0].length;z++)col=col*26+(m[0].charCodeAt(z)-64);col--;}else col=row.length;
+     var t=cs[b].getAttribute('t'),v=cs[b].getElementsByTagName('v')[0],val='';
+     if(t==='s'&&v)val=ss[+v.textContent]||'';else if(t==='inlineStr'){var it=cs[b].getElementsByTagName('t');for(var y=0;y<it.length;y++)val+=it[y].textContent;}else if(v)val=v.textContent;
+     row[col]=val;}
+    for(var w=0;w<row.length;w++)if(row[w]===undefined)row[w]='';
+    out.push(row);}
+   return out.filter(function(r){return r.some(function(x){return String(x).trim()!=='';});});});
+ });
+}
+function lire(nom,buf){
+ var n=nom.toLowerCase();
+ if(n.endsWith('.xlsx'))return xlsx(buf);
+ if(n.endsWith('.xls'))return Promise.reject(new Error('old .xls format: save as .xlsx or CSV'));
+ return Promise.resolve(csv(new TextDecoder().decode(new Uint8Array(buf))));
+}
+
+// ---- contrôle
+function num(v){if(v==null)return NaN;var s=String(v).trim().replace(/\s/g,'');if(s==='')return NaN;if(/^-?\d+,\d+$/.test(s))s=s.replace(',','.');return Number(s);}
+function vide(v){var s=String(v==null?'':v).trim().toLowerCase();return s===''||s==='n/a'||s==='na'||s==='-'||s==='tbd'||s==='?';}
+function controler(rows){
+ if(!rows||rows.length<2)throw new Error('the file needs a header row and at least one data row');
+ var h=rows[0],map={},inconnues=[];
+ h.forEach(function(x,i){var k=IDX[norm(x)];if(k&&map[k]===undefined)map[k]=i;else if(String(x).trim())inconnues.push(String(x).trim());});
+ var B=[],V=[],manque={},absentes=[];
+ ['supplier','installation','registry_id','unlocode','lat','lon','cn','route','see_direct','default_share','verification_ref'].forEach(function(k){if(map[k]===undefined)absentes.push(NOMS[k]);});
+ if(absentes.length)B.push('Columns not found: '+absentes.join(', ')+'.');
+ function g(r,k){return map[k]===undefined?'':r[map[k]];}
+ var data=rows.slice(1),fourn={};
+ data.forEach(function(r,i){
+  var L='[row '+(i+2)+'] ',sup=String(g(r,'supplier')||'').trim()||'(supplier not named)';
+  if(!fourn[sup])fourn[sup]={};
+  function b(msg,pt){B.push(L+msg);if(pt)fourn[sup][pt]=1;}
+  function w(msg,pt){V.push(L+msg);if(pt)fourn[sup][pt]=1;}
+  function req(k,pt){if(map[k]!==undefined&&vide(g(r,k))){b(NOMS[k]+' missing',pt||NOMS[k]);return false;}return map[k]!==undefined;}
+  req('supplier');req('installation');
+  if(map.operator_address!==undefined&&vide(g(r,'operator_address')))w('operator address missing (full address in English)','operator address');
+  if(req('registry_id')){}
+  if(req('unlocode')){var lc=String(g(r,'unlocode')).trim().toUpperCase().replace(/\s+/g,'');if(!/^[A-Z]{2}[A-Z2-9]{3}$/.test(lc))b('UN/LOCODE "'+g(r,'unlocode')+'" is not 2 letters + 3 characters (e.g. CNSHA)','UN/LOCODE');}
+  ['lat','lon'].forEach(function(k){if(req(k,'coordinates of the main emission source')){var x=num(g(r,k)),lim=k==='lat'?90:180;
+   if(isNaN(x)||Math.abs(x)>lim)b(NOMS[k]+' "'+g(r,k)+'" out of range','coordinates of the main emission source');
+   else{var dec=(String(g(r,k)).split(/[.,]/)[1]||'').length;if(dec<6)w(NOMS[k]+' given with '+dec+' decimal(s): the verification report gives coordinates to 6 decimals','coordinates to 6 decimals');}}});
+  var cn='',sect='';
+  if(req('cn')){cn=String(g(r,'cn')).replace(/[\s.]/g,'');
+   if(!/^\d{8}$/.test(cn))b('CN code "'+g(r,'cn')+'" is not 8 digits','8-digit CN code');
+   else if(!CN_PREF.some(function(p){return cn.indexOf(p)===0;}))w('CN code '+cn+' not found in our list of CBAM headings: check it is a CBAM good');
+   sect=secteur(cn);}
+  req('route');
+  if(map.period_start!==undefined||map.period_end!==undefined){if(vide(g(r,'period_start'))||vide(g(r,'period_end')))b('reporting period incomplete','reporting period (start and end)');}
+  else if(i===0)B.push('Columns not found: reporting period start and end.');
+  if(req('see_direct')){var sd=num(g(r,'see_direct'));
+   if(isNaN(sd))b('specific direct embedded emissions "'+g(r,'see_direct')+'" is not a number','specific direct embedded emissions as a number, in tCO2e per tonne');
+   else if(sd<0)b('negative specific direct embedded emissions','specific direct embedded emissions');
+   else if(sd>50&&sect!=='electricity')w('specific direct embedded emissions of '+sd+' tCO2e/t: unusually high, possibly kgCO2e entered as tonnes','unit of specific embedded emissions (tCO2e per tonne, not kg)');
+   else if(sd===0&&sect!=='electricity')w('specific direct embedded emissions equal to 0: ask for the calculation','calculation of the specific direct embedded emissions');}
+  var horsII=(sect==='cement'||sect==='fertilisers');
+  if(horsII){if(map.see_indirect===undefined||vide(g(r,'see_indirect')))b('specific indirect embedded emissions missing: required for '+sect+' (goods outside Annex II)','specific indirect embedded emissions');
+   else if(isNaN(num(g(r,'see_indirect'))))b('specific indirect embedded emissions is not a number','specific indirect embedded emissions as a number');
+   if(map.indirect_installation!==undefined&&vide(g(r,'indirect_installation')))w('indirect emissions of the installation not stated','indirect emissions of the installation');
+   if(map.electricity_gen!==undefined&&vide(g(r,'electricity_gen')))w('on-site electricity generation not stated (state “none” if none)','on-site electricity generation');}
+  var ds=NaN;
+  if(req('default_share')){ds=num(String(g(r,'default_share')).replace('%',''));if(isNaN(ds)||ds<0||ds>100)b('share on default values "'+g(r,'default_share')+'" must be between 0 and 100 %','share of embedded emissions on default values (%)');}
+  if(map.free_allocation!==undefined&&vide(g(r,'free_allocation')))w('specific embedded free allocation not stated','specific embedded free allocation');
+  if(map.benchmark!==undefined&&vide(g(r,'benchmark')))w('CBAM benchmark used not confirmed','confirmation of the CBAM benchmark used');
+  if(map.total_direct!==undefined){if(vide(g(r,'total_direct')))b('total direct emissions of the installation missing','total direct emissions of the installation (tCO2e)');}
+  ['heat','zero_fuels','waste_gases','co2_capture'].forEach(function(k){if(map[k]!==undefined&&vide(g(r,k)))w(NOMS[k]+' left blank (state “none” if none)',NOMS[k]);});
+  var actuel=!isNaN(ds)&&ds<100;
+  if(actuel&&(map.verification_ref===undefined||vide(g(r,'verification_ref'))))b('actual values ('+(100-ds)+' % not on default values) without a verification report reference','verification report reference for the actual values');
+  var m=String(g(r,'method')||'').toLowerCase();
+  if(/ghg\s*protocol|14067|14064|pcf|product carbon footprint|footprint/.test(m))b('method "'+g(r,'method')+'": a footprint under the GHG Protocol or ISO 14067 does not count as CBAM actual values; it must be recalculated under Implementing Regulation (EU) 2025/2547 and verified','recalculation under Implementing Regulation (EU) 2025/2547');
+  var cp=num(g(r,'carbon_price'));
+  if(!isNaN(cp)&&cp>0&&(map.carbon_price_evidence===undefined||vide(g(r,'carbon_price_evidence'))))b('carbon price paid ('+cp+' EUR/t) without supporting evidence: an unsupported claim can be rejected','evidence of the carbon price paid (Article 9 of Regulation (EU) 2023/956)');
+  if(map.precursor_cn!==undefined&&!vide(g(r,'precursor_cn'))){
+   if(vide(g(r,'precursor_country')))b('precursor '+g(r,'precursor_cn')+' without country of origin','precursor country of origin');
+   var pb=String(g(r,'precursor_basis')||'').toLowerCase();
+   if(!/default|actual|défaut|reel|réel/.test(pb))b('precursor '+g(r,'precursor_cn')+': value basis (default or actual) not stated','precursor value basis (default or actual)');
+   else if(/actual|reel|réel/.test(pb)){if(vide(g(r,'precursor_installation')))b('precursor on actual values without its origin installation','precursor origin installation and its reporting period');
+    if(isNaN(num(g(r,'precursor_see'))))b('precursor on actual values without specific embedded emissions','precursor specific embedded emissions');}}
+ });
+ var nf=Object.keys(fourn);
+ return {B:B,V:V,lignes:data.length,fourn:fourn,inconnues:inconnues,cols:Object.keys(map).length};
+}
+function demande(fourn){
+ var t=[];Object.keys(fourn).forEach(function(s){var pts=Object.keys(fourn[s]);if(!pts.length)return;
+  t.push('To: '+s+'\nSubject: CBAM embedded emissions data: points to complete\n\nHello,\n\nThank you for the emissions data. To use it in our CBAM declaration, we need the following, for each installation and good concerned:\n'+pts.map(function(p){return '- '+p;}).join('\n')+'\n\nThe data points are those of Annex IV, point 1.2, of Implementing Regulation (EU) 2025/2547. Actual values need to come with the verification report of the installation.\n\nBest regards,');});
+ return t.join('\n\n----------\n\n');
+}
+window.PerennovaCBAM={lire:lire,controler:controler,demande:demande};
+
+// ---- interface gratuite (un fichier)
+function liste(id,arr,vide0){var u=el(id);u.textContent='';var max=200;(arr.length?arr.slice(0,max):[vide0]).forEach(function(t){var li=document.createElement('li');li.textContent=t;u.appendChild(li);});
+ if(arr.length>max){var li=document.createElement('li');li.textContent='… and '+(arr.length-max)+' more';u.appendChild(li);}}
+function afficher(r){
+ el('cbam-resultat').hidden=false;
+ el('cbam-etat').textContent=(r.B.length?'Not usable as it stands: ':'Complete on the points checked: ')+r.lignes+' row(s) read, '+r.cols+' recognised column(s), '+r.B.length+' missing or not acceptable, '+r.V.length+' to check'+(r.inconnues.length?' · columns not used: '+r.inconnues.slice(0,8).join(', ')+(r.inconnues.length>8?'…':''):'');
+ liste('cbam-bloquant',r.B,'Nothing missing on the points checked.');liste('cbam-verifier',r.V,'Nothing to check.');
+ var d=demande(r.fourn);el('cbam-demande-blk').hidden=!d;el('cbam-demande').value=d;
+}
+el('cbam-form').addEventListener('submit',function(e){e.preventDefault();var fi=el('cbam-fichier').files[0];
+ if(!fi){el('cbam-resultat').hidden=false;el('cbam-etat').textContent='Choose a file.';return;}
+ fi.arrayBuffer().then(function(buf){return lire(fi.name,buf);}).then(function(rows){var r=controler(rows);afficher(r);ev(r.B.length?'fichier-incomplet':'fichier-complet');})
+ .catch(function(err){el('cbam-resultat').hidden=false;el('cbam-etat').textContent='Cannot read the file: '+err.message;liste('cbam-bloquant',[],'');liste('cbam-verifier',[],'');ev('fichier-illisible');});});
+var EX='supplier,installation,cbam_registry_id,unlocode,latitude,longitude,cn_code,good,production_route,reporting_period_start,reporting_period_end,see_direct,see_indirect,default_share,verification_report,method,carbon_price_paid,carbon_price_evidence\n'+
+ 'Anatolia Steel A.S.,Iskenderun works,TR-INST-000123,TRISK,36.587412,36.173901,72083900,Hot-rolled coil,BF/BOF,2026-01-01,2026-12-31,2.1,,0,VR-2027-0456,CBAM 2025/2547,,\n'+
+ 'Anatolia Steel A.S.,Iskenderun works,TR-INST-000123,TRISK,36.58,36.17,72142000,Rebar,EAF,2026-01-01,2026-12-31,450,,20,,GHG Protocol,12,\n'+
+ 'Delta Cement Ltd,Plant 2,,EGALX,31.2001,29.9187,25232900,Portland cement,Dry kiln,2026-01-01,,0.81,,100,,,,\n';
+el('cbam-exemple').addEventListener('click',function(){var f=new File([EX],'sample-supplier-data.csv',{type:'text/csv'});var dt=new DataTransfer();dt.items.add(f);el('cbam-fichier').files=dt.files;el('cbam-form').requestSubmit();ev('exemple');});
+el('cbam-modele').addEventListener('click',function(e){e.preventDefault();var b=new Blob(['﻿'+MODELE.map(function(k){return k==='lat'?'latitude':k==='lon'?'longitude':k==='cn'?'cn_code':k==='registry_id'?'cbam_registry_id':k==='verification_ref'?'verification_report':k;}).join(',')+'\n'],{type:'text/csv'});var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='cbam-supplier-data-template.csv';document.body.appendChild(a);a.click();a.remove();ev('modele');});
+el('cbam-copier').addEventListener('click',function(){var t=el('cbam-demande');t.select();try{navigator.clipboard.writeText(t.value);}catch(e){document.execCommand('copy');}ev('copie-demande');});
+
+// ---- Pro
+fetch(U).then(function(r){return r.json();}).then(function(c){if(c&&c.cbam_pret&&c.checkout_url_cbam){var a=el('pro-acheter');a.href=c.checkout_url_cbam;el('pro-achat').hidden=false;el('pro-attente').textContent='Questions, or several legal entities: ';var m=document.createElement('a');m.href='mailto:contact@perennova.eu?subject=CBAM%20Pro';m.textContent='contact@perennova.eu';el('pro-attente').appendChild(m);a.addEventListener('click',function(){ev('pro-achat-clic');});}}).catch(function(){});
+function ouvrir(){el('pro-outil').hidden=false;el('pro-etat').textContent='Pro is active on this browser.';}
+function valider(k,sil){return fetch(U,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:k,page:'/en/cbam/'})}).then(function(r){return r.json();}).then(function(j){
+ if(j&&j.ok){stock('cbam_pro',k);ouvrir();if(!sil)ev('pro-active');}else{stock('cbam_pro',null);if(!sil)el('pro-etat').textContent='Key not accepted: '+((j&&j.statut)||'?');}});}
+el('pro-cle-form').addEventListener('submit',function(e){e.preventDefault();var k=el('pro-cle').value.trim();if(k)valider(k,false).catch(function(){el('pro-etat').textContent='Key not accepted: network';});});
+var k0=lu('cbam_pro');if(k0)valider(k0,true).catch(function(){});
+var lots=[];
+function hex(buf){return Array.prototype.map.call(new Uint8Array(buf),function(x){return ('0'+x.toString(16)).slice(-2);}).join('');}
+function un(f){return f.arrayBuffer().then(function(buf){return crypto.subtle.digest('SHA-256',buf).then(function(h){var o={nom:f.name,sha:hex(h)};
+ return lire(f.name,buf).then(function(rows){o.res=controler(rows);return o;}).catch(function(err){o.erreur=err.message;return o;});});});}
+el('pro-lancer').addEventListener('click',function(){var fs=Array.prototype.slice.call(el('pro-fichiers').files||[]);if(!fs.length)return;
+ Promise.all(fs.map(un)).then(function(r){lots=r;var tb=el('pro-table').querySelector('tbody');tb.textContent='';
+  lots.forEach(function(o){var tr=document.createElement('tr');
+   tr.innerHTML='<td>'+esc(o.nom)+'</td><td>'+(o.res?o.res.lignes:'—')+'</td><td>'+(o.res?o.res.B.length:esc(o.erreur||''))+'</td><td>'+(o.res?o.res.V.length:'—')+'</td><td><code>'+o.sha.slice(0,16)+'</code></td><td></td>';
+   if(o.res){var b=document.createElement('button');b.type='button';b.className='ghost';b.textContent='Details';b.addEventListener('click',function(){afficher(o.res);el('cbam-resultat').scrollIntoView();});tr.lastChild.appendChild(b);}
+   tb.appendChild(tr);});
+  el('pro-table').hidden=false;el('pro-imprimer').hidden=false;ev('pro-lot');});});
+el('pro-imprimer').addEventListener('click',function(){if(!lots.length)return;var d=new Date();
+ var h='<h1>CBAM supplier emissions data: check report</h1><p>Generated on '+d.toISOString().replace('T',' ').slice(0,16)+' UTC by the Perennova CBAM checker (perennova.eu/en/cbam/), in the browser; no file was uploaded.</p><p>This report checks the presence and form of the data points of Annex IV, point 1.2, of Implementing Regulation (EU) 2025/2547. It does not verify the emissions themselves and does not replace an accredited verifier.</p>';
+ lots.forEach(function(o,i){h+='<h2>File '+(i+1)+' · '+esc(o.nom)+'</h2><p>SHA-256: <code>'+o.sha+'</code></p>';
+  if(!o.res){h+='<p>'+esc(o.erreur||'')+'</p>';return;}
+  h+='<p>'+o.res.lignes+' row(s)</p><table><tr><th>Missing or not acceptable ('+o.res.B.length+')</th><th>To check ('+o.res.V.length+')</th></tr><tr><td>'+(o.res.B.map(esc).join('<br>')||'none')+'</td><td>'+(o.res.V.map(esc).join('<br>')||'none')+'</td></tr></table>';
+  var dm=demande(o.res.fourn);if(dm)h+='<h3>Request to the supplier</h3><pre style="white-space:pre-wrap">'+esc(dm)+'</pre>';});
+ el('pro-rapport').innerHTML=h;ev('pro-rapport');window.print();});
+})();
+</script>
+<script>(function(){try{if(location.hash==='#toggle-goatcounter'){history.replaceState(null,'',location.pathname+location.search);}var L=window.localStorage,U='https://bgpvuyowxokmksbjrske.supabase.co/functions/v1/perennova-proprio',m=location.hash.match(/^#proprietaire=([A-Za-z0-9_-]{8,64})$/),P=function(k){return fetch(U,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({k:k,p:location.pathname}),keepalive:true});};if(m){history.replaceState(null,'',location.pathname+location.search);P(m[1]).then(function(r){return r.json();}).then(function(j){if(j&&j.ok===true){L.setItem('pn_owner',m[1]);L.setItem('skipgc','t');alert('Appareil marqué propriétaire : ses passages ne sont plus comptés.');}}).catch(function(){});return;}var k=L.getItem('pn_owner');if(k){P(k).then(function(r){if(r.status===403){L.removeItem('pn_owner');L.removeItem('skipgc');}}).catch(function(){});}}catch(e){}})();</script>
+<script data-goatcounter="https://perennova.goatcounter.com/count"
+        async src="https://gc.zgo.at/count.v5.js"
+        crossorigin="anonymous"
+        integrity="sha384-atnOLvQb9t+jTSipvd75X2yginT4PjVbqDdlJAmxMm+wYElFmeR6EmLP5bYeoRVQ"></script>
+</body>
+</html>

@@ -53,3 +53,4 @@ Citez la page, sa date et la source des données. Exemple : « Du 24 août au 7 
 - [Plan du site](https://perennova.eu/sitemap.xml)
 - [Fichier de parcelles EUDR : contrôle et réparation](https://perennova.eu/eudr/) : vérifie et corrige un fichier de géolocalisation (CSV, KML, GeoJSON) selon les règles du système d'information EUDR ; calculé dans le navigateur.
 - [EUDR plot file: check and fix (English)](https://perennova.eu/en/eudr/): checks and fixes a plot geolocation file (CSV, KML, GeoJSON) against the EUDR Information System rules; no sign-up, runs in the browser.
+- [CBAM supplier emissions data checker (English)](https://perennova.eu/en/cbam/): checks a supplier's embedded emissions file (Excel or CSV) against the 16 data points of Annex IV, point 1.2, of Implementing Regulation (EU) 2025/2547 and drafts the request for what is missing; runs in the browser.
