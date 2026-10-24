@@ -82,7 +82,7 @@ table.r{border-collapse:collapse;font-size:14px;width:100%}table.r td,table.r th
 <section>
 <form id="eudr-form">
 <fieldset><legend>Votre fichier</legend>
-<input type="file" id="eudr-fichier" accept=".geojson,.json,.csv,.txt,.kml">
+<input type="file" id="eudr-fichier" aria-label="Votre fichier de parcelles (GeoJSON, CSV ou KML)" accept=".geojson,.json,.csv,.txt,.kml">
 <label for="eudr-pays">Pays de production par défaut (code à 2 lettres, par exemple CI, GH, CM), utilisé quand le fichier ne le donne pas</label>
 <input type="text" id="eudr-pays" maxlength="2" placeholder="CI" autocomplete="off">
 <p class="note">CSV : une ligne par parcelle, colonnes <code>latitude</code> et <code>longitude</code> (ou <code>wkt</code> pour un contour), et si vous les avez <code>producteur</code>, <code>pays</code>, <code>superficie</code> en hectares. Séparateur virgule ou point-virgule, décimales à point ou à virgule.</p>
