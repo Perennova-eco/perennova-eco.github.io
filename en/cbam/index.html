@@ -82,7 +82,7 @@ table.r{border-collapse:collapse;font-size:14px;width:100%}table.r td,table.r th
 <form id="cbam-form">
 <fieldset><legend>Your supplier's file</legend>
 <input type="file" id="cbam-fichier" accept=".xlsx,.csv,.txt">
-<p class="note">First row = column names. The tool recognises the columns of <a href="#" id="cbam-modele">our free template (CSV)</a> and common variants (e.g. <code>CN code</code>, <code>UN/LOCODE</code>, <code>SEE direct</code>). In an Excel file, the first sheet is read.</p>
+<p class="note">First row = column names. The tool recognises the columns of <a href="#" id="cbam-modele">our free template (CSV)</a> and common variants (e.g. <code>CN code</code>, <code>UN/LOCODE</code>, <code>SEE direct</code>). In an Excel file, the tool reads the Commission’s CBAM Communication template (sheets Summary_Communication and A_InstData) or the EFDA Template (sheet 1. REPORT) when it finds them, and otherwise the first sheet.</p>
 </fieldset>
 <div class="actions"><button type="submit">Check the file</button><button type="button" class="ghost" id="cbam-exemple">Try a sample file</button></div>
 </form>
