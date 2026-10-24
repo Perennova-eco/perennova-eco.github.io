@@ -74,7 +74,7 @@ table.r{border-collapse:collapse;font-size:14px;width:100%}table.r td,table.r th
 <main class="wrap">
 <header class="mast"><div class="sub">Perennova · EU Carbon Border Adjustment Mechanism (CBAM) · for importers and authorised declarants</div>
 <h1>CBAM supplier emissions data: check it before you declare</h1>
-<p>Drop the file your non-EU supplier sent you (Excel .xlsx or CSV, one row per good, or the Commission’s CBAM Communication template for installations as the supplier filled it in). You get, row by row, what is <strong>missing or would not hold</strong> against the 16 data points the installation operator owes you, and a ready-to-send request listing exactly what to ask back. <strong>No sign-up, and the file never leaves your computer</strong>: everything runs in your browser.</p>
+<p>Drop the file your non-EU supplier sent you (Excel .xlsx or CSV, one row per good, or the Commission’s CBAM Communication template for installations as the supplier filled it in, or the EFDA Template used by fastener distributors). You get, row by row, what is <strong>missing or would not hold</strong> against the 16 data points the installation operator owes you, and a ready-to-send request listing exactly what to ask back. <strong>No sign-up, and the file never leaves your computer</strong>: everything runs in your browser.</p>
 <style>.plans{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:4px 0 2px;font-size:15px}.plans a{display:inline-flex;align-items:center;min-height:44px;padding:6px 12px;border:1px solid var(--accent);border-radius:3px;text-decoration:none;color:var(--ink);background:var(--surface)}.plans a b{color:var(--accent);margin-left:6px}.plans a:hover,.plans a:focus-visible{background:var(--accent-soft)}</style><p class="plans" data-conv="C261023-1">Free for one file, below. Paid: <a href="#pro" data-goatcounter-click="cbam-haut-vers-pro">Pro, batches + dated report<b>€99/month</b></a></p>
 <p class="note">The definitive CBAM regime applies from 1 January 2026 to importers of more than 50 tonnes of CBAM goods a year (<a href="https://taxation-customs.ec.europa.eu/carbon-border-adjustment-mechanism/cbam-definitive-regime_en">European Commission</a>). The annual declaration is due by 30 September of the following year, and certificate sales start on 1 February 2027 (<a href="https://www.dihk.de/en/facilitations-for-the-carbon-border-adjustment-mechanism-cbam--168366">DIHK</a>). Both read on 22 October 2026.</p>
 </header>
@@ -229,6 +229,8 @@ function xlsx(buf){
     g[rn]=row;}
    return g;});}
   function plat(g){var out=[];Object.keys(g).map(Number).sort(function(a,b){return a-b;}).forEach(function(k){if(g[k].some(function(x){return String(x).trim()!=='';}))out.push(g[k]);});return out;}
+  // gabarit EFDA (feuille « 1. REPORT »)
+  if(cibles['1. REPORT'])return grille(cibles['1. REPORT']).then(function(g){if(!g)throw new Error('sheet 1. REPORT not found');return efda(g);});
   // gabarit de communication de la Commission (feuille Summary_Communication)
   if(cibles['Summary_Communication']){
    return Promise.all([grille(cibles['Summary_Communication']),cibles['A_InstData']?grille(cibles['A_InstData']):Promise.resolve(null)]).then(function(gs){return gabarit(gs[0],gs[1]);});}
@@ -283,6 +285,43 @@ function gabarit(sc,inst){
  if(out.length<2)throw new Error('CBAM Communication template found, but no product with a CN code in sheet Summary_Communication');
  return out;
 }
+// Gabarit EFDA « EFDA Template » (feuille « 1. REPORT », v2.0 à v2.10, carboneer) : on remet à plat
+// (une ligne par bien) ce que le fournisseur a saisi, pour le contrôle commun. Colonnes repérées par leur libellé.
+function efda(g){
+ var n=function(s){return norm(s).replace(/:$/,'');};
+ function libre(v){return String(v==null?'':v).trim();}
+ function date(v){var s=libre(v),x=Number(s);if(s!==''&&!isNaN(x)&&x>20000&&x<80000){var d=new Date(Date.UTC(1899,11,30)+Math.round(x)*86400000);return d.toISOString().slice(0,10);}if(/^dd\.mm/.test(s))return '';return s;}
+ var A={};for(var k in g){var row=g[k],id=libre(row[1]);if(/^[ABCD]\.\d\d$/.test(id))A[id]=libre(row[4]);}
+ var adr=[A['A.02'],[A['A.03'],A['A.05']].filter(Boolean).join(' '),A['A.06']].filter(Boolean).join(', ');
+ var H=null,hk=null;
+ for(var r in g){var row=g[r],c1=-1,c2=-1;row.forEach(function(x,i){var t=n(x);if(t.indexOf(n('CN code'))===0)c1=i;if(t.indexOf(n('Specific direct embedded emissions'))===0)c2=i;});if(c1>=0&&c2>=0){H=row;hk=+r;break;}}
+ if(!H)throw new Error('EFDA Template found, but its goods table (sheet 1. REPORT, section E) could not be read');
+ var C={};H.forEach(function(x,i){var t=n(x);
+  if(t.indexOf(n('Line number'))===0)C.line=i;
+  else if(t.indexOf(n('CN code'))===0)C.cn=i;
+  else if(t.indexOf(n('Description of good'))===0)C.good=i;
+  else if(t.indexOf(n('Country of establishment'))===0)C.country=i;
+  else if(t.indexOf(n('Installation name'))===0)C.installation=i;
+  else if(t.indexOf(n('Installation city'))===0)C.city=i;
+  else if(t.indexOf(n('Specific direct embedded emissions'))===0)C.see_direct=i;
+  else if(t.indexOf(n('Specific indirect embedded emissions'))===0)C.see_indirect=i;
+  else if(t.indexOf(n('Source of emission factor value'))===0)C.method=i;
+  else if(t.indexOf(n('Production method ID'))===0)C.route_id=i;
+  else if(t.indexOf(n('Production method'))===0)C.route=i;});
+ function c(row,k){return C[k]===undefined?'':libre(row[C[k]]);}
+ var tete=['supplier','operator_address','installation','registry_id','unlocode','lat','lon','cn','good','route','period_start','period_end','see_direct','see_indirect','default_share','verification_ref','method','carbon_price','carbon_price_evidence'];
+ var out=[tete];
+ Object.keys(g).map(Number).filter(function(k){return k>hk;}).sort(function(a,b){return a-b;}).forEach(function(k){
+  var row=g[k];if(C.line!==undefined&&!/^\d+$/.test(c(row,'line')))return;
+  var cnv=c(row,'cn').replace(/[\s.]/g,''),good=c(row,'good');if(!cnv&&!good)return;
+  var inst=c(row,'installation'),lieu=[c(row,'city'),c(row,'country')].filter(Boolean).join(', ');
+  var v={supplier:A['A.01']||'',operator_address:adr,installation:inst+(inst&&lieu?' ('+lieu+')':''),registry_id:'',unlocode:'',lat:'',lon:'',cn:cnv,good:good,route:c(row,'route'),
+   period_start:date(A['C.01']),period_end:date(A['C.02']),see_direct:c(row,'see_direct'),see_indirect:c(row,'see_indirect'),default_share:'',verification_ref:'',method:c(row,'method'),carbon_price:'',carbon_price_evidence:''};
+  out.push(tete.map(function(t){return v[t]==null?'':v[t];}));});
+ out.efda=true;
+ if(out.length<2)throw new Error('EFDA Template found, but no good filled in sheet 1. REPORT (example rows are skipped)');
+ return out;
+}
 function lire(nom,buf){
  var n=nom.toLowerCase();
  if(n.endsWith('.xlsx'))return xlsx(buf);
@@ -297,7 +336,7 @@ function controler(rows){
  if(!rows||rows.length<2)throw new Error('the file needs a header row and at least one data row');
  var h=rows[0],map={},inconnues=[];
  h.forEach(function(x,i){var k=IDX[norm(x)];if(k&&map[k]===undefined)map[k]=i;else if(String(x).trim())inconnues.push(String(x).trim());});
- var B=[],V=[],manque={},absentes=[];if(rows.gabarit)V.push('Read as the Commission’s CBAM Communication template (sheets Summary_Communication and A_InstData). That template has no field for the installation’s CBAM Registry identifier: ask the operator for it.');
+ var B=[],V=[],manque={},absentes=[];if(rows.efda)V.push('Read as the EFDA Template (sheet 1. REPORT). That template has no field for the CBAM Registry identifier, the UN/LOCODE, the coordinates of the main emission source, the share on default values or the verification report reference: ask the supplier for them before the annual declaration.');if(rows.gabarit)V.push('Read as the Commission’s CBAM Communication template (sheets Summary_Communication and A_InstData). That template has no field for the installation’s CBAM Registry identifier: ask the operator for it.');
  ['supplier','installation','registry_id','unlocode','lat','lon','cn','route','see_direct','default_share','verification_ref'].forEach(function(k){if(map[k]===undefined)absentes.push(NOMS[k]);});
  if(absentes.length)B.push('Columns not found: '+absentes.join(', ')+'.');
  function g(r,k){return map[k]===undefined?'':r[map[k]];}
