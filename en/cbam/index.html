@@ -74,7 +74,7 @@ table.r{border-collapse:collapse;font-size:14px;width:100%}table.r td,table.r th
 <main class="wrap">
 <header class="mast"><div class="sub">Perennova · EU Carbon Border Adjustment Mechanism (CBAM) · for importers and authorised declarants</div>
 <h1>CBAM supplier emissions data: check it before you declare</h1>
-<p>Drop the file your non-EU supplier sent you (Excel .xlsx or CSV, one row per good). You get, row by row, what is <strong>missing or would not hold</strong> against the 16 data points the installation operator owes you, and a ready-to-send request listing exactly what to ask back. <strong>No sign-up, and the file never leaves your computer</strong>: everything runs in your browser.</p>
+<p>Drop the file your non-EU supplier sent you (Excel .xlsx or CSV, one row per good, or the Commission’s CBAM Communication template for installations as the supplier filled it in). You get, row by row, what is <strong>missing or would not hold</strong> against the 16 data points the installation operator owes you, and a ready-to-send request listing exactly what to ask back. <strong>No sign-up, and the file never leaves your computer</strong>: everything runs in your browser.</p>
 <style>.plans{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:4px 0 2px;font-size:15px}.plans a{display:inline-flex;align-items:center;min-height:44px;padding:6px 12px;border:1px solid var(--accent);border-radius:3px;text-decoration:none;color:var(--ink);background:var(--surface)}.plans a b{color:var(--accent);margin-left:6px}.plans a:hover,.plans a:focus-visible{background:var(--accent-soft)}</style><p class="plans" data-conv="C261023-1">Free for one file, below. Paid: <a href="#pro" data-goatcounter-click="cbam-haut-vers-pro">Pro, batches + dated report<b>€99/month</b></a></p>
 <p class="note">The definitive CBAM regime applies from 1 January 2026 to importers of more than 50 tonnes of CBAM goods a year (<a href="https://taxation-customs.ec.europa.eu/carbon-border-adjustment-mechanism/cbam-definitive-regime_en">European Commission</a>). The annual declaration is due by 30 September of the following year, and certificate sales start on 1 February 2027 (<a href="https://www.dihk.de/en/facilitations-for-the-carbon-border-adjustment-mechanism-cbam--168366">DIHK</a>). Both read on 22 October 2026.</p>
 </header>
@@ -207,27 +207,81 @@ function unzip(buf){
 }
 function lireZip(f){return f.meth===0?Promise.resolve(f.data):inflate(f.data);}
 function xlsx(buf){
- var files=unzip(buf),td=new TextDecoder();
+ var files=unzip(buf),td=new TextDecoder(),dp=new DOMParser();
  function get(n){return files[n]?lireZip(files[n]).then(function(b){return td.decode(b);}):Promise.resolve(null);}
+ function colIdx(ref,def){var m=String(ref||'').match(/^[A-Z]+/),col=0;if(!m)return def;for(var z=0;z<m[0].length;z++)col=col*26+(m[0].charCodeAt(z)-64);return col-1;}
  return Promise.all([get('xl/workbook.xml'),get('xl/_rels/workbook.xml.rels'),get('xl/sharedStrings.xml')]).then(function(r){
-  var dp=new DOMParser(),cible='xl/worksheets/sheet1.xml';
-  if(r[0]&&r[1]){var wb=dp.parseFromString(r[0],'application/xml'),sh=wb.getElementsByTagName('sheet')[0];
-   if(sh){var rid=sh.getAttribute('r:id')||sh.getAttributeNS('http://schemas.openxmlformats.org/officeDocument/2006/relationships','id');
-    var rels=dp.parseFromString(r[1],'application/xml').getElementsByTagName('Relationship');
-    for(var i=0;i<rels.length;i++)if(rels[i].getAttribute('Id')===rid){var t=rels[i].getAttribute('Target').replace(/^\/?xl\//,'').replace(/^\//,'');cible='xl/'+t;}}}
-  var ss=[];if(r[2]){var si=dp.parseFromString(r[2],'application/xml').getElementsByTagName('si');for(var j=0;j<si.length;j++){var ts=si[j].getElementsByTagName('t'),s='';for(var q=0;q<ts.length;q++)s+=ts[q].textContent;ss.push(s);}}
-  return get(cible).then(function(x){if(!x)throw new Error('first sheet not found');
-   var d=dp.parseFromString(x,'application/xml'),rws=d.getElementsByTagName('row'),out=[];
-   for(var a=0;a<rws.length;a++){var cs=rws[a].getElementsByTagName('c'),row=[];
-    for(var b=0;b<cs.length;b++){var ref=cs[b].getAttribute('r')||'',col=0,m=ref.match(/^[A-Z]+/);
-     if(m){for(var z=0;z<m[0].length;z++)col=col*26+(m[0].charCodeAt(z)-64);col--;}else col=row.length;
+  var feuilles=[],cibles={};
+  if(r[0]&&r[1]){var wb=dp.parseFromString(r[0],'application/xml'),shs=wb.getElementsByTagName('sheet'),rels=dp.parseFromString(r[1],'application/xml').getElementsByTagName('Relationship');
+   for(var s=0;s<shs.length;s++){var rid=shs[s].getAttribute('r:id')||shs[s].getAttributeNS('http://schemas.openxmlformats.org/officeDocument/2006/relationships','id');
+    for(var i=0;i<rels.length;i++)if(rels[i].getAttribute('Id')===rid){var t=rels[i].getAttribute('Target').replace(/^\/?xl\//,'').replace(/^\//,'');cibles[shs[s].getAttribute('name')]='xl/'+t;}
+    feuilles.push(shs[s].getAttribute('name'));}}
+  var ss=[];if(r[2]){var si=dp.parseFromString(r[2],'application/xml').getElementsByTagName('si');for(var j=0;j<si.length;j++){var ts=si[j].getElementsByTagName('t'),s2='';for(var q=0;q<ts.length;q++)s2+=ts[q].textContent;ss.push(s2);}}
+  // grille creuse : {numéro de ligne Excel : [valeurs par colonne]}
+  function grille(chemin){return get(chemin).then(function(x){if(!x)return null;
+   var d=dp.parseFromString(x,'application/xml'),rws=d.getElementsByTagName('row'),g={};
+   for(var a=0;a<rws.length;a++){var cs=rws[a].getElementsByTagName('c'),row=[],rn=+rws[a].getAttribute('r')||(a+1);
+    for(var b=0;b<cs.length;b++){var col=colIdx(cs[b].getAttribute('r'),row.length);
      var t=cs[b].getAttribute('t'),v=cs[b].getElementsByTagName('v')[0],val='';
      if(t==='s'&&v)val=ss[+v.textContent]||'';else if(t==='inlineStr'){var it=cs[b].getElementsByTagName('t');for(var y=0;y<it.length;y++)val+=it[y].textContent;}else if(v)val=v.textContent;
      row[col]=val;}
     for(var w=0;w<row.length;w++)if(row[w]===undefined)row[w]='';
-    out.push(row);}
-   return out.filter(function(r){return r.some(function(x){return String(x).trim()!=='';});});});
+    g[rn]=row;}
+   return g;});}
+  function plat(g){var out=[];Object.keys(g).map(Number).sort(function(a,b){return a-b;}).forEach(function(k){if(g[k].some(function(x){return String(x).trim()!=='';}))out.push(g[k]);});return out;}
+  // gabarit de communication de la Commission (feuille Summary_Communication)
+  if(cibles['Summary_Communication']){
+   return Promise.all([grille(cibles['Summary_Communication']),cibles['A_InstData']?grille(cibles['A_InstData']):Promise.resolve(null)]).then(function(gs){return gabarit(gs[0],gs[1]);});}
+  var premiere=feuilles.length&&cibles[feuilles[0]]?cibles[feuilles[0]]:'xl/worksheets/sheet1.xml';
+  return grille(premiere).then(function(g){if(!g)throw new Error('first sheet not found');return plat(g);});
  });
+}
+// Gabarit « CBAM Communication template for installations » : on remet à plat
+// (une ligne par produit) ce que l'exploitant a saisi, pour le contrôle commun.
+function gabarit(sc,inst){
+ var n=function(s){return norm(s).replace(/:$/,'');};
+ function cherche(g,lib,colLib,colVal){if(!g)return '';var cible=n(lib);for(var k in g){var row=g[k];if(n(row[colLib])===cible)return String(row[colVal]==null?'':row[colVal]).trim();}return '';}
+ function libre(v){return String(v==null?'':v).trim();}
+ var P={};
+ // A_InstData : libellés en colonne E, saisie en colonne I ; période en I9 et L9
+ if(inst){P.installation=cherche(inst,'Name of the installation (English name)',4,8);
+  var rue=cherche(inst,'Street, Number',4,8),ville=cherche(inst,'City',4,8),pays=cherche(inst,'Country',4,8);
+  P.operator_address=[rue,ville,pays].filter(Boolean).join(', ');
+  P.unlocode=cherche(inst,'UNLOCODE',4,8);P.lat=cherche(inst,'Coordinates of the main emission source (latitude)',4,8);P.lon=cherche(inst,'Coordinates of the main emission source (longitude)',4,8);
+  P.verification_ref=cherche(inst,'Company Name',4,8);
+  for(var k in inst){var row=inst[k];if(n(row[3])===n('Reporting period')){P.period_start=libre(row[8]);P.period_end=libre(row[11]);break;}}}
+ // Summary_Communication : libellés en D, valeurs en G (repli si A_InstData absente ou vide)
+ [['installation','Name of the installation (English name)'],['unlocode','UNLOCODE'],['lat','Coordinates of the main emission source (latitude)'],['lon','Coordinates of the main emission source (longitude)'],['period_start','Reporting period start'],['period_end','Reporting period end']].forEach(function(x){if(!P[x[0]])P[x[0]]=cherche(sc,x[1],3,6);});
+ P.supplier=P.installation;
+ // tableau des produits : ligne d'en-tête qui contient « CN Codes » et « SEE (direct) »
+ var H=null,hk=null;
+ for(var r in sc){var row=sc[r],c1=-1,c2=-1;row.forEach(function(x,i){if(n(x)===n('CN Codes'))c1=i;if(n(x)===n('SEE (direct)'))c2=i;});if(c1>=0&&c2>=0){H=row;hk=+r;break;}}
+ if(!H)throw new Error('CBAM Communication template found, but its product table (sheet Summary_Communication) could not be read');
+ var C={};H.forEach(function(x,i){var t=n(x);
+  if(t===n('Production process from which the products arise'))C.route=i;
+  else if(t===n('CN Codes'))C.cn=i;
+  else if(t.indexOf(n('Product name'))===0)C.good=i;
+  else if(t===n('SEE (direct)'))C.see_direct=i;
+  else if(t===n('SEE (indirect)'))C.see_indirect=i;
+  else if(t===n('Share of emissions by default value'))C.default_share=i;
+  else if(t.indexOf(n('Carbon price (CP) due'))===0)C.carbon_price=i;});
+ var tete=['supplier','operator_address','installation','registry_id','unlocode','lat','lon','cn','good','route','period_start','period_end','see_direct','see_indirect','default_share','verification_ref','carbon_price','carbon_price_evidence'];
+ var out=[tete];
+ Object.keys(sc).map(Number).filter(function(k){return k>hk;}).sort(function(a,b){return a-b;}).forEach(function(k){
+  var row=sc[k],cnv=String(C.cn===undefined?'':(row[C.cn]||'')).trim();if(!cnv)return;
+  var ds=String(C.default_share===undefined?'':(row[C.default_share]||'')).trim(),dn=num(ds);
+  if(ds!==''&&!isNaN(dn)&&dn>=0&&dn<=1&&ds.indexOf('%')<0)ds=String(Math.round(dn*10000)/100);
+  var codes=cnv.split(/[,;\/\n]+/).map(function(c){return c.replace(/[\s.]/g,'');}).filter(Boolean);
+  codes.forEach(function(code){
+   var v={supplier:P.supplier,operator_address:P.operator_address,installation:P.installation,registry_id:'',unlocode:P.unlocode,lat:P.lat,lon:P.lon,cn:code,
+    good:C.good===undefined?'':row[C.good],route:C.route===undefined?'':row[C.route],period_start:P.period_start,period_end:P.period_end,
+    see_direct:C.see_direct===undefined?'':row[C.see_direct],see_indirect:C.see_indirect===undefined?'':row[C.see_indirect],default_share:ds,
+    verification_ref:P.verification_ref,carbon_price:C.carbon_price===undefined?'':row[C.carbon_price],carbon_price_evidence:''};
+   out.push(tete.map(function(t){return v[t]==null?'':v[t];}));});
+ });
+ out.gabarit=true;
+ if(out.length<2)throw new Error('CBAM Communication template found, but no product with a CN code in sheet Summary_Communication');
+ return out;
 }
 function lire(nom,buf){
  var n=nom.toLowerCase();
@@ -243,7 +297,7 @@ function controler(rows){
  if(!rows||rows.length<2)throw new Error('the file needs a header row and at least one data row');
  var h=rows[0],map={},inconnues=[];
  h.forEach(function(x,i){var k=IDX[norm(x)];if(k&&map[k]===undefined)map[k]=i;else if(String(x).trim())inconnues.push(String(x).trim());});
- var B=[],V=[],manque={},absentes=[];
+ var B=[],V=[],manque={},absentes=[];if(rows.gabarit)V.push('Read as the Commission’s CBAM Communication template (sheets Summary_Communication and A_InstData). That template has no field for the installation’s CBAM Registry identifier: ask the operator for it.');
  ['supplier','installation','registry_id','unlocode','lat','lon','cn','route','see_direct','default_share','verification_ref'].forEach(function(k){if(map[k]===undefined)absentes.push(NOMS[k]);});
  if(absentes.length)B.push('Columns not found: '+absentes.join(', ')+'.');
  function g(r,k){return map[k]===undefined?'':r[map[k]];}
