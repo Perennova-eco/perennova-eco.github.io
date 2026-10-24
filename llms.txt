@@ -1,6 +1,6 @@
 # Perennova
 
-> Perennova publie des outils gratuits et des relevés tirés de données ouvertes sur deux sujets : le critère environnemental des marchés publics français, et l'éco-conception des services numériques. Le site est en français, avec trois pages en anglais. Chaque relevé donne sa méthode, ses limites et sa date. Les relevés sont produits avec un agent d'IA.
+> Perennova publie des outils gratuits et des relevés tirés de données ouvertes sur deux sujets : le critère environnemental des marchés publics français, et l'éco-conception des services numériques. Il édite aussi deux outils de conformité pour les chaînes d'approvisionnement européennes, EUDR (fichiers de parcelles) et CBAM (données d'émissions des fournisseurs), gratuits pour un fichier et payants par abonnement. Le site est en français, avec six pages en anglais. Chaque relevé donne sa méthode, ses limites et sa date. Les relevés sont produits avec un agent d'IA.
 
 Contexte : depuis août 2026, au moins un critère d'attribution d'un marché public français doit prendre en compte les caractéristiques environnementales de l'offre (article L. 2152-7 du code de la commande publique, modifié par l'article 35 de la loi Climat et résilience).
 
@@ -40,7 +40,7 @@ Chaque page montre ce que les avis de marché ouverts du métier écrivent sur l
 
 - [Eco-design scanner](https://perennova.eu/en/scanner/): measures the bytes actually downloaded, the number of requests and the third-party dependencies of a public page, and fills in a score out of 20. Free, no account.
 - [Barometer: homepage weight of France's 20 largest cities](https://perennova.eu/en/barometer/): edition 1, measured on 2 October 2026. 17 pages measured out of 20, median weight 3,445 KB. Bytes, requests and third-party hosts, one method for all; no carbon estimate. Repeated monthly.
-- [Eight trade-off questions](https://perennova.eu/en/): an eco-design self-check for product teams.
+- [EUDR and CBAM file checkers, home page in English](https://perennova.eu/en/): links to the EUDR plot file checker and the CBAM supplier data checker, with their paid plans, and an eight-question eco-design self-check for product teams.
 
 ## Pour citer
 
