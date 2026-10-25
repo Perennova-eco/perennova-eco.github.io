@@ -80,7 +80,7 @@ table.r{border-collapse:collapse;font-size:14px;width:100%}table.r td,table.r th
 <p class="note">The regulation applies to large and medium operators from 30 December 2026, and to micro and small enterprises from 30 June 2027 (according to <a href="https://www.coolset.com/academy/eudr-delay-2025-explained">Coolset</a>, updated 24 September 2026).</p>
 </header>
 <section>
-<form id="eudr-form">
+<form id="eudr-form" class="boucle"><p class="warnbox" id="four-banniere" hidden style="margin:0 0 10px;padding:10px 14px"></p>
 <fieldset><legend>Your file</legend>
 <input type="file" id="eudr-fichier" aria-label="Your plot file (GeoJSON, CSV or KML)" accept=".geojson,.json,.csv,.txt,.kml">
 <label for="eudr-pays">Default country of production (2-letter code, e.g. GH, CI, ID, BR), used when the file does not give one</label>
@@ -95,9 +95,20 @@ table.r{border-collapse:collapse;font-size:14px;width:100%}table.r td,table.r th
 <p class="etat" id="eudr-etat"></p>
 <div class="blk"><h2>What would block the upload</h2><ul class="l" id="eudr-erreurs"></ul></div>
 <div class="blk"><h2>What was fixed in the downloaded file</h2><ul class="l" id="eudr-corr"></ul>
-<div class="actions"><button type="button" id="eudr-telecharger" hidden>Download the fixed GeoJSON</button></div></div>
+<div class="actions"><button type="button" id="eudr-telecharger" hidden>Download the fixed GeoJSON</button></div>
+</div>
+<div class="blk" id="cert-blk" hidden><h2>Check certificate</h2><p class="note">Send it with the fixed file: whoever receives the file can confirm it is the one you checked, because its SHA-256 fingerprint must match.</p><pre id="cert-txt" style="white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px;margin:0;padding:10px;border:1px solid var(--rule);background:var(--surface-2)"></pre><div class="actions"><button type="button" id="cert-copier">Copy the certificate</button></div></div>
 </section>
-<section id="pro"><fieldset><legend>Pro · €49 per month</legend>
+<section id="fournisseurs" class="out"><h3>Importers: ask each supplier for a checked file · free</h3>
+<div class="blk"><p>Create a link for one supplier. They check and fix their own plot file here, then send you the fixed file with a check certificate. You receive files that pass, instead of chasing corrections. The message is ready in English, Spanish, Portuguese or French.</p>
+<label for="dem-societe">Your company</label><input type="text" id="dem-societe" maxlength="80" autocomplete="organization">
+<label for="dem-fournisseur">Supplier (cooperative, exporter)</label><input type="text" id="dem-fournisseur" maxlength="80">
+<label for="dem-langue">Language of the message</label><select id="dem-langue" style="font-size:15px;padding:8px;max-width:100%"><option value="en">English</option><option value="es">Español</option><option value="pt">Português</option><option value="fr">Français</option></select>
+<div class="actions"><button type="button" id="dem-creer">Create the request</button></div>
+<pre id="dem-msg" hidden style="white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px;margin:0;padding:10px;border:1px solid var(--rule);background:var(--surface-2)"></pre>
+<div class="actions"><button type="button" id="dem-copier" hidden>Copy the message</button></div>
+<p class="note">With Importer (€390/month), drop all the files you receive at once: one dated report lists each file with its SHA-256, to compare with the certificates.</p></div></section>
+<section id="pro" class="pro"><fieldset><legend>Pro · €49 per month</legend>
 <p>For exporters and cooperatives who file for many plots: check <strong>several files at once</strong>, and print <strong>one dated compliance report</strong> (save as PDF) with each file's SHA-256 fingerprint, plots read, blocking errors and fixes, lot by lot: a trace for your due diligence file. Cancel any time. Billing and VAT are handled by Polar, the merchant of record.</p>
 <div class="actions" id="pro-achat"><a class="btn" id="pro-acheter" data-goatcounter-click="paiement-en-eudr-pro" href="https://buy.polar.sh/polar_cl_IlMoEYEtzRvXIYlonc4ZMV0ewTflPtCFLxIyD1lsSZ1" rel="noopener">Subscribe · €49/month</a></div>
 <div id="pro-bientot" hidden><p class="note">Online payment opens in the coming days. Leave your work email and you get one message when it does.</p>
@@ -290,6 +301,7 @@ el('eudr-form').addEventListener('submit',function(e){e.preventDefault();
   liste('eudr-erreurs',r.E,'Nothing blocking found.'); liste('eudr-corr',r.C,'No fix needed.');
   el('eudr-telecharger').hidden=false;
   ev(r.E.length?'eudr-en-fichier-a-corriger':'eudr-en-fichier-valide');
+  if(window.PerennovaBoucle)window.PerennovaBoucle(r);
  }; rd.readAsText(fi);
 });
 function liste(id,arr,vide){var u=el(id);u.textContent='';var max=200;
@@ -297,7 +309,7 @@ function liste(id,arr,vide){var u=el(id);u.textContent='';var max=200;
  if(arr.length>max){var li=document.createElement('li');li.textContent='… and '+(arr.length-max)+' more';u.appendChild(li);}}
 el('eudr-telecharger').addEventListener('click',function(){if(!dernier)return;
  var b=new Blob([JSON.stringify(dernier.fc)],{type:'application/geo+json'}); var a=document.createElement('a');
- a.href=URL.createObjectURL(b); a.download='eudr-plots-fixed.geojson'; document.body.appendChild(a); a.click(); a.remove();
+ a.href=URL.createObjectURL(b); a.download=(window.PerennovaNom||'eudr-plots-fixed')+'.geojson'; document.body.appendChild(a); a.click(); a.remove();
  ev('eudr-en-telechargement');});
 el('eudr-exemple').addEventListener('click',function(){
  var ex='producer,country,latitude,longitude,area\nKwame A.,gh,6.6885,-1.6244,1.5\nAma B.,GH,-1.62113,6.69120,2\nKofi C.,GH,6.7012345678,-1.601234567,0.8\n';
@@ -348,5 +360,39 @@ window.PerennovaPro={ouvrir:ouvrir};
         async src="https://gc.zgo.at/count.v5.js"
         crossorigin="anonymous"
         integrity="sha384-atnOLvQb9t+jTSipvd75X2yginT4PjVbqDdlJAmxMm+wYElFmeR6EmLP5bYeoRVQ"></script>
+<script>(function(){
+function el(i){return document.getElementById(i);}
+function ev(n){try{if(window.localStorage&&localStorage.getItem('skipgc'))return;}catch(e){}try{if(window.goatcounter&&window.goatcounter.count)window.goatcounter.count({path:n,title:n,event:true});}catch(e){}}
+function hex(b){return Array.prototype.map.call(new Uint8Array(b),function(x){return ('0'+x.toString(16)).slice(-2);}).join('');}
+function f(s,o){return s.replace(/\{(\w)\}/g,function(m,k){return o[k]||'';});}
+function cp(btn,t,nom){try{navigator.clipboard.writeText(t).then(function(){btn.textContent='Copied';ev(nom);},function(){btn.textContent='Select and copy by hand';});}catch(e){btn.textContent='Select and copy by hand';}}
+var T={
+en:{b:'{c} asks you to check your plot file before sending it. It is free and the file never leaves your computer. Then send {c} the fixed file and the check certificate shown below the result.',
+m:'Hello {s},\n\nFor our EUDR due diligence statements, please check your plot file (CSV, KML or GeoJSON) on this free page before sending it to us. Nothing is uploaded; it fixes what the EU Information System would reject.\n{u}\n\nThen send us the fixed file and the check certificate it gives you.\n\nThank you,\n{c}'},
+es:{b:'{c} le pide que revise su archivo de parcelas antes de enviarlo. Es gratis y el archivo no sale de su ordenador. Después envíe a {c} el archivo corregido y el certificado de revisión que aparece debajo del resultado.',
+m:'Hola {s}:\n\nPara nuestras declaraciones de diligencia debida EUDR, revise por favor su archivo de parcelas (CSV, KML o GeoJSON) en esta página gratuita antes de enviárnoslo. No se sube nada; corrige lo que el Sistema de Información de la UE rechazaría.\n{u}\n\nDespués envíenos el archivo corregido y el certificado de revisión que le da la página.\n\nGracias,\n{c}'},
+pt:{b:'{c} pede que você verifique seu arquivo de parcelas antes de enviá-lo. É gratuito e o arquivo não sai do seu computador. Depois envie a {c} o arquivo corrigido e o certificado de verificação mostrado abaixo do resultado.',
+m:'Olá {s},\n\nPara nossas declarações de diligência devida da EUDR, por favor verifique seu arquivo de parcelas (CSV, KML ou GeoJSON) nesta página gratuita antes de enviá-lo. Nada é enviado; a página corrige o que o Sistema de Informação da UE rejeitaria.\n{u}\n\nDepois envie-nos o arquivo corrigido e o certificado de verificação que a página fornece.\n\nObrigado,\n{c}'},
+fr:{b:'{c} vous demande de contrôler votre fichier de parcelles avant de l’envoyer. C’est gratuit et le fichier ne quitte pas votre ordinateur. Envoyez ensuite à {c} le fichier corrigé et le certificat de contrôle affiché sous le résultat.',
+m:'Bonjour {s},\n\nPour nos déclarations de diligence raisonnée EUDR, merci de contrôler votre fichier de parcelles (CSV, KML ou GeoJSON) sur cette page gratuite avant de nous l’envoyer. Rien n’est téléversé ; la page corrige ce que le système d’information de l’UE refuserait.\n{u}\n\nEnvoyez-nous ensuite le fichier corrigé et le certificat de contrôle qu’elle vous donne.\n\nMerci,\n{c}'}};
+var q=new URLSearchParams(location.search),C=(q.get('for')||'').replace(/[\u0000-\u001f]/g,'').slice(0,80),L=T[q.get('lang')]?q.get('lang'):'en';
+if(C){var b=el('four-banniere');b.textContent=f(T[L].b,{c:C});b.hidden=false;ev('eudr-en-fournisseur-arrive');
+ window.PerennovaNom='eudr-plots-checked-for-'+(C.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')||'buyer');}
+var txtCert='';
+window.PerennovaBoucle=function(r){var t=JSON.stringify(r.fc);var fi=el('eudr-fichier').files&&el('eudr-fichier').files[0];
+ crypto.subtle.digest('SHA-256',new TextEncoder().encode(t)).then(function(h){var s=r.stats;
+  var l=['EUDR plot file check certificate','Date (UTC): '+new Date().toISOString().slice(0,16).replace('T',' ')];
+  if(C)l.push('Requested by: '+C);
+  l.push('Source file: '+(fi?fi.name:'sample'),'Fixed file: '+(window.PerennovaNom||'eudr-plots-fixed')+'.geojson','Plots: '+s.sortie+' ('+s.points+' points, '+s.polygones+' polygons, '+s.haTotal.toFixed(2)+' ha drawn)','Blocking issues left: '+r.E.length+' · fixes applied: '+r.C.length,'SHA-256 of the fixed file: '+hex(h),'Checked with the free tool at https://perennova.eu/en/eudr/ : file format and geometry for the EU Information System, not a deforestation assessment.');
+  txtCert=l.join('\n');el('cert-txt').textContent=txtCert;el('cert-blk').hidden=false;el('cert-copier').textContent='Copy the certificate';});};
+el('cert-copier').addEventListener('click',function(){if(txtCert)cp(el('cert-copier'),txtCert,'eudr-en-certificat-copie');});
+var msg='';
+el('dem-creer').addEventListener('click',function(){var c=el('dem-societe').value.trim().slice(0,80),s=el('dem-fournisseur').value.trim().slice(0,80),g=el('dem-langue').value;
+ if(!c){el('dem-societe').focus();return;}
+ var u='https://perennova.eu/en/eudr/?for='+encodeURIComponent(c)+'&lang='+g+'&ref=fournisseur#eudr-form';
+ msg=f(T[g].m,{c:c,s:s||'',u:u}).replace(/^(Hello|Hola|Olá|Bonjour) ([,:])/,'$1$2');
+ el('dem-msg').textContent=msg;el('dem-msg').hidden=false;el('dem-copier').hidden=false;el('dem-copier').textContent='Copy the message';ev('eudr-en-demande-creee');});
+el('dem-copier').addEventListener('click',function(){if(msg)cp(el('dem-copier'),msg,'eudr-en-demande-copiee');});
+})();</script>
 </body>
 </html>
