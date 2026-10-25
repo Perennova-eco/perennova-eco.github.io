@@ -67,6 +67,13 @@ a.btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .o-carte:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .offres .o-gratuit{font-size:14.5px;color:var(--ink-soft);line-height:1.9}
 .mast h2.h1b{font-family:var(--disp);font-size:clamp(24px,5vw,34px);margin:0;line-height:1.1}
+/* G261026-A cartes d offre */
+.o-carte{border-radius:4px;padding:14px 16px;gap:6px}
+.o-carte b,.o-carte span{text-wrap:pretty}
+.o-carte em{margin-top:2px;text-wrap:balance}
+.o-carte:hover em,.o-carte:focus-visible em{text-decoration:underline;text-underline-offset:3px}
+@media (prefers-reduced-motion:no-preference){.o-carte{transition:background-color .15s ease,border-color .15s ease}}
+/* fin G261026-A */
 </style>
 <section class="offres" aria-labelledby="offres-titre" data-conv="C261020-1">
 <p class="o-sur">Perennova · contrôle des fichiers de conformité européens</p>
