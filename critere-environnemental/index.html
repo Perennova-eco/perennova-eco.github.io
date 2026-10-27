@@ -64,6 +64,8 @@ footer{font-family:var(--mono);font-size:11px;color:var(--ink-faint);border-top:
 <div><b>58&nbsp;%</b><span>la dernière semaine pleine (28 septembre au 4 octobre, 1&nbsp;760 avis)</span></div>
 </div>
 
+<p class="situ" id="acces-rapide"><strong>Deux usages.</strong> <a href="#rc-form" data-goatcounter-click="releve-inscription-haut">Recevoir le relevé de novembre, par métier et par département</a> · <a href="/volet/" data-goatcounter-click="releve-vers-volet">Vous répondez à un marché : assembler votre volet environnemental, gratuit</a></p>
+
 <p class="situ"><strong>En clair.</strong> La part des avis qui annoncent un critère environnemental est restée autour de 40 % de juin à fin juillet ; elle monte depuis le début d’août et monte encore. Mais sur les 9&nbsp;799 avis d’appel à la concurrence parus du 24 août au 7 octobre, 4&nbsp;432 (45&nbsp;%) ne portent pas cette mention. Un avis muet n’est pas un marché irrégulier : le critère peut figurer dans le seul règlement de la consultation, et certains marchés sont hors du champ de l’obligation.</p>
 
 <h2>La part des avis qui portent la mention, semaine par semaine</h2>
@@ -314,7 +316,7 @@ footer{font-family:var(--mono);font-size:11px;color:var(--ink-faint);border-top:
 <button class="btn" type="submit" id="rc-btn">M’inscrire</button>
 </form>
 <p id="rc-msg" role="status" aria-live="polite" class="note"></p>
-<p class="note">Votre adresse ne sert qu’à vous envoyer ce relevé, une fois par mois. Elle est supprimée sur simple demande à perennova@proton.me.</p>
+<p class="note">Votre adresse ne sert qu’à vous envoyer ce relevé, une fois par mois. Elle est supprimée sur simple demande à contact@perennova.eu.</p>
 
 <h2>Citer ce relevé</h2>
 <p id="rc-cite" class="situ">Du 24 août au 7 octobre 2026, 55 % des avis d’appel à la concurrence publiés au BOAMP portaient la mention « critères environnementaux », contre 41 % du 1er juin au 16 août 2026 (relevé Perennova, d’après les données ouvertes du BOAMP : https://perennova.eu/critere-environnemental/).</p>
@@ -328,12 +330,12 @@ footer{font-family:var(--mono);font-size:11px;color:var(--ink-faint);border-top:
 <li><strong>Le texte des critères.</strong> Lu dans les données de chaque avis de deux semaines entières ; un critère « nomme l’environnement » quand son intitulé ou sa description contient l’un de ces termes : environnement, durable, RSE, sobriété, écoconception, écologie, carbone, énergie, déchet, climat, écoresponsable, achats responsables, biodiversité. Un critère technique qui cache un sous-critère environnemental sans le nommer n’est pas vu.</li>
 <li><strong>Ce que ce relevé ne dit pas.</strong> Ce n’est pas un taux de conformité. Le règlement de la consultation fait foi et nous ne le lisons pas ; les marchés de défense ou de sécurité, entre autres, sont hors du champ de l’obligation (<a href="https://novlaw.fr/ressource/critere-environnemental-obligatoire-marches-publics-2026" rel="noopener">analyse d’un cabinet d’avocats</a>) et ne sont pas retirés du compte.</li>
 <li><strong>Vérifier un chiffre.</strong> Semaine du 28 septembre au 4 octobre : <a href="https://boamp-datadila.opendatasoft.com/api/explore/v2.1/catalog/datasets/boamp/records?select=count(*)&where=nature%3D%22APPEL_OFFRE%22%20and%20dateparution%3E%3Ddate%272026-09-28%27%20and%20dateparution%3C%3Ddate%272026-10-04%27" rel="noopener">tous les avis</a> · <a href="https://boamp-datadila.opendatasoft.com/api/explore/v2.1/catalog/datasets/boamp/records?select=count(*)&where=nature%3D%22APPEL_OFFRE%22%20and%20dateparution%3E%3Ddate%272026-09-28%27%20and%20dateparution%3C%3Ddate%272026-10-04%27%20and%20criteres%20like%20%22environnementaux%22" rel="noopener">avis portant la mention</a>. La réponse donne le compte.</li>
-<li><strong>Reprendre ces chiffres.</strong> Libre, avec la mention « Relevé Perennova, d’après les données ouvertes du BOAMP » et un lien vers cette page. Une erreur ? Écrivez à perennova@proton.me : le chiffre est refait et la correction publiée, datée.</li>
+<li><strong>Reprendre ces chiffres.</strong> Libre, avec la mention « Relevé Perennova, d’après les données ouvertes du BOAMP » et un lien vers cette page. Une erreur ? Écrivez à contact@perennova.eu : le chiffre est refait et la correction publiée, datée.</li>
 </ul>
 </main>
 
 <footer>
-Perennova · <a href="/volet/">assembler le volet environnemental</a> · <a href="/appels-offres/">marchés numériques ouverts</a> · <a href="/conditions-de-vente/">conditions de vente</a> · contact perennova@proton.me · <a href="/mentions-legales/">Mentions légales</a><br>
+Perennova · <a href="/volet/">assembler le volet environnemental</a> · <a href="/appels-offres/">marchés numériques ouverts</a> · <a href="/conditions-de-vente/">conditions de vente</a> · contact contact@perennova.eu · <a href="/mentions-legales/">Mentions légales</a><br>
 Source : données ouvertes du BOAMP (DILA), Licence Ouverte 2.0, relevé automatique du 8 octobre 2026. Relevé produit avec un agent d’IA. Perennova n’est lié à aucun acheteur public et ne répond à aucun marché. Cette page n’est pas un conseil juridique.
 </footer>
 </div>
@@ -349,8 +351,8 @@ Source : données ouvertes du BOAMP (DILA), Licence Ouverte 2.0, relevé automat
     busy=true; b.disabled=true; m.textContent='Envoi…';
     fetch('https://bgpvuyowxokmksbjrske.supabase.co/functions/v1/perennova-veille',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:a,source:'releve-critere:2026-10:fr'})})
       .then(function(r){return r.json().catch(function(){return {ok:false};});})
-      .then(function(d){if(d&&d.ok){ev('releve-inscription-ok');m.textContent='C’est noté. Vous recevrez le relevé de novembre, et rien d’autre.';f.reset();}else{m.textContent='Adresse refusée ou service indisponible. Écrivez à perennova@proton.me.';}})
-      .catch(function(){m.textContent='Adresse refusée ou service indisponible. Écrivez à perennova@proton.me.';})
+      .then(function(d){if(d&&d.ok){ev('releve-inscription-ok');m.textContent='C’est noté. Vous recevrez le relevé de novembre, et rien d’autre.';f.reset();}else{m.textContent='Adresse refusée ou service indisponible. Écrivez à contact@perennova.eu.';}})
+      .catch(function(){m.textContent='Adresse refusée ou service indisponible. Écrivez à contact@perennova.eu.';})
       .then(function(){busy=false;b.disabled=false;});
   });
 })();

@@ -163,7 +163,7 @@ table.ao a.avis,table.ao a.piece,table.ao a.volet{white-space:nowrap}
 <button type="submit">M’inscrire</button>
 </form>
 <p id="ao-msg" role="status" aria-live="polite"></p>
-<p><small>Votre adresse ne sert qu’à vous prévenir de l’ouverture du relevé par courriel. Elle est supprimée sur simple demande à perennova@proton.me.</small></p>
+<p><small>Votre adresse ne sert qu’à vous prévenir de l’ouverture du relevé par courriel. Elle est supprimée sur simple demande à contact@perennova.eu.</small></p>
 
 <h2>Méthode, et ce qu’elle ne dit pas</h2>
 <ul>
@@ -179,7 +179,7 @@ table.ao a.avis,table.ao a.piece,table.ao a.volet{white-space:nowrap}
 </main>
 
 <footer>
-Perennova · <a href="/">le critère environnemental et son barème pour une consultation numérique</a> · <a href="/scanner/">mesurer une page</a> · <a href="/barometre/">baromètre des 20 plus grandes villes</a> · <a href="/marches-publics/">les cinq engagements rédigeables et leurs pièges</a> · contact perennova@proton.me · <a href="/mentions-legales/">Mentions légales</a><br>
+Perennova · <a href="/">le critère environnemental et son barème pour une consultation numérique</a> · <a href="/scanner/">mesurer une page</a> · <a href="/barometre/">baromètre des 20 plus grandes villes</a> · <a href="/marches-publics/">les cinq engagements rédigeables et leurs pièges</a> · contact contact@perennova.eu · <a href="/mentions-legales/">Mentions légales</a><br>
 Les avis sont ceux du BOAMP ; seule leur publication officielle fait foi.
 </footer>
 </div>
@@ -277,8 +277,8 @@ Les avis sont ceux du BOAMP ; seule leur publication officielle fait foi.
     ev('ao-inscription-clic'); m.textContent='Envoi…';
     fetch('https://bgpvuyowxokmksbjrske.supabase.co/functions/v1/perennova-veille',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:a,source:'ao:2026-10:fr'})})
       .then(function(r){return r.json().catch(function(){return {ok:false};});})
-      .then(function(d){if(d&&d.ok){ev('ao-inscription-ok');m.textContent='C’est noté. Vous serez prévenu à l’ouverture, et rien d’autre.';f.reset();}else{m.textContent='Adresse refusée ou service indisponible. Écrivez à perennova@proton.me.';}})
-      .catch(function(){m.textContent='Adresse refusée ou service indisponible. Écrivez à perennova@proton.me.';});
+      .then(function(d){if(d&&d.ok){ev('ao-inscription-ok');m.textContent='C’est noté. Vous serez prévenu à l’ouverture, et rien d’autre.';f.reset();}else{m.textContent='Adresse refusée ou service indisponible. Écrivez à contact@perennova.eu.';}})
+      .catch(function(){m.textContent='Adresse refusée ou service indisponible. Écrivez à contact@perennova.eu.';});
   });
 })();
 </script>

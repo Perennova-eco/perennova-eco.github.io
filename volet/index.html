@@ -116,18 +116,13 @@ footer{font-family:var(--mono);font-size:11px;color:var(--ink-faint);border-top:
 <div class="actions"><button type="button" id="v-docx">Télécharger en Word (.docx)</button><button type="button" class="ghost" id="v-copie">Copier le texte</button></div>
 <p class="note">Relisez chaque ligne : ne gardez que ce que vous pouvez tenir et prouver, l’acheteur pourra vous le demander pendant l’exécution. Ce document ne garantit aucune note et n’est pas un conseil juridique.</p>
 
-<h2>Vous préférez le recevoir prêt à joindre ?</h2>
-<p>À partir de l’avis, du règlement de la consultation et de vos réponses, le volet est rédigé pour ce marché avec un agent d’IA, puis relu par une personne avant envoi.</p>
-<div class="prix"><b>49 €</b><span>le dossier · <strong>aucun paiement aujourd’hui : vous réservez, nous vous écrivons à l’ouverture.</strong></span></div>
-<p class="note">Prix net, TVA non applicable, article 293 B du CGI. <a href="/conditions-de-vente/">Conditions de vente</a>.</p>
-<form id="v-form" novalidate>
-<div class="row">
-<label for="v-email">Votre adresse électronique<input id="v-email" type="email" required autocomplete="email" placeholder="vous@entreprise.fr"></label>
-<button type="submit">Réserver</button>
-</div>
-</form>
-<p id="v-fmsg" role="status" aria-live="polite"></p>
-<p><small>Réserver n’engage à aucun achat. Le service n’est pas encore ouvert à la vente. Votre adresse ne sert qu’à vous écrire à l’ouverture ; elle est supprimée sur simple demande à perennova@proton.me. Offre et prix proposés par Perennova, entreprise individuelle : identité et immatriculation aux <a href="/mentions-legales/">mentions légales</a>.</small></p>
+<h2>Vous préférez le recevoir rédigé, prêt à joindre ?</h2>
+<p>À partir de l’avis, du règlement de la consultation et de vos réponses, le volet est rédigé pour ce marché avec un agent d’IA, puis relu par une personne avant envoi, sous 2 jours ouvrés.</p>
+<div class="prix"><b>49 €</b><span>le dossier · paiement unique, sans abonnement</span></div>
+<p><a id="v-payer" class="btn" href="/conditions-de-vente/" data-goatcounter-click="volet-achat-clic" rel="noopener" hidden>Commander le volet rédigé · 49 €</a></p>
+<p id="v-pmsg" class="note" role="status" aria-live="polite"></p>
+<p class="note">Paiement par Polar (polar.sh), revendeur officiel : il encaisse, applique la TVA due et émet la facture. Après le paiement, envoyez à contact@perennova.eu le règlement de la consultation, le fichier Word assemblé ci-dessus et votre numéro de commande. Volet non livré sous 2 jours ouvrés après réception des pièces : remboursé. <a href="/conditions-de-vente/">Conditions de vente</a>.</p>
+<p><small>Offre et prix proposés par Perennova, entreprise individuelle : identité et immatriculation aux <a href="/mentions-legales/">mentions légales</a>.</small></p>
 </section>
 
 <h2>Par métier : ce que les acheteurs écrivent</h2>
@@ -152,7 +147,7 @@ footer{font-family:var(--mono);font-size:11px;color:var(--ink-faint);border-top:
 </main>
 
 <footer>
-Perennova · <a href="/appels-offres/">les marchés publics numériques ouverts</a> · <a href="/scanner/">mesurer une page</a> · contact perennova@proton.me · <a href="/mentions-legales/">Mentions légales</a><br>
+Perennova · <a href="/appels-offres/">les marchés publics numériques ouverts</a> · <a href="/scanner/">mesurer une page</a> · contact contact@perennova.eu · <a href="/mentions-legales/">Mentions légales</a><br>
 Source des avis : données ouvertes du BOAMP (DILA), Licence Ouverte 2.0, lues à l’instant depuis votre navigateur. Outil conçu avec un agent d’IA.
 </footer>
 </div>
@@ -466,18 +461,12 @@ Source des avis : données ouvertes du BOAMP (DILA), Licence Ouverte 2.0, lues �
     setTimeout(function(){URL.revokeObjectURL(u);},4000);ev('volet-docx');
   });
 
-  /* Réservation : même point de dépôt que la pièce datée, aucun paiement */
-  var f=$('v-form'), fm=$('v-fmsg');
-  f.addEventListener('submit',function(e){
-    e.preventDefault();
-    var mail=$('v-email').value.trim(), avis=val('v-avis'); if(!mail){fm.textContent='Indiquez votre adresse électronique.';return;}
-    if(!/^\d{2}-\d{1,7}$/.test(avis)){avis='';}
-    ev('volet-reserver-clic');fm.textContent='Envoi…';
-    fetch('https://bgpvuyowxokmksbjrske.supabase.co/functions/v1/perennova-veille',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:mail,source:'reservation:volet49'+(avis?':avis='+avis:'')})})
-      .then(function(r){return r.json().catch(function(){return {ok:false};});})
-      .then(function(d){if(d&&d.ok){ev('volet-reservation-ok');fm.textContent='Réservation notée. Aucun paiement : nous vous écrivons à l’ouverture, et rien d’autre.';f.reset();}else{fm.textContent='Adresse refusée ou service indisponible. Écrivez à perennova@proton.me.';}})
-      .catch(function(){fm.textContent='Adresse refusée ou service indisponible. Écrivez à perennova@proton.me.';});
-  });
+  /* J43 : commande payable du volet rédigé (Polar, vendeur en titre) ; lien lu dans perennova-licence */
+  (function(){var b=$('v-payer'),m=$('v-pmsg');if(!b)return;
+    fetch('https://bgpvuyowxokmksbjrske.supabase.co/functions/v1/perennova-licence').then(function(r){return r.json();})
+      .then(function(d){if(d&&d.volet_pret&&d.checkout_url_volet){b.href=d.checkout_url_volet;b.hidden=false;}else{m.textContent='Commande momentanément indisponible : écrivez à contact@perennova.eu.';}})
+      .catch(function(){m.textContent='Commande momentanément indisponible : écrivez à contact@perennova.eu.';});
+  })();
 })();
 </script>
 <script>(function(){try{if(location.hash==='#toggle-goatcounter'){history.replaceState(null,'',location.pathname+location.search);}var L=window.localStorage,U='https://bgpvuyowxokmksbjrske.supabase.co/functions/v1/perennova-proprio',m=location.hash.match(/^#proprietaire=([A-Za-z0-9_-]{8,64})$/),P=function(k){return fetch(U,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({k:k,p:location.pathname}),keepalive:true});};if(m){history.replaceState(null,'',location.pathname+location.search);P(m[1]).then(function(r){return r.json();}).then(function(j){if(j&&j.ok===true){L.setItem('pn_owner',m[1]);L.setItem('skipgc','t');alert('Appareil marqué propriétaire : ses passages ne sont plus comptés.');}}).catch(function(){});return;}var k=L.getItem('pn_owner');if(k){P(k).then(function(r){if(r.status===403){L.removeItem('pn_owner');L.removeItem('skipgc');}}).catch(function(){});}}catch(e){}})();</script>

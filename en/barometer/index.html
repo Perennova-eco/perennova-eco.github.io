@@ -142,7 +142,7 @@ table.baro small{font-weight:normal;opacity:.75}
 <button type="submit">Subscribe</button>
 </form>
 <p id="baro-msg" role="status" aria-live="polite"></p>
-<p><small>Your address is only used to send you the barometer, once a month. It is deleted on request to perennova@proton.me.</small></p>
+<p><small>Your address is only used to send you the barometer, once a month. It is deleted on request to contact@perennova.eu.</small></p>
 <script>
 (function(){
   var f=document.getElementById('baro-form'); if(!f) return;
@@ -155,8 +155,8 @@ table.baro small{font-weight:normal;opacity:.75}
     ev('barometre-inscription-clic'); m.textContent='Sending…';
     fetch('https://bgpvuyowxokmksbjrske.supabase.co/functions/v1/perennova-veille',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:a,source:'barometre:2026-10:en'})})
       .then(function(r){return r.json().catch(function(){return {ok:false};});})
-      .then(function(d){if(d&&d.ok){ev('barometre-inscription-ok');m.textContent='Noted. You will get the November edition, and nothing else.';f.reset();}else{m.textContent='Address rejected or service unavailable. Write to perennova@proton.me.';}})
-      .catch(function(){m.textContent='Address rejected or service unavailable. Write to perennova@proton.me.';});
+      .then(function(d){if(d&&d.ok){ev('barometre-inscription-ok');m.textContent='Noted. You will get the November edition, and nothing else.';f.reset();}else{m.textContent='Address rejected or service unavailable. Write to contact@perennova.eu.';}})
+      .catch(function(){m.textContent='Address rejected or service unavailable. Write to contact@perennova.eu.';});
   });
 })();
 </script>
@@ -177,12 +177,12 @@ table.baro small{font-weight:normal;opacity:.75}
 <li>This barometer is not a compliance audit against the French RGESN guidelines.</li>
 </ul>
 <p><strong>Prior work.</strong> Greenspector published a ranking of 46 French city and metropolis websites in 2020 and again in 2022, measured on a real device (energy, data, CPU, memory): <a href="https://greenspector.com/en/digital-sobriety-requirements-for-cities-and-communities-ranking">their study</a> is richer than this table. This one measures less, but it is repeated every month and every figure carries its dated evidence.</p>
-<p><strong>Right of reply.</strong> You run one of these sites and dispute a measurement? Write to <a href="mailto:perennova@proton.me">perennova@proton.me</a>: the measurement is redone and the correction published here, dated.</p>
+<p><strong>Right of reply.</strong> You run one of these sites and dispute a measurement? Write to <a href="mailto:contact@perennova.eu">contact@perennova.eu</a>: the measurement is redone and the correction published here, dated.</p>
 <p><small>Measurements and page produced with an AI agent, reviewed and published by Perennova. Engine: perennova-scan v4.</small></p>
 </main>
 
 <footer>
-Perennova · <a href="/en/">eight trade-off questions for product teams</a> · <a href="/">the procurement criterion generator (in French)</a> · <a href="/en/eudr/">EUDR plot file check and fix</a> · <a href="/barometre/" hreflang="fr">version française</a> · contact perennova@proton.me · <a href="/mentions-legales/" hreflang="fr">Mentions légales (legal notice, in French)</a><br>
+Perennova · <a href="/en/">eight trade-off questions for product teams</a> · <a href="/">the procurement criterion generator (in French)</a> · <a href="/en/eudr/">EUDR plot file check and fix</a> · <a href="/barometre/" hreflang="fr">version française</a> · contact contact@perennova.eu · <a href="/mentions-legales/" hreflang="fr">Mentions légales (legal notice, in French)</a><br>
 This tool measures bytes, requests and hosts; it produces no carbon estimate and is not an RGESN compliance audit. The thresholds are Perennova's, published and owned, not an official standard.
 </footer>
 </div>

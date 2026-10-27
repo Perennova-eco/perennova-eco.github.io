@@ -194,7 +194,7 @@ main input[type=email]{font-family:var(--mono);font-size:15px;border:1px solid v
 <button type="submit">Me prévenir</button>
 </form>
 <p id="baro-msg" role="status" aria-live="polite"></p>
-<p><small>Votre adresse ne sert qu’à vous prévenir de l’ouverture du suivi. Elle est supprimée sur simple demande à perennova@proton.me.</small></p>
+<p><small>Votre adresse ne sert qu’à vous prévenir de l’ouverture du suivi. Elle est supprimée sur simple demande à contact@perennova.eu.</small></p>
 </div>
 <p><small>Grille produite avec un agent d’IA, relue et publiée par Perennova. Version du 2 octobre 2026 ; citations des critères 4.7 et 4.14 corrigées le 7 octobre 2026.</small></p>
 </main>
@@ -220,14 +220,14 @@ main input[type=email]{font-family:var(--mono);font-size:15px;border:1px solid v
     ev('revue-inscription-clic'); m.textContent='Envoi…';
     fetch('https://bgpvuyowxokmksbjrske.supabase.co/functions/v1/perennova-veille',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:a,source:'revue:2026-10'})})
       .then(function(r){return r.json().catch(function(){return {ok:false};});})
-      .then(function(x){if(x&&x.ok){ev('revue-inscription-ok');m.textContent='C’est noté. Un seul message, le jour de l’ouverture.';g.reset();}else{m.textContent='Adresse refusée ou service indisponible. Écrivez à perennova@proton.me.';}})
-      .catch(function(){m.textContent='Service indisponible. Écrivez à perennova@proton.me.';});
+      .then(function(x){if(x&&x.ok){ev('revue-inscription-ok');m.textContent='C’est noté. Un seul message, le jour de l’ouverture.';g.reset();}else{m.textContent='Adresse refusée ou service indisponible. Écrivez à contact@perennova.eu.';}})
+      .catch(function(){m.textContent='Service indisponible. Écrivez à contact@perennova.eu.';});
   });
 })();
 </script>
 
 <footer>
-Perennova · <a href="/">le critère environnemental et son barème pour une consultation numérique</a> · <a href="/marches-publics/">les cinq engagements rédigeables et leurs pièges</a> · <a href="/leviers/">où se joue vraiment l'empreinte d'un service numérique</a> · <a href="/appels-offres/">les marchés publics de sites internet ouverts</a> · contact perennova@proton.me · <a href="/mentions-legales/">Mentions légales</a><br>
+Perennova · <a href="/">le critère environnemental et son barème pour une consultation numérique</a> · <a href="/marches-publics/">les cinq engagements rédigeables et leurs pièges</a> · <a href="/leviers/">où se joue vraiment l'empreinte d'un service numérique</a> · <a href="/appels-offres/">les marchés publics de sites internet ouverts</a> · contact contact@perennova.eu · <a href="/mentions-legales/">Mentions légales</a><br>
 Cette grille vérifie une intention de conception sur cinq critères du RGESN ; elle ne produit ni note ni estimation carbone et n'est pas un audit de conformité au RGESN. La lecture pratique de chaque critère est celle de Perennova ; le texte du référentiel fait foi.
 </footer>
 </div>
