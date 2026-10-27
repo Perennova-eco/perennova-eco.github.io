@@ -86,7 +86,7 @@ table.r{border-collapse:collapse;font-size:14px;width:100%}table.r td,table.r th
 <input type="file" id="eudr-fichier" aria-label="Your plot file (GeoJSON, CSV or KML)" accept=".geojson,.json,.csv,.txt,.kml">
 <label for="eudr-pays">Default country of production (2-letter code, e.g. GH, CI, ID, BR), used when the file does not give one</label>
 <input type="text" id="eudr-pays" maxlength="2" placeholder="GH" autocomplete="off">
-<p class="note">CSV: one row per plot, columns <code>latitude</code> and <code>longitude</code> (or <code>wkt</code> for a boundary), and if you have them <code>producer</code>, <code>country</code>, <code>area</code> in hectares. Comma or semicolon separator, decimal point or comma.</p>
+<p class="note">CSV: one row per plot, columns <code>latitude</code> and <code>longitude</code> (or <code>wkt</code> for a boundary), and if you have them <code>producer</code>, <code>country</code>, <code>area</code> in hectares. Comma or semicolon separator, decimal point or comma. Coordinates in Lambert 93 (France, EPSG:2154) are converted to WGS 84 automatically.</p>
 </fieldset>
 <div class="actions"><button type="submit">Check the file</button><button type="button" class="ghost" id="eudr-exemple">Try a sample file</button></div>
 </form>
@@ -143,6 +143,7 @@ table.r{border-collapse:collapse;font-size:14px;width:100%}table.r td,table.r th
 </fieldset></section>
 <section id="pro-rapport" aria-hidden="true"></section>
 <section><h2>The rules applied</h2>
+<p class="note"><a href="/en/eudr/errors/" data-goatcounter-click="eudr-en-vers-erreurs">Rejected by TRACES? The fix for each error, one page per error</a> (also in <a href="/es/eudr/errores/" hreflang="es">Spanish</a>, <a href="/pt/eudr/erros/" hreflang="pt">Portuguese</a> and <a href="/eudr/erreurs/" hreflang="fr">French</a>).</p>
 <p class="note">They come from the EUDR Information System documentation, “<a href="https://acceptance.eudr.webcloud.ec.europa.eu/tracesnt/help/eudr-documentation/operator/geojson-description.html">GeoJSON File Description</a>”, read on 14 October 2026.</p>
 <table class="r"><tr><th>Rule</th><th>What the tool does</th></tr>
 <tr><td>WGS84 coordinates, longitude first, then latitude</td><td>Flags out-of-range coordinates; flags a point that falls outside the declared country, and says whether it falls inside once longitude and latitude are swapped</td></tr>
@@ -247,6 +248,7 @@ function lire(nom,txt){
 // ---- contrôle et réparation
 function traiter(fc,paysDefaut){
  var out=[],E=[],C=[],stats={entree:fc.features.length,sortie:0,points:0,polygones:0,haTotal:0,petits:0};
+ var nL93=window.PerennovaL93?window.PerennovaL93(fc):0; if(nL93)C.push('coordinates converted from Lambert 93 (France, EPSG:2154) to WGS 84 on '+nL93+' plot(s)');
  function note(tab,f,msg){tab.push((f._ligne?('['+f._ligne+'] '):('[plot '+(f._i+1)+'] '))+msg);}
  fc.features.forEach(function(f,i){
   f._i=i; var g=f.geometry, p=Object.assign({},f.properties||{});
@@ -424,5 +426,18 @@ t.push('- '+f(L.taille,kb),'- '+L.upl,'',L.vous,'- '+L.v1,'- '+L.v2,'- '+L.v3,'-
 el('fiche-txt').textContent=t.join('\n');b.hidden=false;}catch(e){}};
 var c=el('fiche-copier');if(c)c.addEventListener('click',function(){var t=el('fiche-txt').textContent;try{navigator.clipboard.writeText(t).then(function(){c.textContent=L.copie;});}catch(e){}ev(L.ev);});
 })();</script>
+<script>(function(){'use strict';
+// Lambert 93 (EPSG:2154, RGF93) vers WGS 84 : formules inverses de l'IGN ; écart RGF93/WGS84 inférieur au mètre.
+var N=0.7256077650532670,C=11754255.4261,XS=700000,YS=12655612.0499,E=0.0818191910428158,L0=3*Math.PI/180;
+function inv(x,y){var dx=x-XS,dy=y-YS,R=Math.sqrt(dx*dx+dy*dy),g=Math.atan(dx/(-dy)),lon=L0+g/N,li=-Math.log(Math.abs(R/C))/N,
+ p=2*Math.atan(Math.exp(li))-Math.PI/2,q;for(var i=0;i<30;i++){var s=E*Math.sin(p);q=2*Math.atan(Math.pow((1+s)/(1-s),E/2)*Math.exp(li))-Math.PI/2;if(Math.abs(q-p)<1e-12){p=q;break;}p=q;}
+ return [lon*180/Math.PI,p*180/Math.PI];}
+function estL93(c){return Array.isArray(c)&&typeof c[0]==='number'&&typeof c[1]==='number'&&c[0]>=50000&&c[0]<=1300000&&c[1]>=6000000&&c[1]<=7200000;}
+function conv(c){if(estL93(c))return inv(c[0],c[1]);if(Array.isArray(c)&&Array.isArray(c[0]))return c.map(conv);return c;}
+function premier(c){while(Array.isArray(c)&&Array.isArray(c[0]))c=c[0];return c;}
+window.PerennovaL93=function(fc){var n=0;(fc.features||[]).forEach(function(f){var g=f&&f.geometry;if(!g||!g.coordinates)return;if(estL93(premier(g.coordinates))){g.coordinates=conv(g.coordinates);n++;}});return n;};
+window.PerennovaL93inv=inv;
+})();
+</script>
 </body>
 </html>

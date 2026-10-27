@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' https://gc.zgo.at; style-src 'unsafe-inline'; img-src 'self' data: https://perennova.goatcounter.com; connect-src https://bgpvuyowxokmksbjrske.supabase.co https://perennova.goatcounter.com; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Erreur GeoJSON EUDR : surface (Area) écrite comme du texte | Perennova</title>
+<meta name="description" content="Dans un GeoJSON EUDR, une surface écrite entre guillemets est lue comme 0 par le système d’information de l’UE. Comment corriger, et un outil gratuit qui la convertit.">
+<link rel="canonical" href="https://perennova.eu/eudr/erreurs/area-as-text/">
+<link rel="alternate" hreflang="en" href="https://perennova.eu/en/eudr/errors/area-as-text/">
+<link rel="alternate" hreflang="fr" href="https://perennova.eu/eudr/erreurs/area-as-text/">
+<link rel="alternate" hreflang="es" href="https://perennova.eu/es/eudr/errores/area-as-text/">
+<link rel="alternate" hreflang="pt" href="https://perennova.eu/pt/eudr/erros/area-as-text/">
+<link rel="alternate" hreflang="x-default" href="https://perennova.eu/en/eudr/errors/area-as-text/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Erreur GeoJSON EUDR : surface (Area) écrite comme du texte | Perennova">
+<meta property="og:description" content="Dans un GeoJSON EUDR, une surface écrite entre guillemets est lue comme 0 par le système d’information de l’UE. Comment corriger, et un outil gratuit qui la convertit.">
+<meta property="og:url" content="https://perennova.eu/eudr/erreurs/area-as-text/">
+<meta property="og:locale" content="fr_FR">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%232E5B48'/%3E%3Cpath d='M16 24c0-6 3-9 7-10-1 6-3 9-7 10zM16 24c0-6-3-9-7-10 1 6 3 9 7 10z' fill='%23E4EBE4'/%3E%3C/svg%3E">
+<style>:root{--ground:#F6F8F6;--surface:#FFF;--surface-2:#EFF3F0;--ink:#14201C;--ink-soft:#57685F;--ink-faint:#8A9A91;--rule:#D8E0DB;--rule-strong:#A9B7B0;--accent:#0F6B52;--accent-soft:#E3F0EA;--warn:#8A5D0B;--warn-soft:#F6EEDC;--mono:ui-monospace,SFMono-Regular,Menlo,monospace;--disp:"Arial Narrow",Helvetica,sans-serif;--body:system-ui,-apple-system,Segoe UI,sans-serif}@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--ground:#0D1311;--surface:#141C19;--surface-2:#1B2420;--ink:#E3EAE6;--ink-soft:#9DAEA6;--ink-faint:#6F8079;--rule:#243029;--rule-strong:#3A4A42;--accent:#4FC095;--accent-soft:#15291F;--warn:#D6A24A;--warn-soft:#2A2114}}:root[data-theme="dark"]{--ground:#0D1311;--surface:#141C19;--surface-2:#1B2420;--ink:#E3EAE6;--ink-soft:#9DAEA6;--ink-faint:#6F8079;--rule:#243029;--rule-strong:#3A4A42;--accent:#4FC095;--accent-soft:#15291F;--warn:#D6A24A;--warn-soft:#2A2114}
+*{box-sizing:border-box}body{background:var(--ground);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;margin:0}
+.wrap{max-width:900px;margin:0 auto;padding:36px 16px 80px;display:flex;flex-direction:column;gap:28px}
+.mast{border-bottom:2px solid var(--rule-strong);padding-bottom:14px;display:flex;flex-direction:column;gap:6px}
+.mast h1{font-family:var(--disp);font-size:clamp(28px,6vw,42px);margin:0;line-height:1.1}
+.sub{font-family:var(--mono);font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-soft)}
+p{margin:0;max-width:70ch}.note{font-size:14px;color:var(--ink-soft)}
+h2{font-family:var(--disp);font-size:20px;margin:0}
+fieldset{border:1px solid var(--rule);background:var(--surface);margin:0;padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+legend{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);padding:0 6px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+label.opt{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--rule-strong);background:var(--surface-2);padding:7px 11px;font-size:14.5px;cursor:pointer;border-radius:2px}
+label.opt:has(input:checked){border-color:var(--accent);background:var(--accent-soft);color:var(--accent);font-weight:600}
+label.opt:focus-within{outline:2px solid var(--accent);outline-offset:2px}
+input[type=radio]{accent-color:var(--accent);margin:0}
+form{display:flex;flex-direction:column;gap:14px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+button{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:11px 18px;border:1px solid var(--accent);background:var(--accent);color:var(--ground);cursor:pointer;border-radius:2px}
+button.ghost{background:var(--accent-soft);color:var(--accent)}
+button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.out{border:1px solid var(--rule-strong);background:var(--surface);display:flex;flex-direction:column}
+.out h3{font-family:var(--disp);font-size:17px;margin:0;padding:12px 16px;border-bottom:1px solid var(--rule);background:var(--surface-2)}
+.body{padding:14px 16px;white-space:pre-wrap;font-family:var(--mono);font-size:13.5px;line-height:1.7;overflow-x:auto}
+.scale{width:100%;border-collapse:collapse;font-size:14px}
+.scale th,.scale td{border-bottom:1px solid var(--rule);padding:9px 16px;text-align:left;vertical-align:top}
+.scale th{font-family:var(--mono);font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-faint);font-weight:400;background:var(--surface-2)}
+.scale td.pts{font-family:var(--mono);white-space:nowrap;font-weight:700;color:var(--accent)}
+.warnbox{border-left:3px solid var(--warn);background:var(--warn-soft);color:var(--warn);padding:12px 14px;font-size:14px}
+.situ{border-left:3px solid var(--accent);background:var(--accent-soft);padding:12px 14px;font-size:14px;color:var(--ink)}
+.situ p{max-width:none}
+footer{font-family:var(--mono);font-size:11px;color:var(--ink-faint);border-top:1px solid var(--rule);padding-top:14px;line-height:1.7}
+a{color:var(--accent)}
+.lead{font-size:14.5px;color:var(--ink-soft)}.lead.small{font-size:13px}
+a.btn{display:inline-block;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:11px 18px;border:1px solid var(--accent);background:var(--accent);color:var(--ground);text-decoration:none;border-radius:2px}
+a.btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+[hidden]{display:none!important}
+input[type=url]{font-family:var(--mono);font-size:15px;padding:10px 12px;border:1px solid var(--rule-strong);background:var(--surface-2);color:var(--ink);border-radius:2px;width:100%}
+input[type=url]:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+#suivi .row{display:flex;gap:10px;flex-wrap:wrap}
+#suivi input[type=email]{flex:1 1 240px;font-family:var(--mono);font-size:15px;padding:10px 12px;border:1px solid var(--rule-strong);background:var(--surface-2);color:var(--ink);border-radius:2px;min-width:0}
+#suivi input[type=email]:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+button:disabled{opacity:.6;cursor:wait}
+.score{font-family:var(--disp);font-size:clamp(40px,10vw,64px);font-weight:700;line-height:1;color:var(--accent)}
+.warnbox ul{max-width:70ch}
+
+ul.l{margin:0;padding-left:20px;font-size:14px;display:flex;flex-direction:column;gap:4px;max-height:320px;overflow:auto}
+input[type=file],input[type=text]{font-size:15px;padding:8px;border:1px solid var(--rule-strong);background:var(--surface);color:var(--ink);max-width:100%}
+.etat{font-weight:600;padding:12px 16px}.blk{padding:12px 16px;display:flex;flex-direction:column;gap:8px;border-top:1px solid var(--rule)}
+table.r{border-collapse:collapse;font-size:14px;width:100%}table.r td,table.r th{border-bottom:1px solid var(--rule);padding:6px 8px;text-align:left;vertical-align:top}
+#pro fieldset{min-width:0}#pro .row{display:flex;gap:10px;flex-wrap:wrap;align-items:stretch}#pro input[type=text],#pro input[type=email]{flex:1 1 220px;min-width:0}
+#pro-table{border-collapse:collapse;width:100%;font-size:13.5px}#pro-table td,#pro-table th{border-bottom:1px solid var(--rule);padding:6px 8px;text-align:left;vertical-align:top}
+.pro-wrap{overflow-x:auto}#pro-rapport{display:none}
+@media print{body{background:#fff;color:#000}.wrap>*:not(#pro-rapport){display:none!important}#pro-rapport{display:block!important;font:12px/1.5 system-ui,sans-serif}#pro-rapport h1{font-size:18px}#pro-rapport table{border-collapse:collapse;width:100%}#pro-rapport td,#pro-rapport th{border:1px solid #999;padding:4px 6px;text-align:left;vertical-align:top}}
+#pro form.row{flex-direction:row}
+</style>
+<style>.errl{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px}.errl li{border-left:3px solid var(--accent);padding:2px 0 2px 12px}.errl span{display:block;font-size:14px;color:var(--ink-soft)}.langs a{margin-left:6px}.why{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}section{display:flex;flex-direction:column;gap:10px}</style>
+</head>
+<body>
+<main class="wrap">
+<header class="mast"><div class="sub">Perennova · règlement européen contre la déforestation (EUDR) · <a href="/eudr/erreurs/">Toutes les erreurs</a> · <span class="langs"><a href="/en/eudr/errors/area-as-text/" hreflang="en" lang="en">EN</a><a href="/es/eudr/errores/area-as-text/" hreflang="es" lang="es">ES</a><a href="/pt/eudr/erros/area-as-text/" hreflang="pt" lang="pt">PT</a></span></div>
+<h1>Erreur GeoJSON EUDR : surface (Area) écrite comme du texte</h1>
+<p>Dans un GeoJSON EUDR, une surface écrite entre guillemets est lue comme 0 par le système d’information de l’UE. Comment corriger, et un outil gratuit qui la convertit.</p>
+</header>
+<section><h2>Ce qu’attend le système d’information de l’UE</h2><p>Les nombres s’écrivent sans guillemets : selon la documentation, une surface écrite comme du texte, par exemple "Area": "3", est lue comme 0. La surface est en hectares pour les points ; si elle manque, 4 hectares sont retenus.</p><p class="note">Source : système d’information de l’UE, « <a href="https://acceptance.eudr.webcloud.ec.europa.eu/tracesnt/help/eudr-documentation/operator/geojson-description.html">GeoJSON File Description</a> » (Commission européenne), lu le 27 octobre 2026.</p></section>
+<section><h2>Corriger à la main</h2><p>Retirez les guillemets autour de chaque valeur Area et utilisez un point décimal, pas une virgule : "Area": 3.5.</p></section>
+<section><h2>Corriger automatiquement</h2><p>L’outil convertit chaque surface écrite comme du texte en nombre, virgule décimale comprise, et retire les valeurs illisibles.</p><p><a class="btn" href="/eudr/?ref=err-area-as-text-fr#eudr-form" data-goatcounter-click="err-fr-area-as-text-vers-outil">Contrôler et corriger mon fichier, gratuit</a></p><p class="note">Rien n’est envoyé : le fichier est lu dans votre navigateur.</p></section>
+<section><h2>Pourquoi cet outil</h2><ul class="why"><li>Il répare ce qui peut l’être, au lieu de seulement lister les erreurs.</li><li>Le fichier ne quitte pas votre ordinateur.</li><li>Votre fournisseur peut contrôler et corriger son propre fichier, puis vous l’envoyer avec un certificat SHA-256.</li><li>Chaque fichier contrôlé reçoit une fiche de dépôt TRACES, et les <a href="/eudr/#etapes">6 étapes jusqu’au numéro de référence</a>.</li></ul><p>Gratuit pour un fichier. Pro 49 € par mois pour les lots et un rapport daté ; Importateur 390 € par mois pour tous vos fournisseurs.</p></section>
+<section><h2>Autres erreurs</h2><ul class="errl"><li><a href="/eudr/erreurs/open-polygon/">Polygone ouvert</a></li><li><a href="/eudr/erreurs/too-many-decimals/">Plus de 6 décimales, points en double</a></li><li><a href="/eudr/erreurs/polygon-with-holes/">Polygone avec un trou</a></li><li><a href="/eudr/erreurs/self-intersection/">Contour qui se croise</a></li><li><a href="/eudr/erreurs/line-geometry/">Ligne au lieu d’un polygone</a></li><li><a href="/eudr/erreurs/country-code/">Code pays invalide</a></li><li><a href="/eudr/erreurs/coordinates-out-of-range/">Coordonnées hors limites ou inversées</a></li><li><a href="/eudr/erreurs/file-over-25-mb/">Fichier de plus de 25 Mo</a></li><li><a href="/eudr/erreurs/wrong-file-format/">CSV ou KML au lieu de GeoJSON</a></li><li><a href="/eudr/erreurs/coordinate-system/">Coordonnées hors WGS 84</a></li></ul></section>
+<footer class="note">Perennova · <a href="/eudr/">EUDR</a> · <a href="/mentions-legales/" lang="fr">mentions légales</a> · <a href="/conditions-de-vente/" lang="fr">conditions de vente</a> · Perennova contrôle des fichiers ; ce n’est pas un cabinet d’avocats et ceci n’est pas un conseil juridique. Page préparée avec un agent d’IA, relue par son auteur.</footer>
+</main>
+<script>(function(){try{if(location.hash==='#toggle-goatcounter'){history.replaceState(null,'',location.pathname+location.search);}var L=window.localStorage,U='https://bgpvuyowxokmksbjrske.supabase.co/functions/v1/perennova-proprio',m=location.hash.match(/^#proprietaire=([A-Za-z0-9_-]{8,64})$/),P=function(k){return fetch(U,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({k:k,p:location.pathname}),keepalive:true});};if(m){history.replaceState(null,'',location.pathname+location.search);P(m[1]).then(function(r){return r.json();}).then(function(j){if(j&&j.ok===true){L.setItem('pn_owner',m[1]);L.setItem('skipgc','t');alert('Appareil marqué propriétaire : ses passages ne sont plus comptés.');}}).catch(function(){});return;}var k=L.getItem('pn_owner');if(k){P(k).then(function(r){if(r.status===403){L.removeItem('pn_owner');L.removeItem('skipgc');}}).catch(function(){});}}catch(e){}})();</script>
+<script data-goatcounter="https://perennova.goatcounter.com/count"
+        async src="https://gc.zgo.at/count.v5.js"
+        crossorigin="anonymous"
+        integrity="sha384-atnOLvQb9t+jTSipvd75X2yginT4PjVbqDdlJAmxMm+wYElFmeR6EmLP5bYeoRVQ"></script>
+</body>
+</html>

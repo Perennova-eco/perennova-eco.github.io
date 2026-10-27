@@ -25,4 +25,52 @@
   <url><loc>https://perennova.eu/eudr/</loc><lastmod>2026-10-21</lastmod></url>
   <url><loc>https://perennova.eu/en/eudr/</loc><lastmod>2026-10-21</lastmod></url>
   <url><loc>https://perennova.eu/en/cbam/</loc><lastmod>2026-10-22</lastmod></url>
+  <url><loc>https://perennova.eu/en/eudr/errors/</loc><lastmod>2026-10-27</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://perennova.eu/en/eudr/errors/open-polygon/</loc><lastmod>2026-10-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://perennova.eu/en/eudr/errors/too-many-decimals/</loc><lastmod>2026-10-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://perennova.eu/en/eudr/errors/polygon-with-holes/</loc><lastmod>2026-10-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://perennova.eu/en/eudr/errors/self-intersection/</loc><lastmod>2026-10-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://perennova.eu/en/eudr/errors/line-geometry/</loc><lastmod>2026-10-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://perennova.eu/en/eudr/errors/area-as-text/</loc><lastmod>2026-10-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://perennova.eu/en/eudr/errors/country-code/</loc><lastmod>2026-10-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://perennova.eu/en/eudr/errors/coordinates-out-of-range/</loc><lastmod>2026-10-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://perennova.eu/en/eudr/errors/file-over-25-mb/</loc><lastmod>2026-10-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://perennova.eu/en/eudr/errors/wrong-file-format/</loc><lastmod>2026-10-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://perennova.eu/en/eudr/errors/coordinate-system/</loc><lastmod>2026-10-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://perennova.eu/eudr/erreurs/</loc><lastmod>2026-10-27</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://perennova.eu/eudr/erreurs/open-polygon/</loc><lastmod>2026-10-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://perennova.eu/eudr/erreurs/too-many-decimals/</loc><lastmod>2026-10-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://perennova.eu/eudr/erreurs/polygon-with-holes/</loc><lastmod>2026-10-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://perennova.eu/eudr/erreurs/self-intersection/</loc><lastmod>2026-10-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://perennova.eu/eudr/erreurs/line-geometry/</loc><lastmod>2026-10-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://perennova.eu/eudr/erreurs/area-as-text/</loc><lastmod>2026-10-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://perennova.eu/eudr/erreurs/country-code/</loc><lastmod>2026-10-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://perennova.eu/eudr/erreurs/coordinates-out-of-range/</loc><lastmod>2026-10-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://perennova.eu/eudr/erreurs/file-over-25-mb/</loc><lastmod>2026-10-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://perennova.eu/eudr/erreurs/wrong-file-format/</loc><lastmod>2026-10-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://perennova.eu/eudr/erreurs/coordinate-system/</loc><lastmod>2026-10-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://perennova.eu/es/eudr/errores/</loc><lastmod>2026-10-27</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://perennova.eu/es/eudr/errores/open-polygon/</loc><lastmod>2026-10-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://perennova.eu/es/eudr/errores/too-many-decimals/</loc><lastmod>2026-10-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://perennova.eu/es/eudr/errores/polygon-with-holes/</loc><lastmod>2026-10-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://perennova.eu/es/eudr/errores/self-intersection/</loc><lastmod>2026-10-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://perennova.eu/es/eudr/errores/line-geometry/</loc><lastmod>2026-10-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://perennova.eu/es/eudr/errores/area-as-text/</loc><lastmod>2026-10-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://perennova.eu/es/eudr/errores/country-code/</loc><lastmod>2026-10-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://perennova.eu/es/eudr/errores/coordinates-out-of-range/</loc><lastmod>2026-10-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://perennova.eu/es/eudr/errores/file-over-25-mb/</loc><lastmod>2026-10-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://perennova.eu/es/eudr/errores/wrong-file-format/</loc><lastmod>2026-10-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://perennova.eu/es/eudr/errores/coordinate-system/</loc><lastmod>2026-10-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://perennova.eu/pt/eudr/erros/</loc><lastmod>2026-10-27</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://perennova.eu/pt/eudr/erros/open-polygon/</loc><lastmod>2026-10-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://perennova.eu/pt/eudr/erros/too-many-decimals/</loc><lastmod>2026-10-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://perennova.eu/pt/eudr/erros/polygon-with-holes/</loc><lastmod>2026-10-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://perennova.eu/pt/eudr/erros/self-intersection/</loc><lastmod>2026-10-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://perennova.eu/pt/eudr/erros/line-geometry/</loc><lastmod>2026-10-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://perennova.eu/pt/eudr/erros/area-as-text/</loc><lastmod>2026-10-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://perennova.eu/pt/eudr/erros/country-code/</loc><lastmod>2026-10-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://perennova.eu/pt/eudr/erros/coordinates-out-of-range/</loc><lastmod>2026-10-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://perennova.eu/pt/eudr/erros/file-over-25-mb/</loc><lastmod>2026-10-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://perennova.eu/pt/eudr/erros/wrong-file-format/</loc><lastmod>2026-10-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://perennova.eu/pt/eudr/erros/coordinate-system/</loc><lastmod>2026-10-27</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
 </urlset>
