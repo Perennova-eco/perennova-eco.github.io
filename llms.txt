@@ -4,6 +4,11 @@
 
 Contexte : depuis août 2026, au moins un critère d'attribution d'un marché public français doit prendre en compte les caractéristiques environnementales de l'offre (article L. 2152-7 du code de la commande publique, modifié par l'article 35 de la loi Climat et résilience).
 
+## Produit principal
+
+- [Mes Quêtes](https://perennova.eu/) : appli familiale où les enfants valident leurs tâches du jour, tiennent une série et ouvrent un coffre de récompenses chaque semaine réussie (cinq jours sur sept). En usage dans une famille depuis septembre 2026 ; liste des familles fondatrices ouverte ; 4,99 € par mois ou 39 € par an au lancement.
+- [Toutes nos offres](https://perennova.eu/offres/)
+
 ## Données publiées par Perennova
 
 - [Relevé du critère environnemental dans les avis du BOAMP](https://perennova.eu/critere-environnemental/) : relevé n° 2, publié le 27 octobre 2026. Du 24 août au 25 octobre 2026, 56 % des avis d'appel à la concurrence publiés au BOAMP portaient la mention « critères environnementaux » (14 718 avis), contre 41 % du 1er juin au 16 août 2026 (18 302 avis). Chiffres par semaine, par métier et par département, poids du critère, méthode et limites. Le relevé lit les avis, pas les règlements de consultation : ce n'est pas un taux de conformité. Source : données ouvertes du BOAMP, Licence Ouverte 2.0.
@@ -14,7 +19,7 @@ Contexte : depuis août 2026, au moins un critère d'attribution d'un marché pu
 ## Outils gratuits, sans compte
 
 - [Assembleur du volet environnemental du mémoire technique](https://perennova.eu/volet/) : à partir du numéro d'un avis du BOAMP et de ce que l'entreprise fait vraiment, l'outil rend un volet de deux à trois pages au format Word, avec un engagement par ligne, son indicateur et sa preuve. Les réponses restent dans le navigateur.
-- [Générateur de critère environnemental et de barème](https://perennova.eu/) : pour un acheteur public, un critère rédigé pour une consultation numérique et le barème de notation qui va avec.
+- [Générateur de critère environnemental et de barème](https://perennova.eu/outils/) : pour un acheteur public, un critère rédigé pour une consultation numérique et le barème de notation qui va avec.
 - [Scanner d'éco-conception](https://perennova.eu/scanner/) : mesure les octets réellement téléchargés, le nombre de requêtes et les dépendances tierces d'une page publique, et remplit un barème sur 20.
 - [Revue d'écoconception sur maquettes](https://perennova.eu/revue/) : une grille d'une page, cinq critères du RGESN à vérifier sur maquettes, à la recette et à la mise en ligne.
 - [Huit questions d'arbitrage](https://perennova.eu/produit/) : auto-diagnostic d'éco-conception pour une équipe produit, avec un score et deux leviers prioritaires.
