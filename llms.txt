@@ -1,6 +1,6 @@
 # Perennova
 
-> Perennova publie des outils gratuits et des relevés tirés de données ouvertes sur deux sujets : le critère environnemental des marchés publics français, et l'éco-conception des services numériques. Il édite aussi deux outils de conformité pour les chaînes d'approvisionnement européennes, EUDR (fichiers de parcelles) et CBAM (données d'émissions des fournisseurs), gratuits pour un fichier et payants par abonnement. Le site est en français, avec six pages en anglais. Chaque relevé donne sa méthode, ses limites et sa date. Les relevés sont produits avec un agent d'IA.
+> Perennova publie des outils gratuits et des relevés tirés de données ouvertes sur deux sujets : le critère environnemental des marchés publics français, et l'éco-conception des services numériques. Il édite aussi deux outils de conformité pour les chaînes d'approvisionnement européennes, EUDR (fichiers de parcelles) et CBAM (données d'émissions des fournisseurs), gratuits pour un fichier et payants par abonnement. Le site est en français, avec des pages en anglais et des pages d'aide EUDR en espagnol et en portugais. Chaque relevé donne sa méthode, ses limites et sa date. Les relevés sont produits avec un agent d'IA.
 
 Contexte : depuis août 2026, au moins un critère d'attribution d'un marché public français doit prendre en compte les caractéristiques environnementales de l'offre (article L. 2152-7 du code de la commande publique, modifié par l'article 35 de la loi Climat et résilience).
 
@@ -42,6 +42,13 @@ Chaque page montre ce que les avis de marché ouverts du métier écrivent sur l
 - [Barometer: homepage weight of France's 20 largest cities](https://perennova.eu/en/barometer/): edition 1, measured on 2 October 2026. 17 pages measured out of 20, median weight 3,445 KB. Bytes, requests and third-party hosts, one method for all; no carbon estimate. Repeated monthly.
 - [EUDR and CBAM file checkers, home page in English](https://perennova.eu/en/): links to the EUDR plot file checker and the CBAM supplier data checker, with their paid plans, and an eight-question eco-design self-check for product teams.
 
+## Outils de conformité : EUDR et CBAM
+
+- [Fichier de parcelles EUDR : contrôle et réparation](https://perennova.eu/eudr/) : vérifie et corrige un fichier de géolocalisation (CSV, KML, GeoJSON) selon les règles du système d'information EUDR ; calculé dans le navigateur.
+- [EUDR plot file: check and fix (English)](https://perennova.eu/en/eudr/): checks and fixes a plot geolocation file (CSV, KML, GeoJSON) against the EUDR Information System rules; no sign-up, runs in the browser.
+- [CBAM supplier emissions data checker (English)](https://perennova.eu/en/cbam/): checks a supplier's embedded emissions file (Excel or CSV) against the 16 data points of Annex IV, point 1.2, of Implementing Regulation (EU) 2025/2547 and drafts the request for what is missing; runs in the browser.
+- [CBAM emissions file check for non-EU exporters (English)](https://perennova.eu/en/cbam/): the same checker, used by an installation operator outside the EU (India, Turkey and others) to check its own embedded emissions file before sending it to its EU customer; the file is read in the browser.
+
 ## Pour citer
 
 Citez la page, sa date et la source des données. Exemple : « Du 24 août au 7 octobre 2026, 55 % des avis d'appel à la concurrence publiés au BOAMP portaient la mention "critères environnementaux", contre 41 % du 1er juin au 16 août 2026 (relevé Perennova, d'après les données ouvertes du BOAMP : https://perennova.eu/critere-environnemental/). »
@@ -51,9 +58,6 @@ Citez la page, sa date et la source des données. Exemple : « Du 24 août au 7 
 - [Mentions légales](https://perennova.eu/mentions-legales/) : éditeur, hébergeur, données personnelles, mesure d'audience.
 - [Conditions de vente](https://perennova.eu/conditions-de-vente/)
 - [Plan du site](https://perennova.eu/sitemap.xml)
-- [Fichier de parcelles EUDR : contrôle et réparation](https://perennova.eu/eudr/) : vérifie et corrige un fichier de géolocalisation (CSV, KML, GeoJSON) selon les règles du système d'information EUDR ; calculé dans le navigateur.
-- [EUDR plot file: check and fix (English)](https://perennova.eu/en/eudr/): checks and fixes a plot geolocation file (CSV, KML, GeoJSON) against the EUDR Information System rules; no sign-up, runs in the browser.
-- [CBAM supplier emissions data checker (English)](https://perennova.eu/en/cbam/): checks a supplier's embedded emissions file (Excel or CSV) against the 16 data points of Annex IV, point 1.2, of Implementing Regulation (EU) 2025/2547 and drafts the request for what is missing; runs in the browser.
 
 ## EUDR : fichiers de parcelles refusés par TRACES
 
