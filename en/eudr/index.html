@@ -83,10 +83,10 @@ table.r{border-collapse:collapse;font-size:14px;width:100%}table.r td,table.r th
 <section>
 <form id="eudr-form" class="boucle"><p class="warnbox" id="four-banniere" hidden style="margin:0 0 10px;padding:10px 14px"></p>
 <fieldset><legend>Your file</legend>
-<input type="file" id="eudr-fichier" aria-label="Your plot file (GeoJSON, CSV or KML)" accept=".geojson,.json,.csv,.txt,.kml">
+<input type="file" id="eudr-fichier" aria-label="Your plot file (GeoJSON, CSV or KML)" accept=".geojson,.json,.csv,.txt,.kml,.xlsx">
 <label for="eudr-pays">Default country of production (2-letter code, e.g. GH, CI, ID, BR), used when the file does not give one</label>
 <input type="text" id="eudr-pays" maxlength="2" placeholder="GH" autocomplete="off">
-<p class="note">CSV: one row per plot, columns <code>latitude</code> and <code>longitude</code> (or <code>wkt</code> for a boundary), and if you have them <code>producer</code>, <code>country</code>, <code>area</code> in hectares. Comma or semicolon separator, decimal point or comma. Coordinates in Lambert 93 (France, EPSG:2154) are converted to WGS 84 automatically.</p>
+<p class="note">CSV: one row per plot, columns <code>latitude</code> and <code>longitude</code> (or <code>wkt</code> for a boundary), and if you have them <code>producer</code>, <code>country</code>, <code>area</code> in hectares. Comma or semicolon separator, decimal point or comma. Coordinates in Lambert 93 (France, EPSG:2154) are converted to WGS 84 automatically. Excel (.xlsx): the first sheet is read as a CSV, in your browser.</p>
 </fieldset>
 <div class="actions"><button type="submit">Check the file</button><button type="button" class="ghost" id="eudr-exemple">Try a sample file</button></div>
 </form>
@@ -132,7 +132,7 @@ table.r{border-collapse:collapse;font-size:14px;width:100%}table.r td,table.r th
 <form id="pro-cle-form" class="row"><input type="text" id="pro-cle" autocomplete="off" placeholder="Licence key" aria-label="Licence key"><button type="submit" class="ghost">Activate</button></form>
 <p class="note" id="pro-etat" aria-live="polite"></p>
 <div id="pro-outil" hidden><label for="pro-fichiers">Files (CSV, KML, GeoJSON), several at once</label>
-<input type="file" id="pro-fichiers" multiple accept=".geojson,.json,.csv,.txt,.kml">
+<input type="file" id="pro-fichiers" multiple accept=".geojson,.json,.csv,.txt,.kml,.xlsx">
 <div class="actions"><button type="button" id="pro-lancer">Check all files</button><button type="button" class="ghost" id="pro-imprimer" hidden>Print the compliance report (PDF)</button></div>
 <div class="pro-wrap"><table id="pro-table" hidden><thead><tr><th>File</th><th>Plots</th><th>Blocking</th><th>Fixed</th><th>SHA-256 (first 16)</th><th></th></tr></thead><tbody></tbody></table></div></div>
 </fieldset></section>
@@ -151,6 +151,7 @@ table.r{border-collapse:collapse;font-size:14px;width:100%}table.r td,table.r th
 <tr><td>Closed ring: last point = first point</td><td>Closes the ring</td></tr>
 <tr><td>Polygons with holes and self-intersecting boundaries are rejected</td><td>Removes holes (to be checked); flags self-intersections, to be redrawn</td></tr>
 <tr><td>Point, Polygon, MultiPoint, MultiPolygon only</td><td>Rejects lines; splits MultiPoints</td></tr>
+<tr><td>Property names are case-sensitive (ProducerCountry, ProductionPlace, ProducerName, Area)</td><td>Renames <code>productionplace</code>, <code>PRODUCERCOUNTRY</code>, etc. to the right case</td></tr>
 <tr><td>ProducerCountry as a 2-letter ISO code; Area as a number, in hectares</td><td>Upper-cases the code, adds the default country, converts Area to a number</td></tr>
 <tr><td>Above 4 hectares a polygon is required; 25 MB per statement</td><td>Flags points declared above 4 ha, counts polygons under 4 ha and the file size</td></tr>
 </table>
@@ -236,6 +237,7 @@ function fromKML(txt){
 }
 function lire(nom,txt){
  var n=nom.toLowerCase();
+ if(/\.xlsx?$/.test(n))throw new Error('Excel file still being converted: choose it again, then check');
  if(n.endsWith('.csv')||n.endsWith('.txt'))return fromCSV(txt);
  if(n.endsWith('.kml'))return fromKML(txt);
  var j=JSON.parse(txt);
@@ -252,6 +254,7 @@ function traiter(fc,paysDefaut){
  function note(tab,f,msg){tab.push((f._ligne?('['+f._ligne+'] '):('[plot '+(f._i+1)+'] '))+msg);}
  fc.features.forEach(function(f,i){
   f._i=i; var g=f.geometry, p=Object.assign({},f.properties||{});
+  Object.keys(p).forEach(function(k){var K={producername:'ProducerName',producercountry:'ProducerCountry',productionplace:'ProductionPlace',area:'Area'}[k.toLowerCase()];if(K&&K!==k){if(p[K]===undefined)p[K]=p[k];delete p[k];note(C,f,'property "'+k+'" renamed '+K+' (names are case-sensitive)');}});
   if(!g){note(E,f,'no geometry: plot removed');return;}
   if(paysDefaut&&!p.ProducerCountry){p.ProducerCountry=paysDefaut;note(C,f,'ProducerCountry added: '+paysDefaut);}
   if(p.ProducerCountry){var pc=String(p.ProducerCountry).trim().toUpperCase(); if(pc!==p.ProducerCountry){p.ProducerCountry=pc;note(C,f,'country code upper-cased');}
@@ -304,6 +307,7 @@ if(!el('eudr-fichier'))return;
 var dernier=null;
 el('eudr-form').addEventListener('submit',function(e){e.preventDefault();
  var fi=el('eudr-fichier').files[0]; var res=el('eudr-resultat'); res.hidden=false;
+ var ex=!!window.PerennovaEx; window.PerennovaEx=false; if(fi&&!ex)ev('eudr-en-fichier-charge');
  if(!fi){el('eudr-etat').textContent='Choose a file.';return;}
  if(fi.size>MAXB*4){el('eudr-etat').textContent='File too large to be read here.';return;}
  var rd=new FileReader(); rd.onload=function(){
@@ -316,7 +320,7 @@ el('eudr-form').addEventListener('submit',function(e){e.preventDefault();
   if(taille>MAXB)r.E.push('file over 25 MB: split it into several statements');
   liste('eudr-erreurs',r.E,'Nothing blocking found.'); liste('eudr-corr',r.C,'No fix needed.');
   el('eudr-telecharger').hidden=false;
-  ev(r.E.length?'eudr-en-fichier-a-corriger':'eudr-en-fichier-valide');
+  ev((r.E.length?'eudr-en-fichier-a-corriger':'eudr-en-fichier-valide')+(ex?'-exemple':''));
   if(window.PerennovaFiche)window.PerennovaFiche(r);
   if(window.PerennovaBoucle)window.PerennovaBoucle(r);
  }; rd.readAsText(fi);
@@ -331,7 +335,7 @@ el('eudr-telecharger').addEventListener('click',function(){if(!dernier)return;
 el('eudr-exemple').addEventListener('click',function(){
  var ex='producer,country,latitude,longitude,area\nKwame A.,gh,6.6885,-1.6244,1.5\nAma B.,GH,-1.62113,6.69120,2\nKofi C.,GH,6.7012345678,-1.601234567,0.8\n';
  var f=new File([ex],'sample.csv',{type:'text/csv'}); var dt=new DataTransfer(); dt.items.add(f); el('eudr-fichier').files=dt.files;
- el('eudr-form').requestSubmit(); ev('eudr-en-exemple');});
+ window.PerennovaEx=true; el('eudr-form').requestSubmit(); ev('eudr-en-exemple');});
 })();
 
 </script>
@@ -437,6 +441,57 @@ function conv(c){if(estL93(c))return inv(c[0],c[1]);if(Array.isArray(c)&&Array.i
 function premier(c){while(Array.isArray(c)&&Array.isArray(c[0]))c=c[0];return c;}
 window.PerennovaL93=function(fc){var n=0;(fc.features||[]).forEach(function(f){var g=f&&f.geometry;if(!g||!g.coordinates)return;if(estL93(premier(g.coordinates))){g.coordinates=conv(g.coordinates);n++;}});return n;};
 window.PerennovaL93inv=inv;
+})();
+</script>
+<script>(function(){'use strict';
+// Perennova · P261029-A · Excel (.xlsx) lu dans le navigateur, sans bibliothèque ni envoi : zip (DecompressionStream) + XML de la première feuille, converti en CSV puis contrôlé comme un CSV.
+var FR=location.pathname.indexOf('/en/')<0,PX=FR?'eudr-':'eudr-en-';
+var T=FR?{lu:'Fichier Excel lu dans votre navigateur : feuille « %s », %d ligne(s), converti en CSV pour le contrôle.',xls:'Ancien format Excel (.xls) : enregistrez-le en .xlsx ou en CSV, puis recommencez.',err:'Fichier Excel illisible : '}:{lu:'Excel file read in your browser: sheet “%s”, %d row(s), converted to CSV for the check.',xls:'Old Excel format (.xls): save it as .xlsx or CSV, then try again.',err:'Cannot read the Excel file: '};
+function ev(n){try{if(window.localStorage&&localStorage.getItem('skipgc'))return;}catch(e){}try{if(window.goatcounter&&window.goatcounter.count)window.goatcounter.count({path:PX+n,title:PX+n,event:true});}catch(e){}}
+function u16(d,o){return d[o]|(d[o+1]<<8);}
+function u32(d,o){return (d[o]|(d[o+1]<<8)|(d[o+2]<<16))+d[o+3]*16777216;}
+function zip(d){var e=-1;for(var i=d.length-22;i>=Math.max(0,d.length-65557);i--){if(u32(d,i)===0x06054b50){e=i;break;}}
+ if(e<0)throw new Error('not an .xlsx file');var n=u16(d,e+10),o=u32(d,e+16),r={};
+ for(var k=0;k<n;k++){if(u32(d,o)!==0x02014b50)throw new Error('damaged .xlsx file');var fl=u16(d,o+28);
+  r[new TextDecoder().decode(d.subarray(o+46,o+46+fl))]={m:u16(d,o+10),cs:u32(d,o+20),lo:u32(d,o+42)};o+=46+fl+u16(d,o+30)+u16(d,o+32);}
+ return r;}
+function texte(d,z){if(!z)return Promise.resolve('');var s=z.lo+30+u16(d,z.lo+26)+u16(d,z.lo+28),raw=d.subarray(s,s+z.cs);
+ if(z.m===0)return Promise.resolve(new TextDecoder().decode(raw));
+ if(z.m!==8||typeof DecompressionStream==='undefined')return Promise.reject(new Error('compression not supported by this browser'));
+ return new Response(new Blob([raw]).stream().pipeThrough(new DecompressionStream('deflate-raw'))).text();}
+function xml(s){return new DOMParser().parseFromString(s,'application/xml');}
+function tags(n,t){return Array.prototype.slice.call(n.getElementsByTagNameNS('*',t));}
+function col(r){var m=/^([A-Z]+)/.exec(r||''),c=0;if(!m)return -1;for(var i=0;i<m[1].length;i++)c=c*26+m[1].charCodeAt(i)-64;return c-1;}
+function cellule(s){return String(s).replace(/[;\r\n\t]+/g,' ').trim();}
+function entete(s){return cellule(s).replace(/\s*[\(\[][^\)\]]*[\)\]]\s*/g,' ').trim().toLowerCase();}
+window.PerennovaXlsx=function(file){return file.arrayBuffer().then(function(b){var d=new Uint8Array(b),z=zip(d),wb,rels,ss;
+ return Promise.all([texte(d,z['xl/workbook.xml']),texte(d,z['xl/_rels/workbook.xml.rels']),texte(d,z['xl/sharedStrings.xml'])]).then(function(a){
+  wb=xml(a[0]);rels=xml(a[1]);ss=a[2]?tags(xml(a[2]),'si').map(function(si){return tags(si,'t').map(function(t){return t.textContent;}).join('');}):[];
+  var sh=tags(wb,'sheet')[0];if(!sh)throw new Error('no sheet');var rid=sh.getAttribute('r:id')||sh.getAttributeNS('http://schemas.openxmlformats.org/officeDocument/2006/relationships','id'),cible='';
+  tags(rels,'Relationship').forEach(function(r){if(r.getAttribute('Id')===rid)cible=r.getAttribute('Target');});
+  cible=cible.replace(/^\//,'');if(cible.indexOf('xl/')!==0)cible='xl/'+cible;
+  if(!z[cible])throw new Error('first sheet not found');var nom=sh.getAttribute('name')||'1';
+  return texte(d,z[cible]).then(function(t){var lignes=[];
+   tags(xml(t),'row').forEach(function(row){var l=[];tags(row,'c').forEach(function(c,j){var k=col(c.getAttribute('r'));if(k<0)k=j;var ty=c.getAttribute('t'),v=tags(c,'v')[0],val='';
+     if(ty==='s')val=v?(ss[+v.textContent]||''):'';else if(ty==='inlineStr')val=tags(c,'t').map(function(x){return x.textContent;}).join('');else val=v?v.textContent:'';
+     l[k]=cellule(val);});
+    for(var i=0;i<l.length;i++)if(l[i]===undefined)l[i]='';if(l.join('')!=='')lignes.push(l);});
+   if(lignes.length<2)throw new Error('the first sheet has no data rows');
+   lignes[0]=lignes[0].map(entete);
+   var csv=lignes.map(function(l){return l.join(';');}).join('\n');
+   return {file:new File([csv],file.name+'.csv',{type:'text/csv'}),feuille:nom,lignes:lignes.length-1};});});});};
+function brancher(id,noteId){var inp=document.getElementById(id);if(!inp)return;
+ if((inp.getAttribute('accept')||'').indexOf('.xlsx')<0)inp.setAttribute('accept',(inp.getAttribute('accept')||'')+',.xlsx');
+ var p=document.createElement('p');p.className='note';p.id=noteId;p.setAttribute('aria-live','polite');p.hidden=true;inp.insertAdjacentElement('afterend',p);
+ inp.addEventListener('change',function(){var fs=Array.prototype.slice.call(inp.files||[]);
+  if(!fs.some(function(f){return /\.xlsx?$/i.test(f.name);}))return;
+  inp.dataset.xlsx='1';p.hidden=false;p.textContent='…';var notes=[];
+  Promise.all(fs.map(function(f){if(/\.xls$/i.test(f.name))return Promise.reject(new Error(T.xls));
+    if(!/\.xlsx$/i.test(f.name))return Promise.resolve(f);
+    return window.PerennovaXlsx(f).then(function(r){notes.push(T.lu.replace('%s',r.feuille).replace('%d',r.lignes));ev('fichier-xlsx');return r.file;});}))
+  .then(function(nf){var dt=new DataTransfer();nf.forEach(function(f){dt.items.add(f);});inp.files=dt.files;delete inp.dataset.xlsx;p.textContent=notes.join(' ');})
+  .catch(function(e){delete inp.dataset.xlsx;inp.value='';p.textContent=(e.message===T.xls?'':T.err)+e.message;ev('fichier-illisible');});});}
+brancher('eudr-fichier','xlsx-note');brancher('pro-fichiers','xlsx-note-pro');
 })();
 </script>
 </body>
