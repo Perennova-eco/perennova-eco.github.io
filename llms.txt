@@ -45,7 +45,8 @@ Chaque page montre ce que les avis de marché ouverts du métier écrivent sur l
 
 - [Eco-design scanner](https://perennova.eu/en/scanner/): measures the bytes actually downloaded, the number of requests and the third-party dependencies of a public page, and fills in a score out of 20. Free, no account.
 - [Barometer: homepage weight of France's 20 largest cities](https://perennova.eu/en/barometer/): edition 1, measured on 2 October 2026. 17 pages measured out of 20, median weight 3,445 KB. Bytes, requests and third-party hosts, one method for all; no carbon estimate. Repeated monthly.
-- [EUDR and CBAM file checkers, home page in English](https://perennova.eu/en/): links to the EUDR plot file checker and the CBAM supplier data checker, with their paid plans, and an eight-question eco-design self-check for product teams.
+- [EUDR plot file checker, home page in English](https://perennova.eu/en/): links to the EUDR plot file checker with its paid plans, to Mes Quêtes, and an eight-question eco-design self-check for product teams.
+- [All Perennova offers in English](https://perennova.eu/en/offers/): EUDR Pro, EUDR Importer, CBAM supplier data checker and Mes Quêtes, with their prices.
 
 ## Outils de conformité : EUDR et CBAM
 
