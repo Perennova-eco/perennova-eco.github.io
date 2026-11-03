@@ -75,7 +75,7 @@ section{display:flex;flex-direction:column;gap:12px}
 <input id="mq-email" name="email" type="email" required autocomplete="email" placeholder="prenom@exemple.fr">
 <button type="submit" id="mq-bouton">Je m'inscris</button>
 </form>
-<p id="mq-retour" role="status" aria-live="polite"></p><p class="mq-cle">Prix public au lancement : 4,99 € par mois ou 39 € par an. Tarif fondateur la première année.</p><details><summary>Quand ouvre l'appli ?</summary><p>Mes Quêtes s'ouvre aux premières familles en novembre 2026 : sur le web, installable sur iPhone depuis Safari, et sur Android par un test sur Google Play, sur invitation. Les familles de la liste sont prévenues en premier.</p></details>
+<p id="mq-retour" role="status" aria-live="polite"></p><p class="mq-cle">Gratuite, sans carte bancaire ni engagement. Mes Quêtes est en cours de développement.</p><details><summary>Quand ouvre l'appli ?</summary><p>Mes Quêtes s'ouvre aux premières familles en novembre 2026 : sur le web, installable sur iPhone depuis Safari, et sur Android par un test sur Google Play, sur invitation. Les familles de la liste sont prévenues en premier.</p></details>
 <p class="note">Votre adresse sert seulement à vous prévenir de l'ouverture. Elle n'est ni revendue ni cédée ; une demande de suppression à contact@perennova.eu est traitée sans condition. <a href="/mentions-legales/">Mentions légales</a>.</p>
 </section>
 
@@ -105,10 +105,9 @@ section{display:flex;flex-direction:column;gap:12px}
 <p>Mes Quêtes est utilisée chaque jour depuis septembre 2026 par une famille de deux enfants, qui l'a façonnée version après version. Elle s'ouvre maintenant à d'autres familles. L'appli Android entre en test sur Google Play en novembre 2026 ; sur iPhone, elle s'installe dès maintenant depuis Safari.</p>
 </section>
 
-<section aria-labelledby="prix-titre">
-<h2 id="prix-titre">Prix au lancement</h2>
-<p class="prix">4,99 € par mois ou 39 € par an</p>
-<p>Par famille, pour tous les enfants, sans engagement. Rien à payer pour rejoindre la liste ; les familles fondatrices ont un tarif réduit la première année.</p>
+<section aria-labelledby="dev-titre">
+<h2 id="dev-titre">Gratuite et en cours de développement</h2>
+<p>Mes Quêtes est gratuite, pour tous les enfants, sans carte bancaire ni engagement. Elle est en cours de développement : les familles inscrites la reçoivent en avant-première et nous disent ce qui a tenu et ce qui n'a pas tenu.</p>
 <p><a class="btn" href="#liste" data-goatcounter-click="mq-prix-vers-liste">Rejoindre la liste</a></p>
 </section>
 
@@ -128,7 +127,7 @@ Les outils professionnels de Perennova (fichiers EUDR, données CBAM, critère e
     bouton.disabled=true; retour.textContent="Envoi…";
     fetch('https://bgpvuyowxokmksbjrske.supabase.co/functions/v1/perennova-veille',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:email,source:'mesquetes-fondatrice'+(ref?':'+ref:'')})})
     .then(function(r){return r.json().catch(function(){return {};}).then(function(j){
-      if(r.ok&&j.ok){retour.textContent="C'est noté : vous serez prévenu à l'ouverture, avec le tarif fondateur.";champ.value='';pvEvent('mq-liste-ok');}
+      if(r.ok&&j.ok){retour.textContent="C'est noté : vous recevrez votre accès par e-mail.";champ.value='';pvEvent('mq-liste-ok');}
       else{retour.textContent="L'enregistrement a échoué. Écrivez à contact@perennova.eu.";bouton.disabled=false;pvEvent('mq-liste-echec');}
     });}).catch(function(){retour.textContent="L'enregistrement a échoué. Écrivez à contact@perennova.eu.";bouton.disabled=false;pvEvent('mq-liste-echec');});
   });
