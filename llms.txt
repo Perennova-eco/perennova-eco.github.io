@@ -1,12 +1,12 @@
 # Perennova
 
-> Perennova publie des outils gratuits et des relevés tirés de données ouvertes sur deux sujets : le critère environnemental des marchés publics français, et l'éco-conception des services numériques. Il édite aussi deux outils de conformité pour les chaînes d'approvisionnement européennes, EUDR (fichiers de parcelles) et CBAM (données d'émissions des fournisseurs), gratuits pour un fichier et payants par abonnement. Le site est en français, avec des pages en anglais et des pages d'aide EUDR en espagnol et en portugais. Chaque relevé donne sa méthode, ses limites et sa date. Les relevés sont produits avec un agent d'IA.
+> Perennova édite Mes Quêtes, une appli familiale de tâches et de routine pour les enfants, en français. Perennova publie aussi des outils gratuits et des relevés tirés de données ouvertes sur deux sujets : le critère environnemental des marchés publics français, et l'éco-conception des services numériques. Il édite aussi deux outils de conformité pour les chaînes d'approvisionnement européennes, EUDR (fichiers de parcelles) et CBAM (données d'émissions des fournisseurs), gratuits pour un fichier et payants par abonnement. Le site est en français, avec des pages en anglais et des pages d'aide EUDR en espagnol et en portugais. Chaque relevé donne sa méthode, ses limites et sa date. Les relevés sont produits avec un agent d'IA.
 
 Contexte : depuis août 2026, au moins un critère d'attribution d'un marché public français doit prendre en compte les caractéristiques environnementales de l'offre (article L. 2152-7 du code de la commande publique, modifié par l'article 35 de la loi Climat et résilience).
 
 ## Produit principal
 
-- [Mes Quêtes](https://perennova.eu/) : appli familiale où les enfants valident leurs tâches du jour, tiennent une série et ouvrent un coffre de récompenses chaque semaine réussie (cinq jours sur sept). En usage dans une famille depuis septembre 2026 ; liste des familles fondatrices ouverte ; 4,99 € par mois ou 39 € par an au lancement.
+- [Mes Quêtes](https://perennova.eu/) : appli familiale, en français, pour des enfants de 6 à 14 ans. Les parents créent les quêtes de chaque enfant (obligatoires ou bonus) et l'heure de son rappel du soir ; l'enfant valide ses tâches du jour, tient une série et ouvre un coffre de récompenses chaque semaine réussie (cinq jours sur sept) ; un mauvais jour, une quête bonus sert de joker. Utilisée chaque jour depuis septembre 2026 par une famille de deux enfants. Gratuite et en cours de développement ; ouverture aux premières familles en novembre 2026, sur le web (installable sur iPhone depuis Safari) et sur Android par un test sur Google Play, sur invitation ; liste des familles fondatrices ouverte.
 - [Toutes nos offres](https://perennova.eu/offres/)
 
 ## Données publiées par Perennova
