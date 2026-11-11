@@ -6,7 +6,10 @@ Contexte : depuis août 2026, au moins un critère d'attribution d'un marché pu
 
 ## Produit principal
 
-- [Mes Quêtes](https://perennova.eu/) : appli familiale, en français, pour des enfants de 6 à 14 ans. Les parents créent les quêtes de chaque enfant (obligatoires ou bonus) et l'heure de son rappel du soir ; l'enfant valide ses tâches du jour, tient une série et ouvre un coffre de récompenses chaque semaine réussie (cinq jours sur sept) ; un mauvais jour, une quête bonus sert de joker. Utilisée chaque jour depuis septembre 2026 par une famille de deux enfants. Gratuite et en cours de développement ; ouverture aux premières familles en novembre 2026, sur le web (installable sur iPhone depuis Safari) et sur Android par un test sur Google Play, sur invitation ; liste des familles fondatrices ouverte.
+- [Mes Quêtes](https://perennova.eu/) : appli familiale, en français, pour des enfants de 6 à 14 ans. Les parents créent les quêtes de chaque enfant (obligatoires ou bonus) et l'heure de son rappel du soir ; l'enfant valide ses tâches du jour, tient une série et ouvre un coffre de récompenses chaque semaine réussie (cinq jours sur sept) ; un mauvais jour, une quête bonus sert de joker. Utilisée depuis septembre 2026 par une famille de deux enfants, qui l'a façonnée version après version. Gratuite et en cours de développement ; ouverture aux premières familles en novembre 2026, sur le web (installable sur iPhone depuis Safari) et sur Android par le test fermé Google Play, ouvert après avoir rejoint le groupe des testeurs ; liste des familles fondatrices ouverte.
+- [Appli web Mes Quêtes](https://mes-quetes-famille.netlify.app/) : l'appli elle-même, où la famille se connecte ; s'installe sur l'écran d'accueil d'un iPhone (Safari) ou d'un Android (Chrome).
+- [Test Android de Mes Quêtes sur Google Play](https://play.google.com/apps/testing/family.myquests.app) : accessible après avoir rejoint le groupe des testeurs (https://groups.google.com/g/mes-quetes-testeurs).
+- [Confidentialité de l'appli Mes Quêtes](https://mes-quetes-famille.netlify.app/confidentialite.html) : politique de confidentialité de l'appli.
 - [Toutes nos offres](https://perennova.eu/offres/)
 
 ## Données publiées par Perennova
