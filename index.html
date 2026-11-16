@@ -15,54 +15,59 @@
 <meta property="og:site_name" content="Perennova">
 <meta property="og:locale" content="fr_FR">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Mes Quêtes","url":"https://perennova.eu/","inLanguage":"fr","description":"Appli familiale : l'enfant valide ses tâches du jour, tient une série et ouvre un coffre de récompenses chaque semaine réussie (cinq jours sur sept). Pour des enfants de 6 à 14 ans.","applicationCategory":"LifestyleApplication","operatingSystem":"Android, iOS, Web","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"publisher":{"@type":"Organization","name":"Perennova","url":"https://perennova.eu/","email":"contact@perennova.eu"}}</script>
-<style>:root{--ground:#F6F8F6;--surface:#FFF;--surface-2:#EFF3F0;--ink:#14201C;--ink-soft:#57685F;--ink-faint:#8A9A91;--rule:#D8E0DB;--rule-strong:#A9B7B0;--accent:#0F6B52;--accent-soft:#E3F0EA;--warn:#8A5D0B;--warn-soft:#F6EEDC;--mono:ui-monospace,SFMono-Regular,Menlo,monospace;--disp:"Arial Narrow",Helvetica,sans-serif;--body:system-ui,-apple-system,Segoe UI,sans-serif}@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--ground:#0D1311;--surface:#141C19;--surface-2:#1B2420;--ink:#E3EAE6;--ink-soft:#9DAEA6;--ink-faint:#6F8079;--rule:#243029;--rule-strong:#3A4A42;--accent:#4FC095;--accent-soft:#15291F;--warn:#D6A24A;--warn-soft:#2A2114}}:root[data-theme="dark"]{--ground:#0D1311;--surface:#141C19;--surface-2:#1B2420;--ink:#E3EAE6;--ink-soft:#9DAEA6;--ink-faint:#6F8079;--rule:#243029;--rule-strong:#3A4A42;--accent:#4FC095;--accent-soft:#15291F;--warn:#D6A24A;--warn-soft:#2A2114}
+<style>:root{--ground:#F6F8F6;--surface:#FFF;--surface-2:#EFF3F0;--ink:#14201C;--ink-soft:#57685F;--ink-faint:#8A9A91;--rule:#D8E0DB;--rule-strong:#A9B7B0;--accent:#0F6B52;--mono:ui-monospace,SFMono-Regular,Menlo,monospace;--disp:"Arial Narrow",Helvetica,sans-serif;--body:system-ui,-apple-system,Segoe UI,sans-serif}@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--ground:#0D1311;--surface:#141C19;--surface-2:#1B2420;--ink:#E3EAE6;--ink-soft:#9DAEA6;--ink-faint:#6F8079;--rule:#243029;--rule-strong:#3A4A42;--accent:#4FC095}}:root[data-theme="dark"]{--ground:#0D1311;--surface:#141C19;--surface-2:#1B2420;--ink:#E3EAE6;--ink-soft:#9DAEA6;--ink-faint:#6F8079;--rule:#243029;--rule-strong:#3A4A42;--accent:#4FC095}
 *{box-sizing:border-box}body{background:var(--ground);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;margin:0}
-.wrap{max-width:900px;margin:0 auto;padding:36px 16px 80px;display:flex;flex-direction:column;gap:28px}
+.wrap{max-width:900px;margin:0 auto;padding:20px 16px 80px;display:flex;flex-direction:column;gap:24px}
 .sub{font-family:var(--mono);font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-soft)}
 p{margin:0;max-width:70ch}.note{font-size:14px;color:var(--ink-soft)}
 h2{font-family:var(--disp);font-size:20px;margin:0}
-form{display:flex;flex-direction:column;gap:14px}
 button,a.btn{display:inline-block;font:600 16px/1.2 var(--body);padding:11px 18px;min-height:44px;border:1px solid var(--accent);background:var(--accent);color:var(--ground);text-decoration:none;border-radius:4px;cursor:pointer}
 button:focus-visible,a.btn:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
 footer{font-family:var(--mono);font-size:11px;color:var(--ink-faint);border-top:1px solid var(--rule);padding-top:14px;line-height:1.7}
 a{color:var(--accent)}
 [hidden]{display:none!important}
-</style>
-<style>
 .nav{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);display:flex;flex-wrap:wrap;gap:6px 14px}
 .nav a{text-decoration:none}.nav a[aria-current]{color:var(--ink);font-weight:700}
-.hero{display:flex;flex-direction:column;gap:12px}
+.hero{display:flex;flex-direction:column;gap:10px}
 .hero h1{font-family:var(--disp);font-size:clamp(28px,6.5vw,44px);margin:0;line-height:1.08}
-.hero .o-sous{font-size:17px;max-width:62ch}
-.carte{border:1px solid var(--accent);background:var(--surface);padding:16px;border-radius:4px;display:flex;flex-direction:column;gap:10px}
-.carte h2{font-size:21px}
+.carte{border:1px solid var(--accent);background:var(--surface);padding:18px 16px;border-radius:4px;display:flex;flex-direction:column;gap:12px}
 .liste{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px;max-width:68ch}
 form.inscr{display:flex;flex-direction:row;flex-wrap:wrap;gap:8px;align-items:stretch}
-.inscr input[type=email]{flex:1 1 240px;min-height:44px;padding:10px 12px;font-size:16px;border:1px solid var(--rule-strong);background:var(--surface-2);color:var(--ink);border-radius:2px}
-.inscr button{min-height:44px}
-.prix{font-family:var(--disp);font-size:24px;color:var(--accent)}
+.inscr input[type=email]{flex:1 1 240px;min-height:44px;padding:10px 12px;font-size:16px;border:1px solid var(--rule-strong);background:var(--surface-2);color:var(--ink);border-radius:4px}
 section{display:flex;flex-direction:column;gap:12px}
 /*G261102-C*/
-:root{--accent:#1E4032;--accent-soft:#E7F1EC;--ink-faint:#58695F;--disp:Georgia,"Times New Roman",serif}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--accent:#7DB59E;--accent-soft:#1A2B23;--ink-faint:#8FA49A}}:root[data-theme="dark"]{--accent:#7DB59E;--accent-soft:#1A2B23;--ink-faint:#8FA49A}
-.wrap{padding-top:20px;gap:24px}.hero{gap:10px}.hero h1{font-weight:700;letter-spacing:-.01em}
+:root{--accent:#1E4032;--ink-faint:#58695F;--disp:Georgia,"Times New Roman",serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--accent:#7DB59E;--ink-faint:#8FA49A}}:root[data-theme="dark"]{--accent:#7DB59E;--ink-faint:#8FA49A}
+.hero h1{font-weight:700;letter-spacing:-.01em}
 .hero .o-sous{font-size:17px;max-width:36ch;line-height:1.5}
-.carte{gap:12px;padding:18px 16px}.carte h2{font-size:20px;line-height:1.25}
-.inscr input[type=email]{border-radius:4px}
+.carte h2{font-size:20px;line-height:1.25}
 .mq-pas{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:2px 0 0;padding:0;list-style:none}
 .mq-pas li{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;font-size:14px;line-height:1.3;color:var(--ink-soft)}
 .mq-pas svg{color:var(--accent);fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
-.carte details{font-size:14.5px;color:var(--ink-soft)}.carte summary{cursor:pointer;padding:11px 0;color:var(--accent);font-weight:600}
-.carte summary:focus-visible{outline:3px solid var(--accent);outline-offset:2px}.mq-cle{font-weight:600}
+.hero details{font-size:14.5px;color:var(--ink-soft);max-width:62ch}.hero summary{cursor:pointer;padding:11px 0}
+.hero summary:focus-visible{outline:3px solid var(--accent);outline-offset:2px}.mq-cle{font-weight:600}
+/*G261116-C*/
+.hero .btn{padding:12px 12px;letter-spacing:-.005em}
+.hero .mq-pas{margin:4px 0 2px;max-width:560px}
+.wrap>.pn-marque+.nav{margin-top:-18px}
+@media (min-width:760px){.wrap>.pn-marque{margin-bottom:-68px}.wrap>.pn-marque+.nav{margin-top:0}.wrap>.nav{align-self:flex-end;min-height:44px;align-items:center}}
 .pn-marque{display:inline-flex;align-items:center;gap:8px;min-height:44px;color:var(--accent);text-decoration:none;font:700 15px/1 Georgia,"Times New Roman",serif;letter-spacing:.2em;align-self:flex-start}.pn-marque svg{fill:none;stroke:currentColor;stroke-width:6.2;stroke-linecap:round;stroke-linejoin:round}.pn-marque:focus-visible{outline:2px solid currentColor;outline-offset:3px}
 </style>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%232E5B48'/%3E%3Cpath d='M16 24c0-6 3-9 7-10-1 6-3 9-7 10zM16 24c0-6-3-9-7-10 1 6 3 9 7 10z' fill='%23E4EBE4'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231E4032'/%3E%3Cg transform='translate(6.2 4.6) scale(.2)' fill='none' stroke='%237DB59E' stroke-width='6.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M52.3 107C30 92 3 70 3.1 44 3 18 22 3.1 40 3.1c10 0 20 5 25 12.9 5-6 12-8.5 18-7.5 10 1.5 14.6 16.5 14.5 31.5 0 28-25.2 52-45.2 67z'/%3E%3Cpath d='M52.3 107V32M52.3 77 24.2 55M52.3 61l25-19.5'/%3E%3C/g%3E%3C/svg%3E">
 <link rel="alternate" hreflang="en" href="https://perennova.eu/en/">
 </head>
 <body>
 <div class="wrap" data-mq="J50">
 <a class="pn-marque" href="/" aria-label="Perennova, accueil"><svg width="22" height="24" viewBox="0 0 102 113" aria-hidden="true"><path d="M52.3 107C30 92 3 70 3.1 44 3 18 22 3.1 40 3.1c10 0 20 5 25 12.9 5-6 12-8.5 18-7.5 10 1.5 14.6 16.5 14.5 31.5 0 28-25.2 52-45.2 67z"/><path d="M52.3 107V32M52.3 77 24.2 55M52.3 61l25-19.5"/></svg><span>PERENNOVA</span></a>
 <nav class="nav" aria-label="Perennova"><a href="/" aria-current="page">Mes Quêtes</a><a href="/offres/">Toutes nos offres</a><a href="/en/" hreflang="en" lang="en">English</a></nav>
+<section class="hero" aria-labelledby="mq-titre">
+<p class="sub">Mes Quêtes · appli familiale</p>
+<h1 id="mq-titre">Les tâches du quotidien, tenues dans la durée</h1>
+<p class="o-sous">Vos enfants valident leurs tâches du jour, tiennent une série et ouvrent un coffre de récompenses chaque semaine réussie. Vous gardez quelques minutes par jour.</p>
+<p><a class="btn" href="https://mes-quetes-famille.netlify.app/" rel="noopener" data-goatcounter-click="mq-hero-ouvrir-appli">Essayer gratuitement : créer ma famille</a></p>
+<ul class="mq-pas"><li><svg width="40" height="40" viewBox="0 0 48 48" aria-hidden="true"><rect x="9" y="9" width="30" height="30" rx="5"/><path d="M17 24l5 5 9-10"/></svg>Les quêtes du jour</li><li><svg width="40" height="40" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 41c-7 0-12-5-12-11 0-6 5-9 6-16 4 3 6 6 6 10 2-2 3-4 3-7 5 4 9 8 9 13 0 6-5 11-12 11z"/></svg>Une série</li><li><svg width="40" height="40" viewBox="0 0 48 48" aria-hidden="true"><rect x="8" y="20" width="32" height="18" rx="3"/><path d="M8 20c0-6 4-10 10-10h12c6 0 10 4 10 10"/><path d="M8 27h32"/><rect x="21" y="24" width="6" height="7" rx="1.5"/></svg>Un coffre par semaine</li></ul>
+<details class="mq-donnees"><summary>Pour les 6-14 ans · un prénom suffit · aucune publicité</summary><p>Ni e-mail ni photo de l'enfant. Données hébergées dans l'UE, supprimées sur simple demande. <a href="https://mes-quetes-famille.netlify.app/confidentialite.html" rel="noopener" data-goatcounter-click="mq-confidentialite">Confidentialité de l'appli</a></p></details>
+</section>
 <section class="carte" id="pro" hidden aria-labelledby="pro-titre">
 <h2 id="pro-titre">Vous accompagnez des familles ?</h2>
 <p>Voyez l'appli comme une famille la verra, sans créer de compte : la démonstration s'ouvre avec le code DEMO42.</p>
@@ -70,14 +75,6 @@ section{display:flex;flex-direction:column;gap:12px}
 <p>Chaque famille crée ensuite la sienne, gratuitement, depuis cette page. Une question ou un retour : <a href="mailto:contact@perennova.eu?subject=Mes%20Qu%C3%AAtes" data-goatcounter-click="mq-pro-contact">contact@perennova.eu</a>.</p>
 </section>
 <script>(function(){try{var r=new URLSearchParams(location.search).get('ref')||'';if(/^mq-(pro|asso)-/.test(r)){document.getElementById('pro').hidden=false;}}catch(e){}})();</script>
-<section class="hero" aria-labelledby="mq-titre">
-<p class="sub">Mes Quêtes, par Perennova · appli familiale</p>
-<h1 id="mq-titre">Les tâches du quotidien, tenues dans la durée</h1>
-<p class="o-sous">Vos enfants valident leurs tâches du jour, tiennent une série et ouvrent un coffre de récompenses chaque semaine réussie. Vous gardez quelques minutes par jour.</p>
-<p><a class="btn" href="https://mes-quetes-famille.netlify.app/" rel="noopener" data-goatcounter-click="mq-hero-ouvrir-appli">Essayer gratuitement : créer ma famille</a></p>
-<p class="note">Pour les enfants de 6 à 14 ans. Un prénom suffit : ni e-mail ni photo de l'enfant, aucune publicité. Données hébergées dans l'UE, supprimées sur simple demande. <a href="https://mes-quetes-famille.netlify.app/confidentialite.html" rel="noopener" data-goatcounter-click="mq-confidentialite">Confidentialité de l'appli</a></p>
-<ul class="mq-pas"><li><svg width="40" height="40" viewBox="0 0 48 48" aria-hidden="true"><rect x="9" y="9" width="30" height="30" rx="5"/><path d="M17 24l5 5 9-10"/></svg>L'enfant valide ses quêtes</li><li><svg width="40" height="40" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 41c-7 0-12-5-12-11 0-6 5-9 6-16 4 3 6 6 6 10 2-2 3-4 3-7 5 4 9 8 9 13 0 6-5 11-12 11z"/></svg>Il tient une série</li><li><svg width="40" height="40" viewBox="0 0 48 48" aria-hidden="true"><rect x="8" y="20" width="32" height="18" rx="3"/><path d="M8 20c0-6 4-10 10-10h12c6 0 10 4 10 10"/><path d="M8 27h32"/><rect x="21" y="24" width="6" height="7" rx="1.5"/></svg>Un coffre par semaine réussie</li></ul>
-</section>
 
 <section class="carte" id="liste" aria-labelledby="liste-titre">
 <h2 id="liste-titre">Rejoindre la liste des familles fondatrices</h2>
